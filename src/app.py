@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
-@app.get('/test/')
+@app.get('/')
 def index():
     users = database.get_users_by_school('University of Florida')
     users.sort(key=lambda user: user['contestRating'], reverse=True)
