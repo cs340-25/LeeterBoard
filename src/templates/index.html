@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+    </header>
+
+    <main>
+        <input type="text" placeholder="Type your institution here..." class="search-bar">
+
+        <!-- Leaderboard Table -->
+        <table class="leaderboard">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Username</th>
+                    <th>University</th>
+                    <th>Contest Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr><td>[X]</td><td>{{ user.username }}</td><td>{{ user.school }}</td><td>{{ "%.2f" | format(user.contestRating) }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
