@@ -8,7 +8,7 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 
-@app.get('/test/schools/')
+@app.get('/schools/')
 def test():
     school_ratings = database.grab_all_school_ratings();
 
@@ -23,11 +23,17 @@ def test():
 
 
 
-@app.get('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    users = database.get_users_by_school('University of Texas -Austin')
-    users.sort(key=lambda user: user['contestRating'], reverse=True)
-    return render_template('base.html', users=users)
+    if request.method == 'POST':
+        school_name = request.form.get('school_input')
+        users = database.get_users_by_school(school_name)
+        users.sort(key=lambda user: user['contestRating'], reverse=True)
+        return render_template('base.html', users=users)
+    else:
+        pass
+    
+    return render_template('base.html', users=None)
 
 
 if __name__ == '__main__':
