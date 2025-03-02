@@ -1,6 +1,6 @@
 import database
 
-from flask import Flask, request, render_template
+from flask import Flask, request, redirect, url_for, render_template
 
 
 app = Flask(__name__)
@@ -8,8 +8,14 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 
-@app.get('/schools/')
-def test():
+@app.route('/', methods=['GET', 'POST'])
+def home():
+    # If user types in a school and presses submit
+    if request.method == 'POST':
+        school_name = request.form.get('school_input')
+        return redirect(url_for('school', school_name=school_name))
+    
+    # Default display
     school_ratings = database.grab_all_school_ratings();
 
     result = []
@@ -23,17 +29,20 @@ def test():
 
 
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+@app.route('/school', methods=['GET', 'POST'])
+def school():
+    # This is for if we're already on the /school page and a user types in search bar
     if request.method == 'POST':
         school_name = request.form.get('school_input')
         users = database.get_users_by_school(school_name)
         users.sort(key=lambda user: user['contestRating'], reverse=True)
-        return render_template('base.html', users=users)
-    else:
-        pass
+        return render_template('school.html', users=users, school_name=school_name)
     
-    return render_template('base.html', users=None)
+    # This is for if we just got redirected from /home
+    school_name = request.args.get('school_name', '') # Get school name from url
+    users = database.get_users_by_school(school_name)
+    users.sort(key=lambda user: user['contestRating'], reverse=True)
+    return render_template('school.html', users=users, school_name=school_name)
 
 
 if __name__ == '__main__':

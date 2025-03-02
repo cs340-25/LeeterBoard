@@ -13,9 +13,12 @@
     </header>
 
     <main>
-        <form method="POST" action="{{ url_for('index') }}">
-            <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
-            <!-- <button>submit</button> -->
+        <form method="POST" action="{{ url_for('school') }}">
+            <span class="search">
+                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
+                <button class="search-button"></button>
+            </span>
+            <h3>{{ school_name }}</h3>
         </form>
 
         <!-- Leaderboard Table -->
