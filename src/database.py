@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 
-from typing import List
+from typing import List, Set, Dict
 
 from pymongo import MongoClient
 
@@ -41,3 +41,30 @@ def get_users_by_school(school: str) -> List[dict]:
     }))
 
     return _serialize_users(users)
+
+
+
+
+
+# Grabs all schools
+def grab_all_school_ratings() -> Dict[str, List[float]]:
+    cursor = leet_users.find(
+        {
+            'school': { '$ne': None }
+        },
+        {'school': 1, 'contestRating': 1, '_id': 0}
+    )
+
+    school_ratings = {}
+    for entry in cursor:
+        school = entry['school']
+        rating = entry['contestRating']
+
+        if school not in school_ratings:
+            school_ratings[school] = []
+
+        school_ratings[school].append(rating)
+
+    return school_ratings
+
+

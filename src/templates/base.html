@@ -25,12 +25,8 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- {% for user in users %}
+                {% for user in users %}
                     <tr><td>[X]</td><td>{{ user.username }}</td><td>{{ user.school }}</td><td>{{ "%.2f" | format(user.contestRating) }}</td></tr>
-                {% endfor %} -->
-
-                {% for rating, school in result %}
-                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ rating }}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
