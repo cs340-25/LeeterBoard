@@ -6,7 +6,9 @@ from flask import Flask, request, redirect, url_for, render_template
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-
+@app.get('/testpage')
+def testpage():
+    return render_template('testing.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
