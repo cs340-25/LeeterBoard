@@ -32,7 +32,13 @@
             </thead>
             <tbody>
                 {% for user in users %}
-                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ user.username }}</td><td>{{ "%.2f" | format(user.currentRating) }}</td></tr>
+                    <tr>
+                        <td>{{ loop.index0 + 1 }}</td>
+                        <td>
+                            <a href="https://leetcode.com/u/{{ user.username }}/">{{ user.username}}</a>
+                        </td>
+                        <td>{{ "%.2f" | format(user.currentRating) }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
