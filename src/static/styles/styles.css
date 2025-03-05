@@ -67,3 +67,118 @@ tr:nth-child(even) {
     float: right;
     color: limegreen;
 }
+
+/* ========== UNIPAGE STYLES =============*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1e1e1e; /* Ensures full-page dark mode */
+    color: rgb(168, 168, 168);
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+/* General Layout */
+.container {
+    display: flex;
+    height: 100vh;
+    background-color: #1e1e1e;
+    color: rgb(168, 168, 168);
+}
+
+/* Sidebar */
+.sidebar {
+    width: 300px;
+    background-color: #121212;
+    padding: 20px;
+    text-align: center;
+    border-right: 2px solid #2c2c2c;
+}
+
+.university-logo {
+    width: auto; /* Keeps original width */
+    max-width: 100px; /* Limits the size but keeps aspect ratio */
+    height: auto; /* Keeps original height */
+    display: block; /* Ensures it's not inline */
+    margin: 0 auto 10px auto; /* Centers logo */
+}
+
+.edit-profile {
+    background-color: #1f7a1f;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 5px;
+}
+
+/* Stats & Skills */
+.stats, .skills {
+    background-color: #2c2c2c;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+/* Contest Summary */
+.contest-summary {
+    background-color: #2c2c2c;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 2px solid #444;
+}
+
+th {
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* Add spacing for readability */
+tr:nth-child(even) {
+    background-color: #252525;
+}
+
+/* Badges */
+.badge-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.badge {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    background-color: black;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.badge:hover {
+    transform: scale(1.1);
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>University Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <img src="{{ url_for('static', filename='icons/utk.png') }}" alt="University Logo" class="university-logo">
+            <h2>University Name</h2>
+            <button class="edit-profile">Edit Profile</button>
+
+            <div class="stats">
+                <h3>University Stats</h3>
+                <p><strong>Rank:</strong> #123</p>
+                <p><strong>Avg. Contest Rating:</strong> 2875</p>
+                <p><strong>Total Competitors:</strong> 500+</p>
+            </div>
+
+            <div class="skills">
+                <h3>Contest Performance</h3>
+                <p><strong>Competitions Won:</strong> 5</p>
+                <p><strong>Top Users:</strong> TBD</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Contest Stats -->
+            <section class="contest-summary">
+                <h2>Contest Summary</h2>
+                <div class="contest-chart">
+                    <p>(Graph or Stats Placeholder)</p>
+                </div>
+            </section>
+
+            <!-- Top Competitors -->
+            <section class="competitor-list">
+                <h2>Top Competitors</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Contest Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>user_123</td>
+                            <td>3000</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>user_456</td>
+                            <td>2950</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Badge System -->
+            <section class="badges">
+                <h2>Badges</h2>
+                <div class="badge-container">
+                    <a href="/badge_page?badge=gold">
+                        <img src="{{ url_for('static', filename='icons/gold.png') }}" alt="Gold Badge" class="badge">
+                    </a>
+                    <a href="/badge_page?badge=silver">
+                        <img src="{{ url_for('static', filename='icons/silver.png') }}" alt="Silver Badge" class="badge">
+                    </a>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

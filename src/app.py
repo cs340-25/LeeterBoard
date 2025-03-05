@@ -6,13 +6,16 @@ from flask import Flask, request, redirect, url_for, render_template
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-<<<<<<< HEAD
-=======
+
 @app.get('/testpage')
 def testpage():
     return render_template('testing.html')
 
->>>>>>> eef1c1855caa2ddb93f12fbe6a5827d8dd0e7a95
+@app.get('/unipage')
+def unipage():
+    return render_template('unipage.html')
+
+
 @app.route('/', methods=['GET', 'POST'])
 def home():
     # If user types in a school and presses submit
