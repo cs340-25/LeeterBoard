@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/testing_style.css') }}">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+    </header>
+
+    <main>
+        <form method="POST" action="{{ url_for('school') }}">
+            <span class="search">
+                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
+                <button class="search-button">
+                    <img src="{{ url_for('static', filename='icons/search_icon.png') }}" alt="Search" class="search-icon">
+                </button>
+            </span>
+            <h3>{{ school_name }}</h3>
+        </form>
+        
+
+
+        <div class="content-container">
+            <!-- Leaderboard Table -->
+            <table class="leaderboard">
+                <thead>
+                    <tr>
+                        <th>Site-Wide Rank</th>
+                        <th>University Name</th>
+                        <th>Avg. Contest Rating</th>
+                        <th>Rating Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>The University of A</td><td>2000</td><td>+50</td></tr>
+                    <tr><td>2</td><td>The University of B</td><td>1950</td><td>+30</td></tr>
+                    <tr><td>3</td><td>The University of C</td><td>1900</td><td>+20</td></tr>
+                    <tr><td>4</td><td>The University of D</td><td>1850</td><td>-10</td></tr>
+                    <tr><td>5</td><td>The University of E</td><td>1800</td><td>-20</td></tr>
+                    <tr><td>1</td><td>The University of A</td><td>2000</td><td>+50</td></tr>
+                    <tr><td>2</td><td>The University of B</td><td>1950</td><td>+30</td></tr>
+                    <tr><td>3</td><td>The University of C</td><td>1900</td><td>+20</td></tr>
+                    <tr><td>4</td><td>The University of D</td><td>1850</td><td>-10</td></tr>
+                    <tr><td>5</td><td>The University of E</td><td>1800</td><td>-20</td></tr>
+                    <tr><td>1</td><td>The University of A</td><td>2000</td><td>+50</td></tr>
+                    <tr><td>2</td><td>The University of B</td><td>1950</td><td>+30</td></tr>
+                    <tr><td>3</td><td>The University of C</td><td>1900</td><td>+20</td></tr>
+                    <tr><td>4</td><td>The University of D</td><td>1850</td><td>-10</td></tr>
+                    <tr><td>5</td><td>The University of E</td><td>1800</td><td>-20</td></tr>
+                    <tr><td>1</td><td>The University of A</td><td>2000</td><td>+50</td></tr>
+                    <tr><td>2</td><td>The University of B</td><td>1950</td><td>+30</td></tr>
+                    <tr><td>3</td><td>The University of C</td><td>1900</td><td>+20</td></tr>
+                    <tr><td>4</td><td>The University of D</td><td>1850</td><td>-10</td></tr>
+                    <tr><td>5</td><td>The University of E</td><td>1800</td><td>-20</td></tr>
+                    <tr><td>1</td><td>The University of A</td><td>2000</td><td>+50</td></tr>
+                    <tr><td>2</td><td>The University of B</td><td>1950</td><td>+30</td></tr>
+                    <tr><td>3</td><td>The University of C</td><td>1900</td><td>+20</td></tr>
+                    <tr><td>4</td><td>The University of D</td><td>1850</td><td>-10</td></tr>
+                    <tr><td>5</td><td>The University of E</td><td>1800</td><td>-20</td></tr>
+                    <tr><td>1</td><td>The University of A</td><td>2000</td><td>+50</td></tr>
+                    <tr><td>2</td><td>The University of B</td><td>1950</td><td>+30</td></tr>
+                    <tr><td>3</td><td>The University of C</td><td>1900</td><td>+20</td></tr>
+                    <tr><td>4</td><td>The University of D</td><td>1850</td><td>-10</td></tr>
+                    <tr><td>5</td><td>The University of E</td><td>1800</td><td>-20</td></tr>
+                </tbody>
+            </table>
+
+            <!-- Widgets -->
+            <div class="widgets-container">
+                <div class="widget">
+                    <h3>Trending Users</h3>
+                    <ul>
+                        <li>Student 1 <span class="score up">+120 ▲</span></li>
+                        <li>Student 2 <span class="score up">+50 ▲</span></li>
+                        <li>Student 3 <span class="score up">+75 ▲</span></li>
+                        <li>Student 4 <span class="score up">+30 ▲</span></li>
+                        <li>Student 5 <span class="score up">+10 ▲</span></li>
+                        <li>Student 6 <span class="score up">+45 ▲</span></li>
+                        <li>Student 7 <span class="score up">+90 ▲</span></li>
+                        <li>Student 8 <span class="score up">+60 ▲</span></li>
+                        <li>Student 9 <span class="score up">+25 ▲</span></li>
+                        <li>Student 10 <span class="score up">+80 ▲</span></li>
+                    </ul>
+                </div>
+                
+                <div class="widget">
+                    <h3>Trending Universities</h3>
+                    <ul>
+                        <li>University A <span class="score up">+200 ▲</span></li>
+                        <li>University B <span class="score up">+75 ▲</span></li>
+                        <li>University C <span class="score up">+120 ▲</span></li>
+                        <li>University D <span class="score up">+30 ▲</span></li>
+                        <li>University E <span class="score up">+50 ▲</span></li>
+                        <li>University F <span class="score up">+20 ▲</span></li>
+                        <li>University G <span class="score up">+90 ▲</span></li>
+                        <li>University H <span class="score up">+10 ▲</span></li>
+                        <li>University I <span class="score up">+40 ▲</span></li>
+                        <li>University J <span class="score up">+60 ▲</span></li>
+                    </ul>
+                </div>
+                
+                          
+                
+                <div class="widget">
+                    <h3>Top Universites</h3>
+                    <ul>
+                        <li>University X</li>
+                        <li>University Y</li>
+                        <li>University Z</li>
+                        <li>University W</li>
+                        <li>University V</li>
+                        <li>University U</li>
+                        <li>University T</li>
+                        <li>University S</li>
+                        <li>University R</li>
+                        <li>University Q</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
