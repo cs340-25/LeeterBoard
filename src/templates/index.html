@@ -16,18 +16,22 @@
         <form method="POST" action="{{ url_for('school') }}">
             <span class="search">
                 <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
-                <button class="search-button"></button>
+                <button class="search-button">
+                    <img src="{{ url_for('static', filename='icons/search_icon.png') }}" alt="Search" class="search-icon">
+                </button>
             </span>
             <h3>{{ school_name }}</h3>
         </form>
 
         <!-- Leaderboard Table -->
+        <div class="content-container">
         <table class="leaderboard">
             <thead>
                 <tr>
                     <th>Rank</th>
                     <th>University</th>
                     <th>Contest Rating</th>
+                    <th>Rating Change</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,11 +39,61 @@
                     <tr><td>[X]</td><td>{{ user.username }}</td><td>{{ user.school }}</td><td>{{ "%.2f" | format(user.contestRating) }}</td></tr>
                 {% endfor %} -->
 
+                <!-- TODO: Have to change rating change. (currenty hard coded)-->
                 {% for rating, school in result %}
-                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ rating }}</td></tr>
+                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ rating }}</td><td>+50</td></tr>
                 {% endfor %}
             </tbody>
         </table>
+
+
+        <!-- Widgets -->
+        <div class="widgets-container">
+            <div class="widget">
+                <h3>Trending Users</h3>
+                <ul>
+                    <li>Student 1 <span class="score up">+120 ▲</span></li>
+                    <li>Student 2 <span class="score up">+50 ▲</span></li>
+                    <li>Student 3 <span class="score up">+75 ▲</span></li>
+                    <li>Student 4 <span class="score up">+30 ▲</span></li>
+                    <li>Student 5 <span class="score up">+10 ▲</span></li>
+                    <li>Student 6 <span class="score up">+45 ▲</span></li>
+                    <li>Student 7 <span class="score up">+90 ▲</span></li>
+                    <li>Student 8 <span class="score up">+60 ▲</span></li>
+                    <li>Student 9 <span class="score up">+25 ▲</span></li>
+                    <li>Student 10 <span class="score up">+80 ▲</span></li>
+                </ul>
+            </div>
+            
+            <div class="widget">
+                <h3>Trending Universities</h3>
+                <ul>
+                    <li>University A <span class="score up">+200 ▲</span></li>
+                    <li>University B <span class="score up">+75 ▲</span></li>
+                    <li>University C <span class="score up">+120 ▲</span></li>
+                    <li>University D <span class="score up">+30 ▲</span></li>
+                    <li>University E <span class="score up">+50 ▲</span></li>
+                    <li>University F <span class="score up">+20 ▲</span></li>
+                    <li>University G <span class="score up">+90 ▲</span></li>
+                    <li>University H <span class="score up">+10 ▲</span></li>
+                    <li>University I <span class="score up">+40 ▲</span></li>
+                    <li>University J <span class="score up">+60 ▲</span></li>
+                </ul>
+            </div>
+            
+                      
+            
+            <div class="widget">
+                <h3>Top Universites</h3>
+                <ul>
+                    {% for rating, school in result[:10] %}
+                    <li> <tr><td>{{ loop.index0 + 1 }}</td><td>. </td><td>{{ school }}</td></tr>   </li>
+                    {% endfor %} 
+                </ul>                   
+                </ul>
+            </div>
+        </div>
+    </div>
     </main>
 </body>
 </html>

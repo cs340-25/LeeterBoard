@@ -16,7 +16,9 @@
         <form method="POST" action="{{ url_for('school') }}">
             <span class="search">
                 <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
-                <button class="search-button"></button>
+                <button class="search-button">
+                    <img src="{{ url_for('static', filename='icons/search_icon.png') }}" alt="Search" class="search-icon">
+                </button>
             </span>
             <h3>{{ school_name }}</h3>
         </form>
@@ -42,6 +44,7 @@
                 {% endfor %}
             </tbody>
         </table>
+        
     </main>
 </body>
 </html>
