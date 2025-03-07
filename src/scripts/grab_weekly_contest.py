@@ -16,6 +16,13 @@ async def fetch_contest_page(session, url, cookies, headers):
 
 # Performs all of the asynchronous requests
 async def request_all_contest_pages(batch_size: int):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36",
+        "Referer": "https://leetcode.com/contest/weekly-contest-437/ranking/1229/?region=global_v2",
+        "x-csrftoken": "8bg8dnJkupMC9wgGkgkuXkpoND0D4pooy8qrEWc93k4O64npnl4JJ6mioYgoX1JK",
+        "Content-Type": "application/json"
+    }
+
     # Generate all URLs (1 per page)
     all_urls = []
     contest_number = 437

@@ -46,6 +46,27 @@ def upsert_user(user: dict, matched_school: str) -> None:
     )
 
 
+
+
+# # Adds current rating and contest history array to mongoDB
+# def add_info(username: str, current_rating: int, contest_history: List[int]):
+#     leet_users.update_one(
+#         {'username': username},
+#         {'$set': {
+#             'currentRating': current_rating,
+#             'contestHistory': contest_history
+#         }},
+#     )
+
+
+
+
+
+
+
+
+
+
 # Opens file and stores university names in a map, as well as a list for fuzzy finding
 school_names = {}
 def open_file():
@@ -77,6 +98,10 @@ def standardize_school_name(school: str) -> str:
 
 
 # Grabs all schools from db and updates their info
+
+matches = {}
+unmatched = []
+
 def standardize_db_universities():
     # Grabs document from leet_users collection
     cursor = leet_users.find()
@@ -91,15 +116,21 @@ def standardize_db_universities():
 
         if standardized_school is not None: # Match found
             # Replace the user's original school with the updated name in the db
-            upsert_user(user, standardized_school)
+            # upsert_user(user, standardized_school)
+
+            if standardized_school not in matches:
+                matches[standardized_school] = []
+            matches[standardized_school].append(original_school)
+
         else: # No match found
             # Remove user from db
-            leet_users.delete_one({'username': user['username']})
-            updated_doc = leet_users.find_one({'username': user['username']})
+            # leet_users.delete_one({'username': user['username']})
 
-            if updated_doc:
-                # Making sure its actually deleting the doc
-                print('doc not deleted')
+            unmatched.append(original_school)
+
+            # if updated_doc:
+            #     # Making sure its actually deleting the doc
+            #     print('doc not deleted')
 
 
 
@@ -128,3 +159,24 @@ def calculate_university_averages() -> List[Tuple[float, str]]:
 
     avg_school_ratings.sort(reverse=True)
     return avg_school_ratings
+
+
+def grab_all_usernames() -> List[str]:
+    cursor = leet_users.find()
+
+    usernames = []
+    for user in cursor:
+        usernames.append(user['username'])
+
+    return usernames
+
+
+
+standardize_db_universities()
+
+for match, original in matches.items():
+    print(f"{match}:")
+    for og in original:
+        print(og)
+    
+    print("\n")
