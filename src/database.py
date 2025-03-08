@@ -6,9 +6,10 @@ from typing import List, Dict, Tuple
 from pymongo import MongoClient
 from rapidfuzz.process import extractOne
 from rapidfuzz import fuzz
-# from rapidfuzz.distance import Levenshtein
+from rapidfuzz.distance import Levenshtein
 
 from data.college_aliases import university_aliases
+from data.college_map import university_names
 
 
 #load env vars
@@ -34,7 +35,6 @@ def get_users_by_school(school: str) -> List[dict]:
 
 
 
-
 # Given an document in the db collection, update the school in the entry to the new value
 def upsert_user(user: dict, matched_school: str) -> None:
     leet_users.update_one(
@@ -48,60 +48,28 @@ def upsert_user(user: dict, matched_school: str) -> None:
 
 
 
-# # Adds current rating and contest history array to mongoDB
-# def add_info(username: str, current_rating: int, contest_history: List[int]):
-#     leet_users.update_one(
-#         {'username': username},
-#         {'$set': {
-#             'currentRating': current_rating,
-#             'contestHistory': contest_history
-#         }},
-#     )
-
-
-
-
-
-
-
-
-
-
-# Opens file and stores university names in a map, as well as a list for fuzzy finding
-school_names = {}
-def open_file():
-    with open('src/data/all-colleges.txt') as file:
-        for line in file:
-            school_name = line.rsplit(" (", 1)[0]
-            school_name_lower = school_name.lower()
-            
-            school_names[school_name_lower] = school_name
-
-open_file()
-lowercase_university_names = list(school_names.keys())
-
+# Takes the keys from college_map for fuzzy matching comparison
+lowercase_university_names = list(university_names.keys())
 
 # search all-colleges.txt for fuzzy matches
 def standardize_school_name(school: str) -> str:
+    if len(school) <= 7: return None
+
     # See if the user input was an alias first
     if school in university_aliases:
         school = university_aliases[school]
 
     # best match in lowercase_university_names, score, index (which we don't need)
-    match, score, _ = extractOne(school, lowercase_university_names, scorer=fuzz.token_set_ratio)
+    match, score, _ = extractOne(school, lowercase_university_names, scorer=Levenshtein.normalized_similarity)
 
     # If a match score of 80 is determined, add university name from list to database
-    if score > 80:
-        return school_names[match]
+    if score > 0.80:
+        return university_names[match]
     else:
         return None
 
 
 # Grabs all schools from db and updates their info
-
-matches = {}
-unmatched = []
-
 def standardize_db_universities():
     # Grabs document from leet_users collection
     cursor = leet_users.find()
@@ -116,27 +84,14 @@ def standardize_db_universities():
 
         if standardized_school is not None: # Match found
             # Replace the user's original school with the updated name in the db
-            # upsert_user(user, standardized_school)
-
-            if standardized_school not in matches:
-                matches[standardized_school] = []
-            matches[standardized_school].append(original_school)
-
+            upsert_user(user, standardized_school)
         else: # No match found
             # Remove user from db
-            # leet_users.delete_one({'username': user['username']})
-
-            unmatched.append(original_school)
-
-            # if updated_doc:
-            #     # Making sure its actually deleting the doc
-            #     print('doc not deleted')
-
+            leet_users.delete_one({'username': user['username']})
 
 
 
 # API FUNCTIONS FOR YOU TO CALL IN APP.PY
-
 
 # Returns a list of tuples (university name, avg contest rating)
 def calculate_university_averages() -> List[Tuple[float, str]]:
@@ -169,14 +124,3 @@ def grab_all_usernames() -> List[str]:
         usernames.append(user['username'])
 
     return usernames
-
-
-
-standardize_db_universities()
-
-for match, original in matches.items():
-    print(f"{match}:")
-    for og in original:
-        print(og)
-    
-    print("\n")
