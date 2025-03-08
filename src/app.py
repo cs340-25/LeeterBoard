@@ -37,6 +37,8 @@ def school():
         school_name = request.form.get('school_input')
         users = database.get_users_by_school(school_name)
         users.sort(key=lambda user: user['currentRating'], reverse=True)
+
+
         return render_template('school.html', users=users, school_name=school_name)
 
     # if just /school is typed in for some reason

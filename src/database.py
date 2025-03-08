@@ -109,8 +109,10 @@ def calculate_university_averages() -> List[Tuple[float, str]]:
 
     avg_school_ratings = []
     for school, ratings in all_school_ratings.items():
-        avg = round(sum(ratings) / len(ratings), 2)
-        avg_school_ratings.append((avg, school))
+        # ONLY calculate its rating averages if there are at least 5 people in the university
+        if len(ratings) >= 5:
+            avg = round(sum(ratings) / len(ratings), 2)
+            avg_school_ratings.append((avg, school))
 
     avg_school_ratings.sort(reverse=True)
     return avg_school_ratings
@@ -124,3 +126,4 @@ def grab_all_usernames() -> List[str]:
         usernames.append(user['username'])
 
     return usernames
+
