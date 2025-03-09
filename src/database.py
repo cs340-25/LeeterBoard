@@ -26,13 +26,12 @@ def _serialize_users(users: List[dict]) -> List[dict]:
     return users
 
 
-def get_users_by_school(school: str) -> List[dict]:
-    users = list(leet_users.find({
-        'school': school,
-    }))
 
-    return _serialize_users(users)
 
+
+# Delete a user by username in the db
+def delete_user(username: str) -> None:
+    leet_users.delete_one({'username': username})
 
 
 # Given an document in the db collection, update the school in the entry to the new value
@@ -43,6 +42,26 @@ def upsert_user(user: dict, matched_school: str) -> None:
             'school': matched_school
         }},
         upsert=True,
+    )
+
+
+# After the user's new current rating is fetched every saturday, this stores their previous
+# current rating in an array of previous ratings and updates their current rating to the new one
+def update_user_rating(username: str, new_current_rating: float) -> None:
+    leet_users.update_one(
+        {'username': username},
+        [
+            {'$set': {
+                'previousRatings': {
+                    '$cond': {
+                        'if': {'$isArray': '$previousRatings'},
+                        'then': {'$concatArrays': ['$previousRatings', ['$currentRating']]},
+                        'else': ['$currentRating']
+                    }
+                },
+                'currentRating': new_current_rating
+            }}
+        ]
     )
 
 
@@ -91,6 +110,9 @@ def standardize_db_universities():
 
 
 
+
+
+
 # API FUNCTIONS FOR YOU TO CALL IN APP.PY
 
 # Returns a list of tuples (university name, avg contest rating)
@@ -126,4 +148,12 @@ def grab_all_usernames() -> List[str]:
         usernames.append(user['username'])
 
     return usernames
+
+
+def get_users_by_school(school: str) -> List[dict]:
+    users = list(leet_users.find({
+        'school': school,
+    }))
+
+    return _serialize_users(users)
 
