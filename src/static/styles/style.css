@@ -118,7 +118,6 @@ main {
     font-size: 15px;
     font-weight: bold;
     padding-left: 11px;
-    text-align: center;
     background: linear-gradient(to right, rgb(160, 40, 40), rgb(203, 16, 144));
     -webkit-background-clip: text;
     background-clip: text;
@@ -133,14 +132,14 @@ main {
 
 .leaderboard th:nth-child(1),
 .leaderboard td:nth-child(1) {
-    text-align: center;
+    text-align: left;
     width: 130px; /* Example: Fixed width for "Site-Wide Rank" */
 }
 
 .leaderboard th:nth-child(2),
 .leaderboard td:nth-child(2) {
     /*text-align: flex;*/
-    text-align: center;
+    text-align: left;
     font-weight: bold;
     /*padding-left: 40px;*/
     width: 350px; /* Example: Wider column for "University" */
@@ -149,13 +148,13 @@ main {
 
 .leaderboard th:nth-child(3),
 .leaderboard td:nth-child(3) {
-    text-align: center;
+    text-align: left;
     width: 170px;
 }
 
 .leaderboard th:nth-child(4),
 .leaderboard td:nth-child(4) {
-    text-align: center;
+    text-align: left;
     width: 150px;
 }
 

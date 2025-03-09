@@ -20,11 +20,6 @@ client = MongoClient(mongodb_uri)
 # Grabs collection from db
 leet_users = client.leeterboard.leet_users
 
-def _serialize_users(users: List[dict]) -> List[dict]:
-    for user in users:
-        user['_id'] = str(user['_id'])
-    return users
-
 
 
 
@@ -115,8 +110,9 @@ def standardize_db_universities():
 
 # API FUNCTIONS FOR YOU TO CALL IN APP.PY
 
+# This function takes each user's currentRating and calculates the updated average
 # Returns a list of tuples (university name, avg contest rating)
-def calculate_university_averages() -> List[Tuple[float, str]]:
+def calculate_university_averages() -> List[Tuple[float, str, float]]:
     all_school_ratings = {}
     cursor = leet_users.find()
 
@@ -133,8 +129,13 @@ def calculate_university_averages() -> List[Tuple[float, str]]:
     for school, ratings in all_school_ratings.items():
         # ONLY calculate its rating averages if there are at least 5 people in the university
         if len(ratings) >= 5:
-            avg = round(sum(ratings) / len(ratings), 2)
-            avg_school_ratings.append((avg, school))
+            # Since we are already calculating the current average rating, we only need
+            # to calculate the previous average rating for our rating_change value
+            prev_ratings_avg = calculate_university_prev_rating_avg(school)
+            current_ratings_avg = sum(ratings) / len(ratings)
+            rating_change = current_ratings_avg - prev_ratings_avg
+
+            avg_school_ratings.append((current_ratings_avg, school, rating_change))
 
     avg_school_ratings.sort(reverse=True)
     return avg_school_ratings
@@ -150,10 +151,32 @@ def grab_all_usernames() -> List[str]:
     return usernames
 
 
+# We need to make this function also return a value that is the user's rating change
 def get_users_by_school(school: str) -> List[dict]:
     users = list(leet_users.find({
         'school': school,
     }))
 
-    return _serialize_users(users)
+
+    for user in users:
+        # Grab their current rating
+        current_rating = user['currentRating']
+        prev_current_rating = user['previousRatings'][-1]
+        user['ratingChange'] = current_rating - prev_current_rating
+
+    return users
+
+
+def calculate_university_prev_rating_avg(school: str) -> float:
+    users = list(leet_users.find({
+        'school': school,
+    }))
+
+    prev_ratings_sum = 0
+    for user in users:
+        prev_ratings_sum += user['previousRatings'][-1]
+
+    return prev_ratings_sum / len(users)
+
+
 

@@ -30,6 +30,7 @@
                     <th>Rank</th>
                     <th>Username</th>
                     <th>Contest Rating</th>
+                    <th>Rating Change</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +41,7 @@
                             <a href="https://leetcode.com/u/{{ user.username }}/">{{ user.username}}</a>
                         </td>
                         <td>{{ "%.2f" | format(user.currentRating) }}</td>
+                        <td>{{ "%.2f" | format(user.ratingChange) }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

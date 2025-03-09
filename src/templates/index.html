@@ -40,8 +40,8 @@
                 {% endfor %} -->
 
                 <!-- TODO: Have to change rating change. (currenty hard coded)-->
-                {% for rating, school in result %}
-                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ rating }}</td><td>+50</td></tr>
+                {% for rating, school, school_rating_change in result %}
+                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ "%.2f" | format(rating) }}</td><td>{{ "%.2f" | format(school_rating_change) }}</td></tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -86,7 +86,7 @@
             <div class="widget">
                 <h3>Top Universites</h3>
                 <ul>
-                    {% for rating, school in result[:10] %}
+                    {% for rating, school, school_rating_change in result[:10] %}
                     <li> <tr><td>{{ loop.index0 + 1 }}</td><td>. </td><td>{{ school }}</td></tr>   </li>
                     {% endfor %} 
                 </ul>                   
