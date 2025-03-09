@@ -6,9 +6,10 @@ from typing import List, Dict, Tuple
 from pymongo import MongoClient
 from rapidfuzz.process import extractOne
 from rapidfuzz import fuzz
-# from rapidfuzz.distance import Levenshtein
+from rapidfuzz.distance import Levenshtein
 
 from data.college_aliases import university_aliases
+from data.college_map import university_names
 
 
 #load env vars
@@ -25,14 +26,12 @@ def _serialize_users(users: List[dict]) -> List[dict]:
     return users
 
 
-def get_users_by_school(school: str) -> List[dict]:
-    users = list(leet_users.find({
-        'school': school,
-    }))
-
-    return _serialize_users(users)
 
 
+
+# Delete a user by username in the db
+def delete_user(username: str) -> None:
+    leet_users.delete_one({'username': username})
 
 
 # Given an document in the db collection, update the school in the entry to the new value
@@ -46,32 +45,45 @@ def upsert_user(user: dict, matched_school: str) -> None:
     )
 
 
-# Opens file and stores university names in a map, as well as a list for fuzzy finding
-school_names = {}
-def open_file():
-    with open('src/data/all-colleges.txt') as file:
-        for line in file:
-            school_name = line.rsplit(" (", 1)[0]
-            school_name_lower = school_name.lower()
-            
-            school_names[school_name_lower] = school_name
+# After the user's new current rating is fetched every saturday, this stores their previous
+# current rating in an array of previous ratings and updates their current rating to the new one
+def update_user_rating(username: str, new_current_rating: float) -> None:
+    leet_users.update_one(
+        {'username': username},
+        [
+            {'$set': {
+                'previousRatings': {
+                    '$cond': {
+                        'if': {'$isArray': '$previousRatings'},
+                        'then': {'$concatArrays': ['$previousRatings', ['$currentRating']]},
+                        'else': ['$currentRating']
+                    }
+                },
+                'currentRating': new_current_rating
+            }}
+        ]
+    )
 
-open_file()
-lowercase_university_names = list(school_names.keys())
 
+
+
+# Takes the keys from college_map for fuzzy matching comparison
+lowercase_university_names = list(university_names.keys())
 
 # search all-colleges.txt for fuzzy matches
 def standardize_school_name(school: str) -> str:
+    if len(school) <= 7: return None
+
     # See if the user input was an alias first
     if school in university_aliases:
         school = university_aliases[school]
 
     # best match in lowercase_university_names, score, index (which we don't need)
-    match, score, _ = extractOne(school, lowercase_university_names, scorer=fuzz.token_set_ratio)
+    match, score, _ = extractOne(school, lowercase_university_names, scorer=Levenshtein.normalized_similarity)
 
     # If a match score of 80 is determined, add university name from list to database
-    if score > 80:
-        return school_names[match]
+    if score > 0.80:
+        return university_names[match]
     else:
         return None
 
@@ -95,17 +107,13 @@ def standardize_db_universities():
         else: # No match found
             # Remove user from db
             leet_users.delete_one({'username': user['username']})
-            updated_doc = leet_users.find_one({'username': user['username']})
 
-            if updated_doc:
-                # Making sure its actually deleting the doc
-                print('doc not deleted')
+
 
 
 
 
 # API FUNCTIONS FOR YOU TO CALL IN APP.PY
-
 
 # Returns a list of tuples (university name, avg contest rating)
 def calculate_university_averages() -> List[Tuple[float, str]]:
@@ -123,8 +131,29 @@ def calculate_university_averages() -> List[Tuple[float, str]]:
 
     avg_school_ratings = []
     for school, ratings in all_school_ratings.items():
-        avg = round(sum(ratings) / len(ratings), 2)
-        avg_school_ratings.append((avg, school))
+        # ONLY calculate its rating averages if there are at least 5 people in the university
+        if len(ratings) >= 5:
+            avg = round(sum(ratings) / len(ratings), 2)
+            avg_school_ratings.append((avg, school))
 
     avg_school_ratings.sort(reverse=True)
     return avg_school_ratings
+
+
+def grab_all_usernames() -> List[str]:
+    cursor = leet_users.find()
+
+    usernames = []
+    for user in cursor:
+        usernames.append(user['username'])
+
+    return usernames
+
+
+def get_users_by_school(school: str) -> List[dict]:
+    users = list(leet_users.find({
+        'school': school,
+    }))
+
+    return _serialize_users(users)
+
