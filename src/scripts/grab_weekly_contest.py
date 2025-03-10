@@ -9,8 +9,8 @@ def get_weekly_contest_url(contest_id: int, page: int) -> str:
 
 
 # Makes the individual HTTP request and waits for the response body and parses it as JSON
-async def fetch_contest_page(session, url, cookies, headers):
-    async with session.get(url, cookies=cookies, headers=headers, ssl=False) as response:
+async def fetch_contest_page(session, url, headers):
+    async with session.get(url, headers=headers, ssl=False) as response:
         return await response.json()
 
 
@@ -35,20 +35,20 @@ async def request_all_contest_pages(batch_size: int):
         # Process requests in batches
         # 0 -> 9, 10 -> 19, 20 -> 29k
         for i in range(0, len(all_urls), batch_size):
+            print(f"Making request {i}")
             batch = all_urls[i:i + batch_size]
             
             # Go through the batch
             tasks = []
             for batch_url in batch:
-                tasks.append(fetch_contest_page(session, batch_url, cookies, headers))
+                tasks.append(fetch_contest_page(session, batch_url, headers))
             
             # Send out all batched requests and store responses
             batch_responses = await asyncio.gather(*tasks)
             responses.extend(batch_responses)
 
             if i + batch_size < len(all_urls):
-                print("Waiting between batches...")
-                await asyncio.sleep(2.5)
+                await asyncio.sleep(1)
 
     return responses
 
