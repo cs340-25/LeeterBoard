@@ -40,7 +40,7 @@
                 {% endfor %} -->
 
                 <!-- TODO: Have to change rating change. (currenty hard coded)-->
-                {% for rating, school, school_rating_change in result %}
+                {% for rating, school, school_rating_change in school_info %}
                     <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ "%.2f" | format(rating) }}</td><td>{{ "%.2f" | format(school_rating_change) }}</td></tr>
                 {% endfor %}
             </tbody>
@@ -52,32 +52,18 @@
             <div class="widget">
                 <h3>Trending Users</h3>
                 <ul>
-                    <li>Student 1 <span class="score up">+120 ▲</span></li>
-                    <li>Student 2 <span class="score up">+50 ▲</span></li>
-                    <li>Student 3 <span class="score up">+75 ▲</span></li>
-                    <li>Student 4 <span class="score up">+30 ▲</span></li>
-                    <li>Student 5 <span class="score up">+10 ▲</span></li>
-                    <li>Student 6 <span class="score up">+45 ▲</span></li>
-                    <li>Student 7 <span class="score up">+90 ▲</span></li>
-                    <li>Student 8 <span class="score up">+70 ▲</span></li>
-                    <li>Student 9 <span class="score up">+25 ▲</span></li>
-                    <li>Student 10 <span class="score up">+80 ▲</span></li>
+                    {% for rating_change, user in user_rating_changes[:10] %}
+                    <li>{{ user }}<span class="score up">▲ {{ "%.2f" | format(rating_change) }}</span></li>
+                    {% endfor %}
                 </ul>
             </div>
             
             <div class="widget">
                 <h3>Trending Universities</h3>
                 <ul>
-                    <li>University A <span class="score up">+200 ▲</span></li>
-                    <li>University B <span class="score up">+75 ▲</span></li>
-                    <li>University C <span class="score up">+120 ▲</span></li>
-                    <li>University D <span class="score up">+30 ▲</span></li>
-                    <li>University E <span class="score up">+50 ▲</span></li>
-                    <li>University F <span class="score up">+20 ▲</span></li>
-                    <li>University G <span class="score up">+90 ▲</span></li>
-                    <li>University H <span class="score up">+10 ▲</span></li>
-                    <li>University I <span class="score up">+40 ▲</span></li>
-                    <li>University J <span class="score up">+60 ▲</span></li>
+                    {% for rating, school, rating_change in school_rating_changes[:10] %}
+                    <li>{{ school }}<span class="score up">▲ {{ "%.2f" | format(rating_change) }}</span></li>
+                    {% endfor %}
                 </ul>
             </div>
             
@@ -86,7 +72,7 @@
             <div class="widget">
                 <h3>Top Universites</h3>
                 <ul>
-                    {% for rating, school, school_rating_change in result[:10] %}
+                    {% for rating, school, school_rating_change in school_info[:10] %}
                     <li> <tr><td>{{ loop.index0 + 1 }}</td><td>. </td><td>{{ school }}</td></tr>   </li>
                     {% endfor %} 
                 </ul>                   

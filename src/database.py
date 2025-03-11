@@ -110,7 +110,7 @@ def standardize_db_universities():
 
 # This function takes each user's currentRating and calculates the updated average
 # Returns a list of tuples (university name, avg contest rating)
-def calculate_university_averages() -> List[Tuple[float, str, float]]:
+def calculate_university_info() -> List[Tuple[float, str, float]]:
     all_school_current_ratings = {}
     all_school_prev_ratings = {}
     cursor = leet_users.find()
@@ -144,7 +144,6 @@ def calculate_university_averages() -> List[Tuple[float, str, float]]:
             
             school_info.append((current_ratings_avg, school, rating_change))
 
-    school_info.sort(reverse=True)
     return school_info
 
 
@@ -172,3 +171,24 @@ def get_users_by_school(school: str) -> List[dict]:
         user['ratingChange'] = current_rating - prev_current_rating
 
     return users
+
+
+# Returns a list of every user (not just by school) associated with their rating change
+def get_user_rating_changes() -> List[Tuple[(float, str)]]:
+    cursor = leet_users.find(
+        {},
+        {'username': 1, 'currentRating': 1, 'previousRatings': 1}
+    )
+
+    user_rating_changes = []
+    for user in cursor:
+        username = user['username']
+        current_rating = user['currentRating']
+        prev_rating = user['previousRatings'][-1]
+        rating_change = current_rating - prev_rating
+
+        user_rating_changes.append((rating_change, username))
+
+    return user_rating_changes
+
+        
