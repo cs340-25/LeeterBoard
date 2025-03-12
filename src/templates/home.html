@@ -95,11 +95,10 @@
                     {% for rating, school, school_rating_change in school_info[:10] %}
                     <li>
                         <div className="school-rank">
-                            <td>{{ loop.index0 + 1 }}</td>
-                            <td>. </td>
                             <img src="https://img.logo.dev/{{ university_websites[school] }}">
                             <td>{{ university_abbreviations[school] }}</td>
                         </div>
+                        {{ "%.2f" | format(rating) }}
                     </li>
                     {% endfor %} 
                 </ul>                   

@@ -9,6 +9,9 @@ from data.university_abbreviations import university_abbreviations
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+@app.get('/unipage2')
+def unipage2():
+    return render_template('unipage2.html')
 
 @app.get('/testpage')
 def testpage():
