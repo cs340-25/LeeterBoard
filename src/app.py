@@ -2,6 +2,9 @@ import database
 
 from flask import Flask, request, redirect, url_for, render_template
 
+from data.university_websites import university_websites
+from data.university_abbreviations import university_abbreviations
+
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
@@ -37,7 +40,8 @@ def home():
     school_rating_changes = database.calculate_university_info()
     school_rating_changes.sort(key=lambda x: x[2], reverse=True)
 
-    return render_template('index.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes)
+    return render_template('home.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
+                           university_websites=university_websites, university_abbreviations=university_abbreviations)
 
 
 

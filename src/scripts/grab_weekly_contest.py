@@ -25,8 +25,8 @@ async def request_all_contest_pages(batch_size: int):
 
     # Generate all URLs (1 per page)
     all_urls = []
-    contest_number = 437
-    contest_max_pages = 1197
+    contest_number = 440
+    contest_max_pages = 1264
     for page_number in range(1, contest_max_pages):
         all_urls.append(get_weekly_contest_url(contest_number, page_number))
 

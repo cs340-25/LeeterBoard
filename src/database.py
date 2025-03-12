@@ -174,20 +174,21 @@ def get_users_by_school(school: str) -> List[dict]:
 
 
 # Returns a list of every user (not just by school) associated with their rating change
-def get_user_rating_changes() -> List[Tuple[(float, str)]]:
+def get_user_rating_changes() -> List[Tuple[(float, str, str)]]:
     cursor = leet_users.find(
         {},
-        {'username': 1, 'currentRating': 1, 'previousRatings': 1}
+        {'username': 1, 'currentRating': 1, 'previousRatings': 1, 'userAvatar': 1}
     )
 
     user_rating_changes = []
     for user in cursor:
         username = user['username']
+        user_avatar = user['userAvatar']
         current_rating = user['currentRating']
         prev_rating = user['previousRatings'][-1]
         rating_change = current_rating - prev_rating
 
-        user_rating_changes.append((rating_change, username))
+        user_rating_changes.append((rating_change, username, user_avatar))
 
     return user_rating_changes
 

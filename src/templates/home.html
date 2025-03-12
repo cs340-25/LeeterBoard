@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
 </head>
 <body>
     <header>
@@ -41,7 +41,15 @@
 
                 <!-- TODO: Have to change rating change. (currenty hard coded)-->
                 {% for rating, school, school_rating_change in school_info %}
-                    <tr><td>{{ loop.index0 + 1 }}</td><td>{{ school }}</td><td>{{ "%.2f" | format(rating) }}</td><td>{{ "%.2f" | format(school_rating_change) }}</td></tr>
+                    <tr>
+                        <td>{{ loop.index0 + 1 }}</td>
+                        <td>
+                            <img src="https://img.logo.dev/{{ university_websites[school] }}">
+                            {{ school }}
+                        </td>
+                        <td>{{ "%.2f" | format(rating) }}</td>
+                        <td>{{ "%.2f" | format(school_rating_change) }}</td>
+                    </tr>
                 {% endfor %}
             </tbody>
         </table>
@@ -52,8 +60,14 @@
             <div class="widget">
                 <h3>Trending Users</h3>
                 <ul>
-                    {% for rating_change, user in user_rating_changes[:10] %}
-                    <li>{{ user }}<span class="score up">▲ {{ "%.2f" | format(rating_change) }}</span></li>
+                    {% for rating_change, user, user_avatar in user_rating_changes[:10] %}
+                    <li>
+                        <div className="user">
+                            <img src="{{ user_avatar }}"></img>
+                            {{ user }}
+                        </div>
+                        <span class="score up">▲ {{ "%.2f" | format(rating_change) }}</span>
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -62,7 +76,13 @@
                 <h3>Trending Universities</h3>
                 <ul>
                     {% for rating, school, rating_change in school_rating_changes[:10] %}
-                    <li>{{ school }}<span class="score up">▲ {{ "%.2f" | format(rating_change) }}</span></li>
+                    <li>
+                        <div className="school">
+                            <img src="https://img.logo.dev/{{ university_websites[school] }}">
+                            {{ university_abbreviations[school] }}
+                        </div>
+                        <span class="score up">▲ {{ "%.2f" | format(rating_change) }}</span>
+                    </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -73,7 +93,14 @@
                 <h3>Top Universites</h3>
                 <ul>
                     {% for rating, school, school_rating_change in school_info[:10] %}
-                    <li> <tr><td>{{ loop.index0 + 1 }}</td><td>. </td><td>{{ school }}</td></tr>   </li>
+                    <li>
+                        <div className="school-rank">
+                            <td>{{ loop.index0 + 1 }}</td>
+                            <td>. </td>
+                            <img src="https://img.logo.dev/{{ university_websites[school] }}">
+                            <td>{{ university_abbreviations[school] }}</td>
+                        </div>
+                    </li>
                     {% endfor %} 
                 </ul>                   
                 </ul>
