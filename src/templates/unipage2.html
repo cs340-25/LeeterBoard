@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/unipage2.css') }}">
+
+    <!-- Add Chart.js for ratings line graph-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <header>
@@ -18,7 +21,10 @@
         </div>
 
         <div class="right-side">
-            <div class="graph"></div>
+            <div class="graph">
+                <canvas id="ratings-line-graph"></canvas>
+                <div id="rating-display" class="rating-display"></div>
+            </div>
 
             <div class="bottom-row">
                 <div class="uni-info"></div>
@@ -26,5 +32,110 @@
             </div>
         </div>
     </main>
+
+
+    <!-- This is all simply for the line graph (Definitely Needs Improvement )--> 
+    <script> 
+        const ctx = document.getElementById('ratings-line-graph');
+        const ratingDisplay = document.getElementById('rating-display');
+
+        // Create a gradient
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
+        gradient.addColorStop(0, 'rgb(160, 40, 40)')
+        gradient.addColorStop(1, 'rgb(151, 56, 121)')
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                datasets: [{
+                    data: [1856.54, 1965.44, 1976.41, 1765.21, 2100.23],
+                    fill: false,
+                    borderColor: gradient,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                hover: {
+                    mode: 'index',
+                    intersect: false
+                },
+                
+                elements: {
+                    point: {
+                        pointBackgroundColor: gradient,
+                        pointRadius: 5,
+                        pointHoverRadius: 7,
+                        hoverBorderWidth: 2,
+                        hoverBorderColor: 'white'
+                    },
+                    line: {
+                        tension: 0.25
+                    }
+                },
+
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 30,
+                        top: 30,
+                        bottom: 15,
+                    }
+                },
+
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.5)',
+                            font: {
+                                size: 10
+                            }
+                        }
+                    },
+
+                    y: {
+                        grid: {
+                            display: false,
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.5)',
+                            font: {
+                                size: 10
+                            }
+                        },
+                        min: 1200,
+                        max: 2400
+                    },
+                },
+
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+
+                    tooltip: {
+                        enabled: false
+                    },
+                },
+                onHover: function(event, elements) {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const value = this.data.datasets[0].data[index];
+                        ratingDisplay.innerHTML = `Contest Rating: ${value.toLocaleString()}`;
+                        ratingDisplay.style.display = 'block';
+                    } else {
+                        ratingDisplay.style.display = 'none';
+                    }
+                }
+            },
+        });
+
+        ratingDisplay.style.display = 'none';
+    </script>
 </body>
 </html>

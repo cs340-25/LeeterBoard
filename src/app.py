@@ -11,7 +11,10 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.get('/unipage2')
 def unipage2():
-    return render_template('unipage2.html')
+    ratings = [1856.54, 1965.44, 1976.41, 1765.21, 2561.54]
+    weeks = list(range(1, len(ratings)))
+
+    return render_template('unipage2.html', weeks=weeks, ratings=ratings)
 
 @app.get('/testpage')
 def testpage():
