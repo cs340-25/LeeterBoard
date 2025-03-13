@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 
 from typing import List, Dict, Tuple
+from collections import defaultdict
 
 from pymongo import MongoClient
 from rapidfuzz.process import extractOne
@@ -19,6 +20,7 @@ mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 # Grabs collection from db
 leet_users = client.leeterboard.leet_users
+university_avgs = client.leeterboard.university_avgs
 
 
 
@@ -110,39 +112,19 @@ def standardize_db_universities():
 
 # This function takes each user's currentRating and calculates the updated average
 # Returns a list of tuples (university name, avg contest rating)
-def calculate_university_info() -> List[Tuple[float, str, float]]:
-    all_school_current_ratings = {}
-    all_school_prev_ratings = {}
-    cursor = leet_users.find()
-
-    for user in cursor:
-        school = user['school']
-        prev_rating = user['previousRatings'][-1]
-        current_rating = user['currentRating']
-
-        # Add current rating to school previous ratings map
-        if school not in all_school_prev_ratings:
-            all_school_prev_ratings[school] = []
-
-        all_school_prev_ratings[school].append(prev_rating)
-
-        # Add current rating to school current ratings map
-        if school not in all_school_current_ratings:
-            all_school_current_ratings[school] = []
-
-        all_school_current_ratings[school].append(current_rating)
-
+def grab_university_info() -> List[Tuple[float, str, float]]:
+    cursor = university_avgs.find()
 
     school_info = []
-    for school, ratings in all_school_current_ratings.items():
-        # ONLY calculate its rating averages if there are at least 5 people in the university
-        if len(ratings) >= 5:
-            # Calculate the average rating change as well by getting the previous_ratings_avg as well
-            current_ratings_avg = sum(ratings) / len(ratings)
-            prev_ratings_avg = sum(all_school_prev_ratings[school]) / len(all_school_prev_ratings[school])
-            rating_change = current_ratings_avg - prev_ratings_avg
-            
-            school_info.append((current_ratings_avg, school, rating_change))
+    for school in cursor:
+        school_name = school['universityName']
+        student_count = school['studentCount']
+        current_avg_rating = school['currentAverage']
+        prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
+        rating_change = current_avg_rating - prev_avg_rating
+
+        if student_count >= 5:
+            school_info.append((current_avg_rating, school_name, rating_change))
 
     return school_info
 
@@ -192,4 +174,87 @@ def get_user_rating_changes() -> List[Tuple[(float, str, str)]]:
 
     return user_rating_changes
 
+
+def grab_all_schools_only() -> List[str]:
+    schools = set()
+    cursor = leet_users.find(
+        {},
+        {'school': 1}
+    )
+
+    for entry in cursor:
+        schools.add(entry['school'])
+
+    return list(schools)
+
+
+def grab_students_per_school():
+    school_students = defaultdict(int)
+    cursor = leet_users.find(
+        {},
+        {'school': 1}
+    )
+
+    for entry in cursor:
+        school_students[entry['school']] += 1
         
+    return school_students
+
+
+def calculate_school_prev_avg() -> List[Tuple[(str, float)]]:
+    all_school_prev_ratings = defaultdict(list)
+    cursor = leet_users.find(
+        {},
+        {'school': 1, 'previousRatings': 1}
+    )
+
+    for entry in cursor:
+        prev_rating = entry['previousRatings'][-1]
+        school = entry['school']
+
+        all_school_prev_ratings[school].append(prev_rating)
+
+    school_prev_ratings = []
+    for school, ratings in all_school_prev_ratings.items():
+        prev_avg_rating = sum(ratings) / len(ratings)
+        school_prev_ratings.append((school, prev_avg_rating))
+    
+    return school_prev_ratings
+
+
+def calculate_school_curr_avg() -> List[Tuple[(str, float)]]:
+    all_school_curr_ratings = defaultdict(list)
+    cursor = leet_users.find(
+        {},
+        {'school': 1, 'currentRating': 1}
+    )
+
+    for entry in cursor:
+        curr_rating = entry['currentRating']
+        school = entry['school']
+
+        all_school_curr_ratings[school].append(curr_rating)
+
+    school_curr_ratings = []
+    for school, ratings in all_school_curr_ratings.items():
+        curr_avg_rating = sum(ratings) / len(ratings)
+        school_curr_ratings.append((school, curr_avg_rating))
+    
+    return school_curr_ratings
+
+
+# Grabs all the schools weekly averages for the graphs
+def get_school_weekly_averages() -> Dict[str, List[float]]:
+    cursor = university_avgs.find(
+        {},
+        {'universityName': 1, 'weeklyAverages': 1}
+    )
+
+    school_weekly_averages = defaultdict(list)
+    for school in cursor:
+        school_name = school['universityName']
+        weekly_averages = school['weeklyAverages']
+        for rating in weekly_averages:
+            school_weekly_averages[school_name].append(rating)
+        
+    return school_weekly_averages

@@ -11,10 +11,16 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 @app.get('/unipage2')
 def unipage2():
-    ratings = [1856.54, 1965.44, 1976.41, 1765.21, 2561.54]
-    weeks = list(range(1, len(ratings)))
 
-    return render_template('unipage2.html', weeks=weeks, ratings=ratings)
+    school_weekly_averages = database.get_school_weekly_averages()
+    # for school, averages in school_weekly_averages.items():
+    #     print(f"{school}", end="")
+    #     for rating in averages:
+    #         print(f"{rating}")
+    #     print("\n")
+
+
+    return render_template('unipage2.html', ratings=school_weekly_averages)
 
 @app.get('/testpage')
 def testpage():
@@ -35,7 +41,7 @@ def home():
     # Default display (GET)
     
     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
-    school_info = database.calculate_university_info()
+    school_info = database.grab_university_info()
     school_info.sort(reverse=True)
 
     # Grabs all user rating changes -> sorted by rating changes (desc.)
@@ -43,7 +49,7 @@ def home():
     user_rating_changes.sort(reverse=True)
 
     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by rating change (desc.)
-    school_rating_changes = database.calculate_university_info()
+    school_rating_changes = database.grab_university_info()
     school_rating_changes.sort(key=lambda x: x[2], reverse=True)
 
     return render_template('home.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,

@@ -40,7 +40,7 @@
                 {% endfor %} -->
 
                 <!-- TODO: Have to change rating change. (currenty hard coded)-->
-                {% for rating, school, school_rating_change in school_info %}
+                {% for rating, school, rating_change in school_info %}
                     <tr>
                         <td>{{ loop.index0 + 1 }}</td>
                         <td>
@@ -48,7 +48,7 @@
                             {{ school }}
                         </td>
                         <td>{{ "%.2f" | format(rating) }}</td>
-                        <td>{{ "%.2f" | format(school_rating_change) }}</td>
+                        <td>{{ "%.2f" | format(rating_change) }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
