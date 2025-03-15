@@ -1,26 +1,32 @@
 import database
 
 from flask import Flask, request, redirect, url_for, render_template
+import json
 
 from data.university_websites import university_websites
 from data.university_abbreviations import university_abbreviations
+from data.university_slugs import university_slugs
 
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
-@app.get('/unipage2')
-def unipage2():
+@app.get('/unipage2/<slug>')
+def unipage2(slug):
+    regular_school_name = university_slugs[slug]
 
     school_weekly_averages = database.get_school_weekly_averages()
     # for school, averages in school_weekly_averages.items():
-    #     print(f"{school}", end="")
+    #     print(f"{school}")
     #     for rating in averages:
-    #         print(f"{rating}")
+    #         print(f"{rating['week']}, {rating['average']}")
     #     print("\n")
 
-
-    return render_template('unipage2.html', ratings=school_weekly_averages)
+    # Convert the python list to JSON string for Chart.js
+    ratings_json = json.dumps(school_weekly_averages[regular_school_name])
+    logo_url = university_websites[regular_school_name]
+    
+    return render_template('unipage2.html', ratings_json=ratings_json, logo_url=logo_url)
 
 @app.get('/testpage')
 def testpage():

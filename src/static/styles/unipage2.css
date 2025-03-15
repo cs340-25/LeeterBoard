@@ -1,5 +1,5 @@
 * {
-    font-family: 'Verdana', Sans-serif;
+    font-family: 'Exo 2', Sans-serif;
   }
   
   
@@ -80,13 +80,16 @@ main {
     position: absolute;
     top: 20px;
     right: 20px;
-    background: rgba(30, 30, 30, 0.8);
-    padding: 8px 12px;
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.6), rgba(203, 16, 144, 0.6));
+    padding: 10px 16px;
     border-radius: 6px;
-    color: white;
+    color: rgba(255, 255, 255, 0.75);
     font-size: 14px;
-    display: none;
+    font-weight: 400;
+    width: 160px;
     font-family: inherit;
+    white-space: nowrap;
+    border: 1.75px solid rgba(160, 40, 40, 0.85);
 }
 
 .bottom-row {

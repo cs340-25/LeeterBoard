@@ -72,6 +72,10 @@ for data in results:
 
 # With this information, we will be able to have all of the data we need for what is currently on the site
 
+
+
+
+# WORKING ON THIS NOW (created weekly script + mongodb collection)
 # However, we need to find a way to calculate weekly averages across all universities for the graphs
 # We may want to create a new collection for each of these universities and store their past weekly averages there
 # Could potentially just run the calculate_university_info() function once weekly and then whatever that returns will

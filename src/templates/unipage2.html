@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/unipage2.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Add Chart.js for ratings line graph-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,7 +18,7 @@
 
     <main>
         <div class="profile-bar">
-            <img src="https://img.logo.dev/utk.edu">
+            <img src="https://img.logo.dev/{{ logo_url }}">
         </div>
 
         <div class="right-side">
@@ -34,24 +35,31 @@
     </main>
 
 
-    <!-- This is all simply for the line graph (Definitely Needs Improvement )--> 
-    <script> 
+    <!-- This is all simply for the line graph (Definitely Needs Improvement)--> 
+    <script>
+        // Parse the JSON string received from Python
+        const ratingsData = JSON.parse('{{ ratings_json|safe }}')
+
         const ctx = document.getElementById('ratings-line-graph');
         const ratingDisplay = document.getElementById('rating-display');
 
-        // Create a gradient
         const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
         gradient.addColorStop(0, 'rgb(160, 40, 40)')
         gradient.addColorStop(1, 'rgb(151, 56, 121)')
 
+        const fillGradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
+        fillGradient.addColorStop(0, 'rgba(160, 40, 40, 0.08)')
+        fillGradient.addColorStop(1, 'rgba(151, 56, 121, 0.08)')
+
         new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'],
+                labels: ratingsData.map(item => `Week ${item.week}`),
                 datasets: [{
-                    data: [1856.54, 1965.44, 1976.41, 1765.21, 2100.23],
-                    fill: false,
+                    data: ratingsData.map(item => item.average),
+                    fill: true,
                     borderColor: gradient,
+                    backgroundColor: fillGradient,
                 }]
             },
             options: {
@@ -108,8 +116,8 @@
                                 size: 10
                             }
                         },
-                        min: 1200,
-                        max: 2400
+                        min: 1300,
+                        max: 1800
                     },
                 },
 
