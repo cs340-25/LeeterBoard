@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <header>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        </a>
+        <div class="icon-container">
+            <a href="{{ url_for('stats') }}">
+                <img src="{{ url_for('static', filename='icons/stats_icon.png') }}" alt="Stats Icon" class="stats_icon">
+            </a>
+            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+        </div>
+    </header>
+    
+
+    
+    <main>
+        <h1>Statistics Page</h1>
+        <p>This page will display site-wide statistics.</p>
+    </main>
+</body>
+</html>

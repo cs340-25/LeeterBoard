@@ -22,11 +22,15 @@ header {
 
 .logo {
     height: 40px;
+    cursor: pointer; /* Makes it clear that it's clickable */
+    display: block; /* Prevents inline spacing */
 }
+
 
 .icon-container {
     display: flex;
     align-items: center;
+    gap: 0;
 }
 
 .user_icon {
@@ -38,6 +42,14 @@ header {
 .stats_icon {
     height: 55px;
     cursor: pointer;
+    margin: 0; /* Removes any margin */
+    padding: 0; /* Ensures no padding */
+    display: block; /* Prevents inline spacing from <a> wrapping */
+}
+
+.icon-container a {
+    display: flex; /* Ensures the <a> tag does not add inline spacing */
+    align-items: center;
 }
 
 

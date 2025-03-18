@@ -61,6 +61,9 @@ def home():
     return render_template('home.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
+@app.get('/stats')
+def stats():
+    return render_template('stats.html')
 
 
 @app.route('/school', methods=['GET', 'POST'])

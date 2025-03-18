@@ -9,20 +9,19 @@
 </head>
 <body>
     <header>
-        <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
-        <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        </a>
+        <div class="icon-container">
+            <a href="{{ url_for('stats') }}">
+                <img src="{{ url_for('static', filename='icons/stats_icon.png') }}" alt="Stats Icon" class="stats_icon">
+            </a>
+            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+        </div>
     </header>
 
     <main>
-        <form method="POST" action="{{ url_for('school') }}">
-            <span class="search">
-                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
-                <button class="search-button">
-                    <img src="{{ url_for('static', filename='icons/search_icon.png') }}" alt="Search" class="search-icon">
-                </button>
-            </span>
-            <h3>{{ school_name }}</h3>
-        </form>
+        <h3>{{ school_name }}</h3>
 
         <!-- Leaderboard Table -->
         <table class="leaderboard">
