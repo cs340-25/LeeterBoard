@@ -61,9 +61,10 @@ def home():
     return render_template('home.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
-@app.get('/stats')
+@app.get('/uni-comp-tool')
 def stats():
-    return render_template('stats.html')
+    school_names = database.grab_all_schools_only()
+    return render_template('uni_comp_tool.html', school_names=school_names)
 
 
 @app.route('/school', methods=['GET', 'POST'])

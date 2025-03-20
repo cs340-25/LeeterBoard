@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/uni_comp_tool.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -24,8 +24,23 @@
 
     
     <main>
-        <h1>Statistics Page</h1>
-        <p>This page will display site-wide statistics.</p>
+        <div class="top">
+            <div class="profile-bar">
+                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
+            </div>
+            <div class="graph"></div>
+        </div>
+
+        <div class="section-header">
+            <h2>University Statistics</h2>
+        </div>
+
+        <div class="bottom">
+            {% for i in range(13) %}
+                <div class="uni-stat-card"></div>
+            {% endfor %}
+        </div>
+
     </main>
 </body>
 </html>

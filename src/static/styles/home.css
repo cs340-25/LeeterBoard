@@ -250,11 +250,13 @@ main {
 
 .widget h3 {
     margin: 0 0 10px 0; /* Adds space below the header */
-    font-size: 17px;
+    font-size: 15px;
+    font-weight: 500;
     text-align: center;
-    padding: 12px; /* Increased padding for better spacing inside */
-    background: linear-gradient(to right, rgb(160, 40, 40), rgba(203, 16, 144, 0.731));
-    color: rgb(0, 0, 0); /* Changed to pure white for better contrast */
+    padding: 8px; /* Increased padding for better spacing inside */
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.6), rgba(203, 16, 144, 0.6));
+    border: 1.75px solid rgba(160, 40, 40, 0.85);
+    color: rgba(255, 255, 255, 0.75);
     border-radius: 9px;
     display: inline-block;
     width: 92.5%; /* Full width */

@@ -18,6 +18,33 @@ university_avgs = client.leeterboard.university_avgs
 
 
 
+def get_previous_saturday():
+    """
+    Returns the previous Saturday from the current date in 'YYYY-MM-DD' format.
+    If today is a Saturday, returns the Saturday from the previous week.
+    
+    Returns:
+        str: Previous Saturday in 'YYYY-MM-DD' format.
+    """
+    # Get current date
+    current_date = datetime.now()
+    
+    # Calculate days to go back to reach previous Saturday
+    # weekday() returns 0-6 where 0 is Monday and 5 is Saturday
+    days_since_saturday = (current_date.weekday() + 2) % 7
+    
+    # If today is Saturday, we want last Saturday, so add 7
+    if days_since_saturday == 0:
+        days_since_saturday = 7
+    
+    # Calculate the previous Saturday
+    previous_saturday = current_date - timedelta(days=days_since_saturday)
+    
+    # Return the formatted date
+    return previous_saturday.strftime('%Y-%m-%d')
+
+
+
 # For a school we have school: (current rating, students, weekly_ratings[rating 1 (date), rating 2 (date)])
 final_school_info = defaultdict(list)
 
@@ -34,7 +61,8 @@ for school, curr_weekly_avg in school_curr_avgs:
 
 # Updates 3 fields, but pushes new current weekly school average to array for graph plotting
 def upsert_school(school_name, student_count, current_rating):
-    current_saturday = datetime.now().strftime('%Y-%m-%d')
+    # current_saturday = datetime.now().strftime('%Y-%m-%d')
+    previous_saturday = get_previous_saturday()
 
     university_avgs.update_one(
         {'universityName': school_name},
@@ -46,7 +74,7 @@ def upsert_school(school_name, student_count, current_rating):
             },
             '$push': {
                 'weeklyAverages': {
-                    'week': current_saturday,
+                    'week': previous_saturday,
                     'average': current_rating
                 }
             }
@@ -54,6 +82,9 @@ def upsert_school(school_name, student_count, current_rating):
         upsert=True
     )
 
-# for school, info in final_school_info.items():
+cur = 0
+for school, info in final_school_info.items():
+    print(cur)
+    cur += 1
     # print(f"{school}: {info[0]}, {info[1]}")
-    # upsert_school(school, info[0], info[1])
+    upsert_school(school, info[0], info[1])
