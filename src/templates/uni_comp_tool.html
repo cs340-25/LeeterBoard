@@ -14,19 +14,23 @@
             <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
         </a>
         <div class="icon-container">
-            <a href="{{ url_for('stats') }}">
+            <a href="{{ url_for('uni_comp_tool') }}">
                 <img src="{{ url_for('static', filename='icons/stats_icon.png') }}" alt="Stats Icon" class="stats_icon">
             </a>
             <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
         </div>
     </header>
-    
 
-    
     <main>
         <div class="top">
             <div class="profile-bar">
-                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
+                <div class="search-container">
+                    <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar" id="schoolSearch" autocomplete="off">
+                    <div class="dropdown-list" id="schoolList"></div>
+                </div>
+
+                <div class="selected-schools" id="selectedSchools"></div>
+                <input type="hidden" name="selected_schools" id="selectedSchoolsInput">
             </div>
             <div class="graph"></div>
         </div>
@@ -36,11 +40,166 @@
         </div>
 
         <div class="bottom">
-            {% for i in range(13) %}
+            {% for i in range(7) %}
                 <div class="uni-stat-card"></div>
             {% endfor %}
         </div>
 
     </main>
+
+    <!-- Search bar drop down list -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the schools and colors from the server-side variable
+        const schools = JSON.parse('{{ school_names|tojson }}');
+        const schoolColors = JSON.parse('{{ school_colors|tojson }}')
+        const schoolAbbreviations = JSON.parse('{{ school_abbrev|tojson }}')
+        
+        // Sort schools alphabetically
+        schools.sort();
+
+        // Function to get color for a school
+        function getSchoolColor(schoolName) {
+            // Return the school's color if it exists in the mapping
+            if (schoolColors[schoolName]) {
+                return schoolColors[schoolName];
+            }
+            
+            // Generate a color based on the school name if no mapping exists
+            let hash = 0;
+            for (let i = 0; i < schoolName.length; i++) {
+                hash = schoolName.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            
+            let color = '#';
+            for (let i = 0; i < 3; i++) {
+                const value = (hash >> (i * 8)) & 0xFF;
+                color += ('00' + value.toString(16)).substr(-2);
+            }
+            
+            return color;
+        }
+        
+        // Get references to our HTML elements
+        const searchInput = document.getElementById('schoolSearch');
+        const schoolList = document.getElementById('schoolList');
+        const selectedSchools = document.getElementById('selectedSchools');
+        
+        // Array to keep track of selected schools
+        let selectedSchoolsList = [];
+        
+        // Function to show schools in the dropdown
+        function showSchools(filterText = '') {
+            // Clear the current list
+            schoolList.innerHTML = '';
+            
+            // Filter schools based on input
+            let filteredSchools = schools;
+            if (filterText) {
+                filteredSchools = schools.filter(school => 
+                    school.toLowerCase().includes(filterText.toLowerCase())
+                );
+            }
+            
+            // Further filter out already selected schools
+            filteredSchools = filteredSchools.filter(school => 
+                !selectedSchoolsList.includes(school)
+            );
+            
+            // Add each school to the dropdown
+            filteredSchools.forEach(school => {
+                const item = document.createElement('div');
+                item.className = 'school-item';
+                item.textContent = school;
+                
+                // When user clicks on a school
+                item.addEventListener('click', function() {
+                    // Add school to selected list if not already there
+                    if (!selectedSchoolsList.includes(school)) {
+                        selectedSchoolsList.push(school);
+                        displaySelectedSchools();
+                    }
+                    
+                    // Clear the search input and hide dropdown
+                    searchInput.value = '';
+                    schoolList.style.display = 'none';
+                });
+                
+                schoolList.appendChild(item);
+            });
+            
+            // Show dropdown if there are schools to display
+            if (filteredSchools.length > 0) {
+                schoolList.style.display = 'block';
+            } else {
+                schoolList.style.display = 'none';
+            }
+        }
+        
+        // Function to display selected schools
+        function displaySelectedSchools() {
+            // Clear current selected schools display
+            selectedSchools.innerHTML = '';
+            
+            // Add each selected school
+            selectedSchoolsList.forEach(school => {
+                const schoolElement = document.createElement('div');
+                schoolElement.className = 'selected-school';
+
+                // Apply school's color directly
+                const schoolColor = getSchoolColor(school);
+                schoolElement.style.border = `1px solid ${schoolColor}`;
+                
+                // Create text element for school name
+                const schoolName = document.createElement('span');
+                schoolName.textContent = schoolAbbreviations[school];
+                
+                // Create remove button
+                const removeButton = document.createElement('span');
+                removeButton.className = 'remove-school';
+                removeButton.textContent = '×';
+                removeButton.title = 'Remove this school';
+                
+                // Add event listener to remove button
+                removeButton.addEventListener('click', function() {
+                    // Remove school from selected list
+                    selectedSchoolsList = selectedSchoolsList.filter(s => s !== school);
+                    displaySelectedSchools();
+                });
+                
+                // Add elements to the school element
+                schoolElement.appendChild(schoolName);
+                schoolElement.appendChild(removeButton);
+                
+                // Add school element to selected schools container
+                selectedSchools.appendChild(schoolElement);
+            });
+            
+            // If you need to submit the selected schools later, you can add this
+            // Update a hidden form field with the selected schools
+            const hiddenInput = document.getElementById('selectedSchoolsInput');
+            if (hiddenInput) {
+                hiddenInput.value = JSON.stringify(selectedSchoolsList);
+            }
+        }
+        
+        // Show dropdown when clicking the search input
+        searchInput.addEventListener('click', function() {
+            showSchools(searchInput.value);
+        });
+        
+        // Filter as the user types
+        searchInput.addEventListener('input', function() {
+            showSchools(searchInput.value);
+        });
+        
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!searchInput.contains(event.target) && !schoolList.contains(event.target)) {
+                schoolList.style.display = 'none';
+            }
+        });
+    });
+    </script>
 </body>
 </html>

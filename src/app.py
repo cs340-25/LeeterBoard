@@ -6,6 +6,7 @@ import json
 from data.university_websites import university_websites
 from data.university_abbreviations import university_abbreviations
 from data.university_slugs import university_slugs
+from data.university_colors import university_colors
 
 
 app = Flask(__name__)
@@ -62,9 +63,9 @@ def home():
                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
 @app.get('/uni-comp-tool')
-def stats():
+def uni_comp_tool():
     school_names = database.grab_all_schools_only()
-    return render_template('uni_comp_tool.html', school_names=school_names)
+    return render_template('uni_comp_tool.html', school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations)
 
 
 @app.route('/school', methods=['GET', 'POST'])
