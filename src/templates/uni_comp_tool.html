@@ -54,6 +54,7 @@
         const schools = JSON.parse('{{ school_names|tojson }}');
         const schoolColors = JSON.parse('{{ school_colors|tojson }}')
         const schoolAbbreviations = JSON.parse('{{ school_abbrev|tojson }}')
+        const schoolWebsites = JSON.parse('{{ school_websites|tojson }}')
         
         // Sort schools alphabetically
         schools.sort();
@@ -146,13 +147,23 @@
                 const schoolElement = document.createElement('div');
                 schoolElement.className = 'selected-school';
 
-                // Apply school's color directly
-                const schoolColor = getSchoolColor(school);
-                schoolElement.style.border = `1px solid ${schoolColor}`;
-                
+                // Create a container for the school info (logo + name)
+                const schoolInfoContainer = document.createElement('div');
+                schoolInfoContainer.className = 'school-info';
+
+                // Create img element to go with the school name
+                const imgElement = document.createElement('img');
+                imgElement.src = `https://img.logo.dev/${ schoolWebsites[school]}`;
+                schoolInfoContainer.appendChild(imgElement);
+
                 // Create text element for school name
                 const schoolName = document.createElement('span');
                 schoolName.textContent = schoolAbbreviations[school];
+                schoolInfoContainer.appendChild(schoolName);
+                
+                // Apply school's color directly to schoolElement border
+                const schoolColor = getSchoolColor(school);
+                schoolElement.style.border = `1px solid ${schoolColor}`;
                 
                 // Create remove button
                 const removeButton = document.createElement('span');
@@ -166,12 +177,10 @@
                     selectedSchoolsList = selectedSchoolsList.filter(s => s !== school);
                     displaySelectedSchools();
                 });
-                
-                // Add elements to the school element
-                schoolElement.appendChild(schoolName);
+
+                schoolElement.appendChild(schoolInfoContainer);
                 schoolElement.appendChild(removeButton);
-                
-                // Add school element to selected schools container
+
                 selectedSchools.appendChild(schoolElement);
             });
             

@@ -65,7 +65,7 @@ def home():
 @app.get('/uni-comp-tool')
 def uni_comp_tool():
     school_names = database.grab_all_schools_only()
-    return render_template('uni_comp_tool.html', school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations)
+    return render_template('uni_comp_tool.html', school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations, school_websites=university_websites)
 
 
 @app.route('/school', methods=['GET', 'POST'])
