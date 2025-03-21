@@ -22,8 +22,8 @@ header {
 
 .logo {
     height: 40px;
-    cursor: pointer; /* Makes it clear that it's clickable */
-    display: block; /* Prevents inline spacing */
+    cursor: pointer;
+    display: block;
 }
 
 
@@ -36,19 +36,19 @@ header {
 .user_icon {
     height: 40px;
     cursor: pointer;
-    margin-left: 5px; /* Adds space between stats and user icons */
+    margin-left: 5px;
 }
 
 .stats_icon {
     height: 55px;
     cursor: pointer;
-    margin: 0; /* Removes any margin */
-    padding: 0; /* Ensures no padding */
-    display: block; /* Prevents inline spacing from <a> wrapping */
+    margin: 0;
+    padding: 0;
+    display: block;
 }
 
 .icon-container a {
-    display: flex; /* Ensures the <a> tag does not add inline spacing */
+    display: flex;
     align-items: center;
 }
 
@@ -169,6 +169,7 @@ main {
 }
 
 .graph {
+    position: relative;
     width: 80%;
     height: 100%;
     background-color: rgb(37, 37, 37, 1);
@@ -179,7 +180,7 @@ main {
 
 
 .section-header {
-    margin: 150px 75px 10px 75px; /* Aligns with your 75px margins */
+    margin: 150px 75px 10px 75px;
     width: calc(100% - 150px);
 }
 

@@ -6,6 +6,9 @@
     <title>LeeterBoard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/uni_comp_tool.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Add Chart.js for ratings line graph-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     
@@ -32,7 +35,9 @@
                 <div class="selected-schools" id="selectedSchools"></div>
                 <input type="hidden" name="selected_schools" id="selectedSchoolsInput">
             </div>
-            <div class="graph"></div>
+            <div class="graph">
+                <canvas id="ratings-line-graph"></canvas>
+            </div>
         </div>
 
         <div class="section-header">
@@ -47,168 +52,309 @@
 
     </main>
 
-    <!-- Search bar drop down list -->
+    <!-- Search bar drop down list + University selection -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the schools and colors from the server-side variable
-        const schools = JSON.parse('{{ school_names|tojson }}');
-        const schoolColors = JSON.parse('{{ school_colors|tojson }}')
-        const schoolAbbreviations = JSON.parse('{{ school_abbrev|tojson }}')
-        const schoolWebsites = JSON.parse('{{ school_websites|tojson }}')
-        
-        // Sort schools alphabetically
-        schools.sort();
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the schools and colors from the server-side variable
+            const schools = JSON.parse('{{ school_names|tojson }}');
+            const schoolColors = JSON.parse('{{ school_colors|tojson }}')
+            const schoolAbbreviations = JSON.parse('{{ school_abbrev|tojson }}')
+            const schoolWebsites = JSON.parse('{{ school_websites|tojson }}')
+            
+            // Sort schools alphabetically
+            schools.sort();
 
-        // Function to get color for a school
-        function getSchoolColor(schoolName) {
-            // Return the school's color if it exists in the mapping
-            if (schoolColors[schoolName]) {
-                return schoolColors[schoolName];
+            // Function to get color for a school
+            window.getSchoolColor = function(schoolName) {
+                // Return the school's color if it exists in the mapping
+                if (schoolColors[schoolName]) {
+                    return schoolColors[schoolName];
+                }
+                
+                // Generate a color based on the school name if no mapping exists
+                let hash = 0;
+                for (let i = 0; i < schoolName.length; i++) {
+                    hash = schoolName.charCodeAt(i) + ((hash << 5) - hash);
+                }
+                
+                let color = '#';
+                for (let i = 0; i < 3; i++) {
+                    const value = (hash >> (i * 8)) & 0xFF;
+                    color += ('00' + value.toString(16)).substr(-2);
+                }
+                
+                return color;
             }
             
-            // Generate a color based on the school name if no mapping exists
-            let hash = 0;
-            for (let i = 0; i < schoolName.length; i++) {
-                hash = schoolName.charCodeAt(i) + ((hash << 5) - hash);
-            }
+            // Get references to our HTML elements
+            const searchInput = document.getElementById('schoolSearch');
+            const schoolList = document.getElementById('schoolList');
+            const selectedSchools = document.getElementById('selectedSchools');
             
-            let color = '#';
-            for (let i = 0; i < 3; i++) {
-                const value = (hash >> (i * 8)) & 0xFF;
-                color += ('00' + value.toString(16)).substr(-2);
-            }
+            // Array to keep track of selected schools
+            window.selectedSchoolsList = [];
             
-            return color;
-        }
-        
-        // Get references to our HTML elements
-        const searchInput = document.getElementById('schoolSearch');
-        const schoolList = document.getElementById('schoolList');
-        const selectedSchools = document.getElementById('selectedSchools');
-        
-        // Array to keep track of selected schools
-        let selectedSchoolsList = [];
-        
-        // Function to show schools in the dropdown
-        function showSchools(filterText = '') {
-            // Clear the current list
-            schoolList.innerHTML = '';
-            
-            // Filter schools based on input
-            let filteredSchools = schools;
-            if (filterText) {
-                filteredSchools = schools.filter(school => 
-                    school.toLowerCase().includes(filterText.toLowerCase())
+            // Function to show schools in the dropdown
+            window.showSchools = function(filterText = '') {
+                // Clear the current list
+                schoolList.innerHTML = '';
+                
+                // Filter schools based on input
+                let filteredSchools = schools;
+                if (filterText) {
+                    filteredSchools = schools.filter(school => 
+                        school.toLowerCase().includes(filterText.toLowerCase())
+                    );
+                }
+                
+                // Further filter out already selected schools
+                filteredSchools = filteredSchools.filter(school => 
+                    !window.selectedSchoolsList.includes(school)
                 );
-            }
-            
-            // Further filter out already selected schools
-            filteredSchools = filteredSchools.filter(school => 
-                !selectedSchoolsList.includes(school)
-            );
-            
-            // Add each school to the dropdown
-            filteredSchools.forEach(school => {
-                const item = document.createElement('div');
-                item.className = 'school-item';
-                item.textContent = school;
                 
-                // When user clicks on a school
-                item.addEventListener('click', function() {
-                    // Add school to selected list if not already there
-                    if (!selectedSchoolsList.includes(school)) {
-                        selectedSchoolsList.push(school);
-                        displaySelectedSchools();
-                    }
+                // Add each school to the dropdown
+                filteredSchools.forEach(school => {
+                    const item = document.createElement('div');
+                    item.className = 'school-item';
+                    item.textContent = school;
                     
-                    // Clear the search input and hide dropdown
-                    searchInput.value = '';
+                    // When user clicks on a school
+                    item.addEventListener('click', function() {
+                        // Add school to selected list if not already there
+                        if (!window.selectedSchoolsList.includes(school)) {
+                            window.selectedSchoolsList.push(school);
+                            displaySelectedSchools();
+                        }
+                        
+                        // Clear the search input and hide dropdown
+                        searchInput.value = '';
+                        schoolList.style.display = 'none';
+                    });
+                    
+                    schoolList.appendChild(item);
+                });
+                
+                // Show dropdown if there are schools to display
+                if (filteredSchools.length > 0) {
+                    schoolList.style.display = 'block';
+                } else {
                     schoolList.style.display = 'none';
+                }
+            }
+            
+            // Function to display selected schools
+            window.displaySelectedSchools = function() {
+                // Hide the dropdown
+                schoolList.style.display = 'none';
+
+                // Clear current selected schools display
+                window.selectedSchools.innerHTML = '';
+                
+                // Add each selected school
+                window.selectedSchoolsList.forEach(school => {
+                    const schoolElement = document.createElement('div');
+                    schoolElement.className = 'selected-school';
+
+                    // Create a container for the school info (logo + name)
+                    const schoolInfoContainer = document.createElement('div');
+                    schoolInfoContainer.className = 'school-info';
+
+                    // Create img element to go with the school name
+                    const imgElement = document.createElement('img');
+                    imgElement.src = `https://img.logo.dev/${ schoolWebsites[school]}`;
+                    schoolInfoContainer.appendChild(imgElement);
+
+                    // Create text element for school name
+                    const schoolName = document.createElement('span');
+                    schoolName.textContent = schoolAbbreviations[school];
+                    schoolInfoContainer.appendChild(schoolName);
+                    
+                    // Apply school's color directly to schoolElement border
+                    const schoolColor = getSchoolColor(school);
+                    schoolElement.style.border = `1px solid ${schoolColor}`;
+                    
+                    // Create remove button
+                    const removeButton = document.createElement('span');
+                    removeButton.className = 'remove-school';
+                    removeButton.textContent = '×';
+                    removeButton.title = 'Remove this school';
+                    
+                    // Add event listener to remove button
+                    removeButton.addEventListener('click', function() {
+                        // Remove school from selected list
+                        window.selectedSchoolsList = window.selectedSchoolsList.filter(s => s !== school);
+                        displaySelectedSchools();
+                    });
+
+                    schoolElement.appendChild(schoolInfoContainer);
+                    schoolElement.appendChild(removeButton);
+
+                    selectedSchools.appendChild(schoolElement);
                 });
                 
-                schoolList.appendChild(item);
+                // If you need to submit the selected schools later, you can add this
+                // Update a hidden form field with the selected schools
+                const hiddenInput = document.getElementById('selectedSchoolsInput');
+                if (hiddenInput) {
+                    hiddenInput.value = JSON.stringify(window.selectedSchoolsList);
+                }
+
+                if(window.updateChartWithSchools) {
+                    window.updateChartWithSchools(window.selectedSchoolsList);
+                }
+            }
+            
+            // Show dropdown when clicking the search input
+            searchInput.addEventListener('click', function() {
+                showSchools(searchInput.value);
             });
             
-            // Show dropdown if there are schools to display
-            if (filteredSchools.length > 0) {
-                schoolList.style.display = 'block';
-            } else {
-                schoolList.style.display = 'none';
-            }
-        }
-        
-        // Function to display selected schools
-        function displaySelectedSchools() {
-            // Clear current selected schools display
-            selectedSchools.innerHTML = '';
+            // Filter as the user types
+            searchInput.addEventListener('input', function() {
+                showSchools(searchInput.value);
+            });
             
-            // Add each selected school
-            selectedSchoolsList.forEach(school => {
-                const schoolElement = document.createElement('div');
-                schoolElement.className = 'selected-school';
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!searchInput.contains(event.target) && !schoolList.contains(event.target)) {
+                    schoolList.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
-                // Create a container for the school info (logo + name)
-                const schoolInfoContainer = document.createElement('div');
-                schoolInfoContainer.className = 'school-info';
+    <!-- Graph visualization -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Store the chart instance globally
+            window.myChart = null;
 
-                // Create img element to go with the school name
-                const imgElement = document.createElement('img');
-                imgElement.src = `https://img.logo.dev/${ schoolWebsites[school]}`;
-                schoolInfoContainer.appendChild(imgElement);
+            // Parse the JSON data for all schools
+            console.log("Initializing chart");
+            const allSchoolsData = JSON.parse('{{ ratings_json|safe }}');
+            
+            const schoolAbbreviations = JSON.parse('{{ school_abbrev|tojson }}')
 
-                // Create text element for school name
-                const schoolName = document.createElement('span');
-                schoolName.textContent = schoolAbbreviations[school];
-                schoolInfoContainer.appendChild(schoolName);
-                
-                // Apply school's color directly to schoolElement border
-                const schoolColor = getSchoolColor(school);
-                schoolElement.style.border = `1px solid ${schoolColor}`;
-                
-                // Create remove button
-                const removeButton = document.createElement('span');
-                removeButton.className = 'remove-school';
-                removeButton.textContent = '×';
-                removeButton.title = 'Remove this school';
-                
-                // Add event listener to remove button
-                removeButton.addEventListener('click', function() {
-                    // Remove school from selected list
-                    selectedSchoolsList = selectedSchoolsList.filter(s => s !== school);
-                    displaySelectedSchools();
+            // Get a sample school to determine the week labels
+            const sampleSchool = Object.values(allSchoolsData)[0];
+
+            // Initialize empty chart
+            function initChart() {
+                const ctx = document.getElementById('ratings-line-graph');
+
+                window.myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: sampleSchool.map(item => `Week ${item.week}`),
+                        datasets: [] // Start with empty dataset
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+
+                        hover: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        
+                        elements: {
+                            point: {
+                                pointRadius: 5,
+                                pointHoverRadius: 7,
+                                hoverBorderWidth: 2,
+                                hoverBorderColor: 'white'
+                            },
+                            line: {
+                                tension: 0.25
+                            }
+                        },
+
+                        layout: {
+                            padding: {
+                                left: 20,
+                                right: 30,
+                                top: 30,
+                                bottom: 15,
+                            }
+                        },
+
+                        scales: {
+                            x: {
+                                grid: {
+                                    display: false,
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 0.5)',
+                                    font: {
+                                        size: 10
+                                    }
+                                }
+                            },
+
+                            y: {
+                                grid: {
+                                    display: false,
+                                },
+                                ticks: {
+                                    color: 'rgba(255, 255, 255, 0.5)',
+                                    font: {
+                                        size: 10
+                                    }
+                                },
+                                min: 1200,
+                                max: 2000
+                            },
+                        },
+
+                        plugins: {
+                            legend: {
+                                display: false,
+                            },
+
+                            tooltip: {
+                                enabled: false
+                            },
+                        },
+                    },
+                });
+            }
+
+            // Function to update chart with selected schools
+            window.updateChartWithSchools = function(schoolsList) {
+                // Initialize chart if it doesn't exist
+                if(!window.myChart) {
+                    initChart();
+                }
+
+                // Clear existing datasets
+                window.myChart.data.datasets = [];
+
+                // Add dataset for each selected school
+                window.selectedSchoolsList.forEach(school => {
+                    // Get the data for this school
+                    const schoolData = allSchoolsData[school];
+                    console.log(schoolData);
+                    console.log(schoolData[0].average);
+
+                    const schoolColor = window.getSchoolColor(school);
+                    const schoolAbbrev = schoolAbbreviations[school];
+
+                    window.myChart.data.datasets.push({
+                        label: schoolAbbrev,
+                        data: schoolData.map(item => item.average),
+                        fill: false,
+                        borderColor: schoolColor,
+                        backgroundColor: `${schoolColor}20`,
+                        pointBackgroundColor: schoolColor
+                    });
                 });
 
-                schoolElement.appendChild(schoolInfoContainer);
-                schoolElement.appendChild(removeButton);
+                // Update the chart
+                window.myChart.update();
+            };
 
-                selectedSchools.appendChild(schoolElement);
-            });
-            
-            // If you need to submit the selected schools later, you can add this
-            // Update a hidden form field with the selected schools
-            const hiddenInput = document.getElementById('selectedSchoolsInput');
-            if (hiddenInput) {
-                hiddenInput.value = JSON.stringify(selectedSchoolsList);
-            }
-        }
-        
-        // Show dropdown when clicking the search input
-        searchInput.addEventListener('click', function() {
-            showSchools(searchInput.value);
+            initChart();
         });
-        
-        // Filter as the user types
-        searchInput.addEventListener('input', function() {
-            showSchools(searchInput.value);
-        });
-        
-        // Hide dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!searchInput.contains(event.target) && !schoolList.contains(event.target)) {
-                schoolList.style.display = 'none';
-            }
-        });
-    });
     </script>
 </body>
 </html>
