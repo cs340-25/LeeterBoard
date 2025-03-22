@@ -39,7 +39,6 @@
                     </div>
 
                     <div class="selected-schools" id="selectedSchools"></div>
-                    <input type="hidden" name="selected_schools" id="selectedSchoolsInput">
                 </div>
 
                 <div class="tab-content" id="statsTab" style="display: none;">
@@ -61,9 +60,7 @@
         </div>
 
         <div class="bottom">
-            {% for i in range(7) %}
-                <div class="uni-stat-card"></div>
-            {% endfor %}
+            <div class="uni-stat-cards" id="selectedSchoolStats"></div>
         </div>
     </main>
 
@@ -164,6 +161,7 @@
                         if (!window.selectedSchoolsList.includes(school)) {
                             window.selectedSchoolsList.push(school);
                             displaySelectedSchools();
+                            displayStatCards();
                         }
                         
                         // Clear the search input and hide dropdown
@@ -224,20 +222,14 @@
                         // Remove school from selected list
                         window.selectedSchoolsList = window.selectedSchoolsList.filter(s => s !== school);
                         displaySelectedSchools();
+                        displayStatCards();
                     });
 
                     schoolElement.appendChild(schoolInfoContainer);
                     schoolElement.appendChild(removeButton);
 
                     selectedSchools.appendChild(schoolElement);
-                });
-                
-                // If you need to submit the selected schools later, you can add this
-                // Update a hidden form field with the selected schools
-                const hiddenInput = document.getElementById('selectedSchoolsInput');
-                if (hiddenInput) {
-                    hiddenInput.value = JSON.stringify(window.selectedSchoolsList);
-                }
+                }); 
 
                 if(window.updateChartWithSchools) {
                     window.updateChartWithSchools(window.selectedSchoolsList);
@@ -260,6 +252,58 @@
                     schoolList.style.display = 'none';
                 }
             });
+
+
+
+            // Function to display stat cards based on what universities are selected
+            window.displayStatCards = function() {
+                // Grab the location of where we ill be adding the stat cards
+                const selectedSchoolStats = document.getElementById('selectedSchoolStats');
+                const allSchoolsData = JSON.parse('{{ ratings_json|safe }}');
+
+                // Clear existing cards first
+                selectedSchoolStats.innerHTML = '';
+
+                window.selectedSchoolsList.forEach(school => {
+                    const schoolStatCard = document.createElement('div');
+                    schoolStatCard.className = 'uni-stat-card';
+
+                    const schoolName = document.createElement('span');
+                    schoolName.className = 'school-name';
+                    schoolName.textContent = schoolAbbreviations[school];
+                    schoolStatCard.appendChild(schoolName);
+
+                    const schoolColor = getSchoolColor(school);
+                    schoolStatCard.style.borderTop = `2px solid ${schoolColor}`;
+                    schoolStatCard.style.boxShadow = `0 0 10px ${schoolColor}40`;
+
+                    // Add stat cards to container of stat cards
+                    selectedSchoolStats.appendChild(schoolStatCard);
+
+                    // Sort rating data by latest week before adding
+                    const sortedData = [...allSchoolsData[school]].sort((a, b) => {
+                        return new Date(b.week) - new Date(a.week);
+                    });
+
+                    // Add weekly rating data to each stat card (for each school)
+                    sortedData.forEach(item => {
+                        const weekData = document.createElement('div');
+                        weekData.className = 'week-data';
+
+                        const weekName = document.createElement('span');
+                        weekName.className = 'week-date';
+                        weekName.textContent = 'Week ' + item.week;
+                        weekData.appendChild(weekName);
+
+                        const weekAverage = document.createElement('span');
+                        weekAverage.className = 'week-average';
+                        weekAverage.textContent = parseFloat(item.average.toFixed(2));
+                        weekData.appendChild(weekAverage);
+
+                        schoolStatCard.appendChild(weekData);
+                    });
+                });
+            }
         });
     </script>
 
@@ -363,15 +407,7 @@
                             updateExternalStats(event, elements);
                         }
                     },
-                });
-
-                // Add mouseleave event to hide stats when the cursor leaves the chart
-                // ctx.addEventListener('mouseleave', () => {
-                //     const statsContainer = document.getElementById('chart-stats-container');
-                //     if(statsContainer) {
-                //         statsContainer.classList.add('hidden');
-                //     }
-                // });
+                }); 
             }
 
             // Function to update the external stats display
@@ -401,9 +437,7 @@
 
                     // Add stats for each university
                     window.myChart.data.datasets.forEach(dataset => {
-                        console.log("here");
                         const value = dataset.data[dataIndex];
-                        console.log("success");
                         if(value !== undefined) {
                             const uniItem = document.createElement('div');
                             uniItem.className = 'uni-stat-item';
@@ -411,7 +445,6 @@
                             const colorDot = document.createElement('div');
                             colorDot.className = 'uni-color-dot';
                             colorDot.style.backgroundColor = dataset.borderColor;
-                            console.log("finish");
 
                             const uniText = document.createElement('span');
                             uniText.textContent = `${dataset.label}: ${value}`;

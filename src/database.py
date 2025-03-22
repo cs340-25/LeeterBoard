@@ -244,7 +244,7 @@ def calculate_school_curr_avg() -> List[Tuple[(str, float)]]:
 
 
 # Grabs all the schools weekly averages for the graphs
-def get_school_weekly_averages() -> Dict[str, List[float]]:
+def get_school_weekly_averages() -> Dict[str, List[Tuple[str, float]]]:
     cursor = university_avgs.find(
         {},
         {'universityName': 1, 'weeklyAverages': 1}
