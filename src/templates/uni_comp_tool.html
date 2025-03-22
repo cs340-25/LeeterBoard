@@ -27,15 +27,31 @@
     <main>
         <div class="top">
             <div class="profile-bar">
-                <div class="search-container">
-                    <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar" id="schoolSearch" autocomplete="off">
-                    <div class="dropdown-list" id="schoolList"></div>
+                <div class="tab-container">
+                    <button class="tab-button active" data-tab="schools">Select School</button>
+                    <button class="tab-button" data-tab="stats">Weekly Stats</button>
                 </div>
 
-                <div class="selected-schools" id="selectedSchools"></div>
-                <input type="hidden" name="selected_schools" id="selectedSchoolsInput">
+                <div class="tab-content" id="schoolsTab">
+                    <div class="search-container">
+                        <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar" id="schoolSearch" autocomplete="off">
+                        <div class="dropdown-list" id="schoolList"></div>
+                    </div>
+
+                    <div class="selected-schools" id="selectedSchools"></div>
+                    <input type="hidden" name="selected_schools" id="selectedSchoolsInput">
+                </div>
+
+                <div class="tab-content" id="statsTab" style="display: none;">
+                    <div class="chart-stats-container" id="chart-stats-container">
+                        <div class="stats-header">Week <span id="stats-week"></span></div>
+                        <div class="university-stats" id="university-stats"></div>
+                    </div>
+                </div>
             </div>
+
             <div class="graph">
+
                 <canvas id="ratings-line-graph"></canvas>
             </div>
         </div>
@@ -49,8 +65,32 @@
                 <div class="uni-stat-card"></div>
             {% endfor %}
         </div>
-
     </main>
+
+    <!-- Switching tabs in selection bar on left -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.style.display = 'none');
+                    
+                    // Show the selected tab content
+                    const tabId = button.getAttribute('data-tab') + 'Tab';
+                    document.getElementById(tabId).style.display = 'flex';
+                });
+            });
+        });
+    </script>
 
     <!-- Search bar drop down list + University selection -->
     <script>
@@ -293,7 +333,9 @@
 
                             y: {
                                 grid: {
-                                    display: false,
+                                    display: true,
+                                    color: 'rgba(255, 255, 255, 0.1)',
+                                    drawBorder: false,
                                 },
                                 ticks: {
                                     color: 'rgba(255, 255, 255, 0.5)',
@@ -312,11 +354,74 @@
                             },
 
                             tooltip: {
-                                enabled: false
+                                enabled: false,
                             },
                         },
+
+                        // Custom event handlers
+                        onHover: (event, elements) => {
+                            updateExternalStats(event, elements);
+                        }
                     },
                 });
+
+                // Add mouseleave event to hide stats when the cursor leaves the chart
+                // ctx.addEventListener('mouseleave', () => {
+                //     const statsContainer = document.getElementById('chart-stats-container');
+                //     if(statsContainer) {
+                //         statsContainer.classList.add('hidden');
+                //     }
+                // });
+            }
+
+            // Function to update the external stats display
+            function updateExternalStats(event, elements) {
+                if(!window.myChart) return;
+
+                const statsContainer = document.getElementById('chart-stats-container');
+                const statsWeek = document.getElementById('stats-week');
+                const universityStats = document.getElementById('university-stats');
+
+                if(!statsContainer || !statsWeek || !universityStats) {
+                    return;
+                }
+
+                if(elements && elements.length > 0) {
+                    // Show stats container
+                    statsContainer.classList.remove('hidden');
+
+                    const dataIndex = elements[0].index;
+                    const weekLabel = window.myChart.data.labels[dataIndex];
+
+                    // Update week header
+                    statsWeek.textContent = weekLabel.replace('Week ', '');
+
+                    // Clear previous stats
+                    universityStats.innerHTML = '';
+
+                    // Add stats for each university
+                    window.myChart.data.datasets.forEach(dataset => {
+                        console.log("here");
+                        const value = dataset.data[dataIndex];
+                        console.log("success");
+                        if(value !== undefined) {
+                            const uniItem = document.createElement('div');
+                            uniItem.className = 'uni-stat-item';
+
+                            const colorDot = document.createElement('div');
+                            colorDot.className = 'uni-color-dot';
+                            colorDot.style.backgroundColor = dataset.borderColor;
+                            console.log("finish");
+
+                            const uniText = document.createElement('span');
+                            uniText.textContent = `${dataset.label}: ${value}`;
+
+                            uniItem.appendChild(colorDot);
+                            uniItem.appendChild(uniText);
+                            universityStats.appendChild(uniItem);
+                        }
+                    });
+                }
             }
 
             // Function to update chart with selected schools
@@ -333,15 +438,12 @@
                 window.selectedSchoolsList.forEach(school => {
                     // Get the data for this school
                     const schoolData = allSchoolsData[school];
-                    console.log(schoolData);
-                    console.log(schoolData[0].average);
-
                     const schoolColor = window.getSchoolColor(school);
                     const schoolAbbrev = schoolAbbreviations[school];
 
                     window.myChart.data.datasets.push({
                         label: schoolAbbrev,
-                        data: schoolData.map(item => item.average),
+                        data: schoolData.map(item => parseFloat(item.average.toFixed(2))),
                         fill: false,
                         borderColor: schoolColor,
                         backgroundColor: `${schoolColor}20`,
@@ -351,6 +453,12 @@
 
                 // Update the chart
                 window.myChart.update();
+
+                // Reset stats display
+                const statsContainer = document.getElementById('chart-stats-container');
+                if(statsContainer) {
+                    statsContainer.classList.add('hidden');
+                }
             };
 
             initChart();
