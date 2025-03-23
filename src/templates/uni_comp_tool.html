@@ -274,33 +274,67 @@
                     schoolStatCard.appendChild(schoolName);
 
                     const schoolColor = getSchoolColor(school);
-                    schoolStatCard.style.borderTop = `2px solid ${schoolColor}`;
+                    schoolStatCard.style.borderTop = `1px solid ${schoolColor}`;
                     schoolStatCard.style.boxShadow = `0 0 10px ${schoolColor}40`;
+
+                    schoolStatCard.style.background = `linear-gradient(
+                        to top,
+                        ${schoolColor}22 0%,
+                        ${schoolColor}11 15%,
+                        #252525 40%,
+                        #252525 100%
+                    )`;
 
                     // Add stat cards to container of stat cards
                     selectedSchoolStats.appendChild(schoolStatCard);
 
-                    // Sort rating data by latest week before adding
-                    const sortedData = [...allSchoolsData[school]].sort((a, b) => {
-                        return new Date(b.week) - new Date(a.week);
-                    });
-
                     // Add weekly rating data to each stat card (for each school)
-                    sortedData.forEach(item => {
+                    let previousAverage = null;
+
+                    allSchoolsData[school].forEach(item => {
+                        // Container for entire line in stat card
                         const weekData = document.createElement('div');
                         weekData.className = 'week-data';
 
+                        // Ex. 'Week 2025-03-15'
                         const weekName = document.createElement('span');
                         weekName.className = 'week-date';
                         weekName.textContent = 'Week ' + item.week;
                         weekData.appendChild(weekName);
 
+                        // Create the average value
                         const weekAverage = document.createElement('span');
                         weekAverage.className = 'week-average';
-                        weekAverage.textContent = parseFloat(item.average.toFixed(2));
+                        weekAverage.textContent = item.average.toFixed(2);
                         weekData.appendChild(weekAverage);
 
+                        // Add data trend representation for each weekly data point
+                        const trend = document.createElement('span');
+                        trend.className = 'trend-indicator';
+                        if(previousAverage !== null) {
+                            if(Math.abs(item.average - previousAverage) < 0.001) {
+                                // Equal
+                                trend.textContent = '→';
+                                trend.style.color = '#FFC107';
+                            } else if(item.average > previousAverage) {
+                                // Less than
+                                trend.textContent = '↑';
+                                trend.style.color = '#4CAF50';
+                            } else {
+                                // Greater than
+                                trend.textContent = '↓';
+                                trend.style.color = '#F44336';
+                            }
+                        } else {
+                            trend.textContent = '✦';
+                            trend.style.color = '#64B5F6';
+                        }
+
+                        weekData.appendChild(trend);
                         schoolStatCard.appendChild(weekData);
+
+                        // Update previous average for next iteration
+                        previousAverage = item.average;
                     });
                 });
             }
@@ -467,6 +501,9 @@
                 // Clear existing datasets
                 window.myChart.data.datasets = [];
 
+                let minValue = Infinity;
+                let maxValue = -Infinity;
+
                 // Add dataset for each selected school
                 window.selectedSchoolsList.forEach(school => {
                     // Get the data for this school
@@ -474,15 +511,30 @@
                     const schoolColor = window.getSchoolColor(school);
                     const schoolAbbrev = schoolAbbreviations[school];
 
+                    // Update min and max values
+                    schoolData.forEach(item => {
+                        if(item.average < minValue) minValue = item.average;
+                        if(item.average > maxValue) maxValue = item.average;
+                    });
+
                     window.myChart.data.datasets.push({
                         label: schoolAbbrev,
-                        data: schoolData.map(item => parseFloat(item.average.toFixed(2))),
+                        data: schoolData.map(item => item.average.toFixed(2)),
                         fill: false,
                         borderColor: schoolColor,
                         backgroundColor: `${schoolColor}20`,
                         pointBackgroundColor: schoolColor
                     });
                 });
+
+                // Add some padding to both min and max values
+                if(minValue !== Infinity && maxValue != -Infinity) {
+                    const roundedMin = Math.floor(minValue / 100) * 100;
+                    const roundedMax = Math.ceil(maxValue / 100) * 100
+
+                    window.myChart.options.scales.y.min = roundedMin;
+                    window.myChart.options.scales.y.max = roundedMax;
+                }
 
                 // Update the chart
                 window.myChart.update();
