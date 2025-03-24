@@ -42,9 +42,15 @@ def unipage():
 def home():
     # If user types in a school and presses submit
     if request.method == 'POST':
-        school_name = request.form.get('school_input')
-        return redirect(url_for('school', school_name=school_name))
+        school_input = request.form.get('school_input')
+        for slug, school_name in university_slugs.items():
+            if school_input == school_name:
+                return redirect(url_for('school', slug=slug))
+        
+        # Did not find school, return error page
+        return render_template('testing.html')
     
+
     # Default display (GET)
     
     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
@@ -71,18 +77,22 @@ def uni_comp_tool():
     return render_template('uni_comp_tool.html', ratings_json=ratings_json, school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations, school_websites=university_websites)
 
 
-@app.route('/school', methods=['GET', 'POST'])
-def school():
-    if request.method == 'POST':
-        school_name = request.form.get('school_input')
+
+
+@app.route('/<slug>', methods=['GET'])
+def school(slug):
+    # GET (direct URL access from homepage)
+    if slug in university_slugs:
+        school_name = university_slugs[slug]
         users = database.get_users_by_school(school_name)
         users.sort(key=lambda user: user['currentRating'], reverse=True)
 
-
-        return render_template('school.html', users=users, school_name=school_name)
-
-    # if just /school is typed in for some reason
-    return render_template('school.html')
+        return render_template('school.html', users=users, school_name=school_name, slug=slug)
+    
+    # School not found in slug list
+    print("got to school, not found")
+    return render_template('testing.html')
+    # return an error.html
 
 
 if __name__ == '__main__':
