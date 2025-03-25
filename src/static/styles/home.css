@@ -204,19 +204,35 @@ main {
     width: 150px;
 }
 
-.leaderboard tbody tr:nth-child(odd) {
-    background-color: rgba(37, 37, 37, 1);
-    border-radius: 9px;
+
+/* First fix an error in your existing CSS: change left to right for the last cell */
+.leaderboard tbody tr:nth-child(odd) td:last-child {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
 }
 
-.leaderboard tbody tr:nth-child(odd) td:first-child {
+/* Make sure all rows have cells with proper border radius */
+.leaderboard tbody tr td:first-child {
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
 }
 
-.leaderboard tbody tr:nth-child(odd) td:last-child {
+.leaderboard tbody tr td:last-child {
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
+}
+
+/* Remove this rule since it's redundant and could cause styling issues */
+.leaderboard tbody tr:nth-child(odd) {
+    background-color: rgba(37, 37, 37, 1);
+}
+
+/* Ensure the top 3 rank styling preserves border radius */
+.leaderboard tbody tr:nth-child(1) td:first-child,
+.leaderboard tbody tr:nth-child(2) td:first-child,
+.leaderboard tbody tr:nth-child(3) td:first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
 }
 
 .leaderboard tbody tr:nth-child(even),
@@ -343,6 +359,7 @@ main {
     rgba(184, 134, 11, 0) 70%
   );
   border-left: 3px solid #FFD700;
+  border-radius: 9px;
   z-index: 1;
 }
 
@@ -355,8 +372,7 @@ main {
     rgba(128, 128, 128, 0) 70%
   );
   border-left: 3px solid #C0C0C0;
-  border-top-left-radius: 9px;
-  border-bottom-left-radius: 9px;
+  border-radius: 9px;
   z-index: 1;
 }
 
@@ -369,6 +385,7 @@ main {
     rgba(139, 69, 19, 0) 70%
   );
   border-left: 3px solid #CD7F32;
+  border-radius: 9px;
   z-index: 1;
 }
 
@@ -391,7 +408,3 @@ main {
         min-width: unset;
     }
 }
-
-
-
-

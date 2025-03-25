@@ -27,7 +27,7 @@
     <main>
         <form method="POST" action="{{ url_for('home') }}">
             <span class="search">
-                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar">
+                <input type="text" name="school_input" placeholder="Type your institution here..." class="search-bar" autocomplete="off">
                 <button class="search-button">
                     <img src="{{ url_for('static', filename='icons/search_icon.png') }}" alt="Search" class="search-icon">
                 </button>
@@ -47,11 +47,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- {% for user in users %}
-                    <tr><td>[X]</td><td>{{ user.username }}</td><td>{{ user.school }}</td><td>{{ "%.2f" | format(user.contestRating) }}</td></tr>
-                {% endfor %} -->
-
-                <!-- TODO: Have to change rating change. (currenty hard coded)-->
                 {% for rating, school, rating_change in school_info %}
                     <tr>
                         <td>{{ loop.index0 + 1 }}</td>
@@ -119,5 +114,60 @@
         </div>
     </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get search input element
+            const searchInput = document.querySelector('.search-bar');
+
+            // Get all table from from leaderboard
+            const tableRows = document.querySelectorAll('.leaderboard tbody tr');
+
+            // Add input event listener to filter as the user types
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+
+                // Keep track of visible rows
+                let visibleRows = 0;
+
+                // Loop through all table rows
+                tableRows.forEach(row => {
+                    // Get university name from the second column
+                    const universityCell = row.querySelector('td:nth-child(2)');
+
+                    const universityName = universityCell.textContent.toLowerCase();
+
+                    // Show or hide the row based on whether it matches search input
+                    if(universityName.includes(searchTerm)) {
+                        row.style.display = ''; // Show row
+                        visibleRows++;
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Reapply background colors to maintain proper table coloring
+                const visibleRowsArray = Array.from(tableRows).filter(row =>
+                    row.style.display !== 'none'
+                );
+
+                visibleRowsArray.forEach((row, index) => {
+                    // Remove any previous background color
+                    row.style.backgroundColor = '';
+                    
+                    // Apply appropriate background color
+                    if(index % 2 === 0) {
+                        row.style.backgroundColor = 'rgb(37, 37, 37)';
+                    } else {
+                        row.style.backgroundColor = 'transparent';
+                    }
+                })
+
+                if(visibleRows === 1) {
+                    // ADD FUNCTIONALITY to handle pressing "enter" or clicking "search" if one result is shown
+                }
+            });
+        })
+    </script>
 </body>
 </html>
