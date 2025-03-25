@@ -52,7 +52,7 @@
                         <td>{{ loop.index0 + 1 }}</td>
                         <td>
                             <img src="https://img.logo.dev/{{ university_websites[school] }}">
-                            {{ school }}
+                            {{- school -}}
                         </td>
                         <td>{{ "%.2f" | format(rating) }}</td>
                         <td>{{ "%.2f" | format(rating_change) }}</td>
@@ -120,15 +120,59 @@
             // Get search input element
             const searchInput = document.querySelector('.search-bar');
 
+            // Get search form
+            const searchForm = document.querySelector('form');
+
             // Get all table from from leaderboard
             const tableRows = document.querySelectorAll('.leaderboard tbody tr');
+
+            // Track currently highlighted row index
+            let highlightedRowIndex = -1;
+
+            // Track visible rows for arrow navigation
+            let visibleRows = [];
+
+            // Style for highlighted row
+            const highlightStyle = '1.25px solid rgba(255, 255, 255, 0.4)';
+
+            // Function to highlight a specific row
+            function highlightRow(index) {
+                // Remove highlight from all rows first
+                visibleRows.forEach(row => {
+                    row.style.outline = '';
+                    row.style.borderRadius = '';
+                    row.style.boxShadow = '';
+                });
+
+                // Add highlight to the specified row if it exists
+                if(index >= 0 && index < visibleRows.length) {
+                    visibleRows[index].style.outline = highlightStyle;
+                    visibleRows[index].style.borderRadius = '9px';
+                    visibleRows[index].style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.3)';
+                    highlightedRowIndex = index;
+                }
+            }
+
+            // Function to navigate to university page
+            function navigateToUniversity() {
+                if(highlightedRowIndex >= 0 && highlightedRowIndex < visibleRows.length) {
+                    // Get university name from the highlighted row
+                    const universityCell = visibleRows[highlightedRowIndex].querySelector('td:nth-child(2)');
+                    const universityName = universityCell.textContent.trim();
+
+                    searchInput.value = universityName;
+
+                    // Submit the form
+                    searchForm.submit();
+                }
+            }
 
             // Add input event listener to filter as the user types
             searchInput.addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase().trim();
 
-                // Keep track of visible rows
-                let visibleRows = 0;
+                // Reset visible rows array
+                visibleRows = [];
 
                 // Loop through all table rows
                 tableRows.forEach(row => {
@@ -140,32 +184,90 @@
                     // Show or hide the row based on whether it matches search input
                     if(universityName.includes(searchTerm)) {
                         row.style.display = ''; // Show row
-                        visibleRows++;
+                        visibleRows.push(row);
                     } else {
                         row.style.display = 'none';
                     }
                 });
 
-                // Reapply background colors to maintain proper table coloring
-                const visibleRowsArray = Array.from(tableRows).filter(row =>
-                    row.style.display !== 'none'
-                );
-
-                visibleRowsArray.forEach((row, index) => {
+                // Loop through all table rows
+                visibleRows.forEach((row, index) => {
                     // Remove any previous background color
                     row.style.backgroundColor = '';
                     
-                    // Apply appropriate background color
+                    // Reapply background colors for desired zebra table coloring pattern
                     if(index % 2 === 0) {
                         row.style.backgroundColor = 'rgb(37, 37, 37)';
                     } else {
                         row.style.backgroundColor = 'transparent';
                     }
-                })
+                });
 
-                if(visibleRows === 1) {
-                    // ADD FUNCTIONALITY to handle pressing "enter" or clicking "search" if one result is shown
+                // Check if we're showing all rows in the original table
+                const showingAllRows = visibleRows.length === tableRows.length;
+
+                if(visibleRows.length > 0 && searchTerm.length > 0 && !showingAllRows) {
+                    highlightedRowIndex = 0;
+                    highlightRow(highlightedRowIndex);
+                } else {
+                    highlightedRowIndex = -1;
+                    visibleRows.forEach(row => {
+                        row.style.outline = '';
+                    });
                 }
+            });
+
+            // Add keyboard navigation
+            searchInput.addEventListener('keydown', function(e) {
+                // Only proceed if there are visible rows
+                if(visibleRows.length === 0) return;
+
+                switch(e.key) {
+                    case 'ArrowDown':
+                        // Move highlight down
+                        e.preventDefault();
+                        if(highlightedRowIndex < visibleRows.length - 1) {
+                            highlightRow(highlightedRowIndex + 1);
+                        }
+                        break;
+                    
+                    case 'ArrowUp':
+                        // Move highlight up
+                        e.preventDefault();
+                        if(highlightedRowIndex > 0) {
+                            highlightRow(highlightedRowIndex - 1);
+                        }
+                        break;
+
+                    case 'Enter':
+                        // Navigate to the selected university
+                        if(highlightedRowIndex >= 0) {
+                            e.preventDefault();
+                            navigateToUniversity();
+                        }
+                        // If no row is highlighted, let the form handle it normally
+                        // break;
+                }
+            });
+
+            const searchButton = document.querySelector('.search-button');
+            searchButton.addEventListener('click', function(e) {
+                if(highlightedRowIndex >= 0) {
+                    e.preventDefault();
+                    navigateToUniversity();
+                }
+            })
+
+
+            // Add click handler for rows
+            tableRows.forEach(row => {
+                const universityCell = row.querySelector('td:nth-child(2)');
+
+                universityCell.addEventListener('click', function(e) {
+                    const universityName = this.textContent.trim();
+                    searchInput.value = universityName;
+                    searchForm.submit();
+                })
             });
         })
     </script>

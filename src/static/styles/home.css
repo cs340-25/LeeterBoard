@@ -184,11 +184,15 @@ main {
 
 .leaderboard th:nth-child(2),
 .leaderboard td:nth-child(2) {
-    /*text-align: flex;*/
     text-align: left;
     font-weight: bold;
-    /*padding-left: 40px;*/
-    width: 350px; /* Example: Wider column for "University" */
+    width: 350px; /* Wider column for "University" */
+}
+
+.leaderboard td:nth-child(2):hover {
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0.8;
 }
 
 
@@ -359,7 +363,6 @@ main {
     rgba(184, 134, 11, 0) 70%
   );
   border-left: 3px solid #FFD700;
-  border-radius: 9px;
   z-index: 1;
 }
 
@@ -372,7 +375,6 @@ main {
     rgba(128, 128, 128, 0) 70%
   );
   border-left: 3px solid #C0C0C0;
-  border-radius: 9px;
   z-index: 1;
 }
 
@@ -385,7 +387,6 @@ main {
     rgba(139, 69, 19, 0) 70%
   );
   border-left: 3px solid #CD7F32;
-  border-radius: 9px;
   z-index: 1;
 }
 
@@ -408,3 +409,8 @@ main {
         min-width: unset;
     }
 }
+
+/*
+Idea:
+im thinking as soon as the user types something in the bar that actually filters down the data by at least ONE row, then there will be a thin highlight that borders the top row and as the user keeps typing and there are still rows in the table, the highlighted row will always be present at the top, but obviously the contents will change as the rows in the table change, but the highlighted border will stay at the very top row until the user uses arrow keys to navigate downwards, moving that highlighted border to highlight a different row. is this a good approach?
+*/
