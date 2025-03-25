@@ -3,6 +3,7 @@
   }
   
   
+  
   body {
     margin: 0;
     padding: 0;
@@ -21,7 +22,7 @@ header {
 
 .logo {
     height: 40px;
-    cursor: pointer; /* Makes it clear that it's clickable */
+    cursor: pointer;
     display: block; /* Prevents inline spacing */
 }
 
@@ -157,7 +158,7 @@ main {
 
 .leaderboard tr {
     height: 30px;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 /*table height rows*/
@@ -183,11 +184,15 @@ main {
 
 .leaderboard th:nth-child(2),
 .leaderboard td:nth-child(2) {
-    /*text-align: flex;*/
     text-align: left;
     font-weight: bold;
-    /*padding-left: 40px;*/
-    width: 350px; /* Example: Wider column for "University" */
+    width: 350px; /* Wider column for "University" */
+}
+
+.leaderboard td:nth-child(2):hover {
+    cursor: pointer;
+    text-decoration: underline;
+    opacity: 0.8;
 }
 
 
@@ -203,19 +208,35 @@ main {
     width: 150px;
 }
 
-.leaderboard tbody tr:nth-child(odd) {
-    background-color: rgba(37, 37, 37, 1);
-    border-radius: 9px;
+
+/* First fix an error in your existing CSS: change left to right for the last cell */
+.leaderboard tbody tr:nth-child(odd) td:last-child {
+    border-top-right-radius: 9px;
+    border-bottom-right-radius: 9px;
 }
 
-.leaderboard tbody tr:nth-child(odd) td:first-child {
+/* Make sure all rows have cells with proper border radius */
+.leaderboard tbody tr td:first-child {
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
 }
 
-.leaderboard tbody tr:nth-child(odd) td:last-child {
+.leaderboard tbody tr td:last-child {
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
+}
+
+/* Remove this rule since it's redundant and could cause styling issues */
+.leaderboard tbody tr:nth-child(odd) {
+    background-color: rgba(37, 37, 37, 1);
+}
+
+/* Ensure the top 3 rank styling preserves border radius */
+.leaderboard tbody tr:nth-child(1) td:first-child,
+.leaderboard tbody tr:nth-child(2) td:first-child,
+.leaderboard tbody tr:nth-child(3) td:first-child {
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
 }
 
 .leaderboard tbody tr:nth-child(even),
@@ -225,7 +246,7 @@ main {
 
 /*table height rows*/
 .leaderboard td {
-    padding: 11.5px;
+    padding: 14px;
 }
 
 /* Widgets */
@@ -249,11 +270,13 @@ main {
 
 .widget h3 {
     margin: 0 0 10px 0; /* Adds space below the header */
-    font-size: 17px;
+    font-size: 15px;
+    font-weight: 500;
     text-align: center;
-    padding: 12px; /* Increased padding for better spacing inside */
-    background: linear-gradient(to right, rgb(160, 40, 40), rgba(203, 16, 144, 0.731));
-    color: rgb(0, 0, 0); /* Changed to pure white for better contrast */
+    padding: 8px; /* Increased padding for better spacing inside */
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.6), rgba(203, 16, 144, 0.6));
+    border: 1.75px solid rgba(160, 40, 40, 0.85);
+    color: rgba(255, 255, 255, 0.75);
     border-radius: 9px;
     display: inline-block;
     width: 92.5%; /* Full width */
@@ -283,20 +306,31 @@ main {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 
     img {
-        width: 30px;
-        height: 30px;
+        width: 25px;
+        height: 25px;
         margin-right: 8px;
         border-radius: 50%;
         vertical-align: middle;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
         border: 2px solid rgba(0, 0, 0, 1);
     }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.2s ease;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        opacity: 0.8;
+        cursor: pointer;
+    }
 }
 
 .widget li:hover {
     background-color: rgba(255, 255, 255, 0.05);
     box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    cursor: pointer;
 }
   
 
@@ -320,6 +354,50 @@ main {
 }
 
 
+/* Gold highlight for 1st place */
+.leaderboard tbody tr:nth-child(1) td:first-child {
+  position: relative;
+  background: linear-gradient(to right, 
+    rgba(255, 215, 0, 0.25) 0%, 
+    rgba(218, 165, 32, 0.10) 10%, 
+    rgba(184, 134, 11, 0) 70%
+  );
+  border-left: 3px solid #FFD700;
+  z-index: 1;
+}
+
+/* Silver highlight for 2nd place */
+.leaderboard tbody tr:nth-child(2) td:first-child {
+  position: relative;
+  background: linear-gradient(to right, 
+    rgba(192, 192, 192, 0.25) 0%, 
+    rgba(169, 169, 169, 0.10) 10%, 
+    rgba(128, 128, 128, 0) 70%
+  );
+  border-left: 3px solid #C0C0C0;
+  z-index: 1;
+}
+
+/* Bronze highlight for 3rd place */
+.leaderboard tbody tr:nth-child(3) td:first-child {
+  position: relative;
+  background: linear-gradient(to right, 
+    rgba(205, 127, 50, 0.25) 0%, 
+    rgba(184, 115, 51, 0.10) 10%, 
+    rgba(139, 69, 19, 0) 70%
+  );
+  border-left: 3px solid #CD7F32;
+  z-index: 1;
+}
+
+/* Add metallic sheen effect to the borders */
+.leaderboard tbody tr:nth-child(1) td:first-child,
+.leaderboard tbody tr:nth-child(2) td:first-child,
+.leaderboard tbody tr:nth-child(3) td:first-child {
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+}
+
 
 @media screen and (max-width: 1200px) {
     .widgets-container {
@@ -331,7 +409,3 @@ main {
         min-width: unset;
     }
 }
-
-
-
-
