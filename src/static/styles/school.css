@@ -249,6 +249,17 @@ main {
     padding: 14px;
 }
 
+.leaderboard td a {
+    color: rgb(168, 168, 168); /* Match the default text color */
+    text-decoration: none; /* Optional: remove underline */
+}
+
+.leaderboard td a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+}
+
+
 /* Widgets */
 .widgets-container {
     display: flex;

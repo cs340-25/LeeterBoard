@@ -40,9 +40,11 @@
                         <td>
                             <span>
                                 <img src="{{ user.userAvatar }}"></img>
-                                <a href="https://leetcode.com/u/{{ user.username }}/">{{ user.username }}</a>
+                                <a href="https://leetcode.com/u/{{ user.username }}/" target="_blank" rel="noopener noreferrer">
+                                    {{ user.username }}
+                                </a>
                             </span>
-                        </td>
+                        </td>                        
                         <td>{{ "%.2f" | format(user.currentRating) }}</td>
                         <td>{{ "%.2f" | format(user.ratingChange) }}</td>
                     </tr>
