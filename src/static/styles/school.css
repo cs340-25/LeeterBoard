@@ -272,6 +272,7 @@ main {
     margin-top: 1px; /* Adds space above the box */
     margin-bottom: 19px; /* Adds space below the box */
     margin-left: 10px;
+    margin-right: 10px;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
