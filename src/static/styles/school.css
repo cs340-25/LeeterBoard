@@ -262,20 +262,48 @@ main {
 
 
 .university-name-box {
-    width: auto;
+    display: flex;
+    align-items: center; /* Align logo and text */
+    justify-content: center; /* Center the content */
+    gap: 10px; /* Space between logo and text */
     padding: 12px;
-    height: 20px;
+    height: 33px;
     border-radius: 9px;
     background-color: #2c2c2c;
-    color: rgb(168, 168, 168); /* Set text color to match the table gray */
+    color: rgb(192, 192, 192);
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.647);
-    margin-top: 1px; /* Adds space above the box */
-    margin-bottom: 19px; /* Adds space below the box */
+    margin-top: 1px;
+    margin-bottom: 19px;
     margin-left: 10px;
     margin-right: 10px;
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     text-align: center;
+}
+
+.university-name-box span {
+    padding-left: 15px;
+}
+
+.view-stats-button {
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.6), rgba(203, 16, 144, 0.6));
+    border: 1.75px solid rgba(160, 40, 40, 0.85);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 7px;
+    padding: 8px 17px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+    margin-left: auto; /* Pushes the button to the right inside the container */
+    box-shadow: 0 0px 5px rgba(0, 0, 0, 0.647);
+}
+
+.view-stats-button:hover {
+    background: linear-gradient(to right, rgba(203, 16, 144, 0.75), rgba(160, 40, 40, 0.75));
+    border-color: rgba(203, 16, 144, 0.9);
+    color: white;
 }
 
 

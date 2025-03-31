@@ -21,7 +21,11 @@
     </header>
 
     <main>
-        <h3 class="university-name-box">{{ school_name }}</h3>
+        <div class="university-name-box">
+            <span>{{ school_name }}</span>
+            <button class="view-stats-button" onclick="window.location.href='{{ url_for('unipage') }}'">View Stats</button>
+        </div>
+        
 
         
         <!-- Leaderboard Table -->
