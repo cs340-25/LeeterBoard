@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard - Test Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/brody.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="#">
+            <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        </a>
+        <div class="icon-container">
+            <a href="#">
+                <img src="{{ url_for('static', filename='icons/stats_icon.png') }}" alt="Stats Icon" class="stats_icon">
+            </a>
+            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+        </div>
+    </header>
+    
+    <main>
+        <!-- Basic search bar -->
+        <div class="search-wrapper">
+            <span class="search">
+                <input type="text" placeholder="Search example..." class="search-bar">
+                <button class="search-button">
+                    <img src="{{ url_for('static', filename='icons/search_icon.png') }}" alt="Search" class="search-icon">
+                </button>
+            </span>
+        </div>
+
+        <!-- Feature islands - Different ideas for the site -->
+        <div class="islands-container">
+            <!-- Achievement Showcase Island -->
+            <div class="island achievement-island">
+                <h2>Achievement Showcase</h2>
+                <p>Track and display coding achievements and badges earned by participants</p>
+                
+                <div class="achievement-grid">
+                    <div class="achievement">
+                        <div class="achievement-icon gold"></div>
+                        <span>Contest Winner</span>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon silver"></div>
+                        <span>Top 10 Solver</span>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon bronze"></div>
+                        <span>Fast Submitter</span>
+                    </div>
+                    <div class="achievement">
+                        <div class="achievement-icon special"></div>
+                        <span>Streak Master</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event Calendar Island -->
+            <div class="island calendar-island">
+                <h2>Contest Calendar</h2>
+                <p>View upcoming LeetCode contests and track university participation</p>
+                
+                <div class="calendar-preview">
+                    <div class="calendar-event">
+                        <div class="event-date">APR 5</div>
+                        <div class="event-details">
+                            <h4>Weekly Contest 398</h4>
+                            <p>22 universities registered</p>
+                        </div>
+                    </div>
+                    <div class="calendar-event">
+                        <div class="event-date">APR 12</div>
+                        <div class="event-details">
+                            <h4>Biweekly Contest 126</h4>
+                            <p>17 universities registered</p>
+                        </div>
+                    </div>
+                    <div class="calendar-event">
+                        <div class="event-date">APR 19</div>
+                        <div class="event-details">
+                            <h4>Weekly Contest 399</h4>
+                            <p>Registration opens soon</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Card Island -->
+            <div class="island stats-island">
+                <h2>University Stats Card</h2>
+                <p>Quick-view performance metrics for universities</p>
+                
+                <div class="stats-card">
+                    <div class="university-header">
+                        <h3>Example University</h3>
+                        <span class="rank">#12</span>
+                    </div>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Active Students</span>
+                            <span class="stat-value">124</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Avg. Rating</span>
+                            <span class="stat-value">1845.32</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Contests</span>
+                            <span class="stat-value">48</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Top 10 Finishes</span>
+                            <span class="stat-value">7</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Feed Island -->
+            <div class="island activity-island">
+                <h2>Recent Activity</h2>
+                <p>Track recent coding activity from your university</p>
+                
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <span class="activity-time">2h ago</span>
+                        <span class="activity-content">
+                            <b>User123</b> solved <b>Median of Two Sorted Arrays</b>
+                        </span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-time">4h ago</span>
+                        <span class="activity-content">
+                            <b>CodeMaster</b> earned <b>7-day streak</b> badge
+                        </span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-time">Yesterday</span>
+                        <span class="activity-content">
+                            <b>AlgoNinja</b> ranked <b>#3</b> in Weekly Contest
+                        </span>
+                    </div>
+                    <div class="activity-item">
+                        <span class="activity-time">2d ago</span>
+                        <span class="activity-content">
+                            <b>DevPro</b> joined the university team
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Widget sidebar with some example widgets -->
+        <div class="widgets-container">
+            <!-- Practice Trends Widget -->
+            <div class="widget">
+                <h3>Practice Focus Areas</h3>
+                <ul>
+                    <li>
+                        <div>Dynamic Programming</div>
+                        <span>32%</span>
+                    </li>
+                    <li>
+                        <div>Graph Algorithms</div>
+                        <span>27%</span>
+                    </li>
+                    <li>
+                        <div>Binary Search</div>
+                        <span>15%</span>
+                    </li>
+                    <li>
+                        <div>String Manipulation</div>
+                        <span>12%</span>
+                    </li>
+                    <li>
+                        <div>Other Topics</div>
+                        <span>14%</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Rising Stars Widget -->
+            <div class="widget">
+                <h3>Rising Stars</h3>
+                <ul>
+                    <li>
+                        <div>AlgoPro</div>
+                        <span class="score up">▲ 145</span>
+                    </li>
+                    <li>
+                        <div>CodeNinja</div>
+                        <span class="score up">▲ 126</span>
+                    </li>
+                    <li>
+                        <div>ByteMaster</div>
+                        <span class="score up">▲ 112</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

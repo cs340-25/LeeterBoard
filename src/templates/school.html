@@ -23,10 +23,8 @@
     <main>
         <div class="university-name-box">
             <span>{{ school_name }}</span>
-            <button class="view-stats-button" onclick="window.location.href='{{ url_for('unipage') }}'">View Stats</button>
+            <a href="{{ url_for('unipage2', slug=school_names_to_slugs[school_name]) }}" class="view-stats-button">View Stats</a>
         </div>
-        
-
         
         <!-- Leaderboard Table -->
         <table class="leaderboard">
@@ -44,10 +42,7 @@
                         <td>{{ loop.index0 + 1 }}</td>
                         <td>
                             <span>
-                                <img src="{{ user.userAvatar }}"></img>
-                                <a href="https://leetcode.com/u/{{ user.username }}/" target="_blank" rel="noopener noreferrer">
-                                    {{ user.username }}
-                                </a>
+                                <img src="{{ user.userAvatar }}"></img><a href="https://leetcode.com/u/{{ user.username }}/" target="_blank" rel="noopener noreferrer">{{-user.username-}}</a>
                             </span>
                         </td>                        
                         <td>{{ "%.2f" | format(user.currentRating) }}</td>

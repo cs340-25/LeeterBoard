@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard - Test Page</title>
+    <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/brody.css') }}">
+    <!-- Import the Exo 2 font family - this is what the main site uses -->
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header section - contains logo and icons -->
+    <header>
+        <!-- Logo on the left -->
+        <a href="#">
+            <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        </a>
+        <!-- Icons on the right -->
+        <div class="icon-container">
+            <a href="#">
+                <img src="{{ url_for('static', filename='icons/stats_icon.png') }}" alt="Stats Icon" class="stats_icon">
+            </a>
+            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+        </div>
+    </header>
+    
+    <!-- Main content area -->
+    <main>
+        <!-- Example Island 1: Basic box with title and content -->
+        <div class="island">
+            <h2>Example Island</h2>
+            <p>This is a simple content box you can modify or duplicate.</p>
+        </div>
+
+        <!-- Example Island 2: Another basic box -->
+        <div class="island">
+            <h2>Another Example</h2>
+            <p>Try changing colors, sizes, or adding new elements here.</p>
+            <!-- Example of a button -->
+            <button class="example-button">Click Me</button>
+        </div>
+
+        <!-- Example of a long horizontal bar -->
+        <div class="horizontal-bar">
+            <span>This is a horizontal bar element</span>
+        </div>
+
+        <!-- Example of a simple grid with two items -->
+        <div class="simple-grid">
+            <div class="grid-item">Grid Item 1</div>
+            <div class="grid-item">Grid Item 2</div>
+        </div>
+    </main>
+</body>
+</html>

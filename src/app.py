@@ -87,13 +87,19 @@ def school(slug):
         users = database.get_users_by_school(school_name)
         users.sort(key=lambda user: user['currentRating'], reverse=True)
 
-        return render_template('school.html', users=users, school_name=school_name, slug=slug)
+        school_names_to_slugs = {v: k for k, v in university_slugs.items()}
+
+        return render_template('school.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs)
     
     # School not found in slug list
     print("got to school, not found")
     return render_template('testing.html')
     # return an error.html
 
+
+@app.route('/brody')
+def brody():
+    return render_template('brody.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)

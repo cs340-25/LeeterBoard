@@ -1,0 +1,118 @@
+/* Base styles - applies to the whole page */
+* {
+    font-family: 'Exo 2', Sans-serif; /* Use the Exo 2 font for all elements */
+}
+
+body {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-color: #1a1a1a; /* Dark background - matches main site */
+    color: rgb(168, 168, 168); /* Light gray text - matches main site */
+}
+
+/* Header styling */
+header {
+    display: flex; /* Use flexbox layout */
+    align-items: center; /* Center items vertically */
+    justify-content: space-between; /* Space items apart horizontally */
+    background-color: black; /* Black background for header */
+    padding: 0px 20px; /* Add padding on the sides */
+}
+
+/* Logo styling */
+.logo {
+    height: 40px; /* Set logo height */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+/* Icon container styling */
+.icon-container {
+    display: flex; /* Use flexbox for icons */
+    align-items: center; /* Center icons vertically */
+    gap: 0; /* No gap between icons */
+}
+
+/* User icon styling */
+.user_icon {
+    height: 40px; /* Set icon height */
+    cursor: pointer; /* Show pointer cursor on hover */
+    margin-left: 5px; /* Adds space between stats and user icons */
+}
+
+/* Stats icon styling */
+.stats_icon {
+    height: 55px; /* Taller than the user icon */
+    cursor: pointer; /* Show pointer cursor on hover */
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+    display: block; /* Prevent inline spacing */
+}
+
+/* Style for the links wrapping icons */
+.icon-container a {
+    display: flex; /* Use flexbox for the link */
+    align-items: center; /* Center vertically */
+}
+
+/* Main content area */
+main {
+    padding: 20px; /* Add padding around all content */
+}
+
+/* Island component - a basic content box */
+.island {
+    background-color: rgba(37, 37, 37, 1); /* Dark gray background */
+    border-radius: 15px; /* Rounded corners */
+    padding: 20px; /* Add internal padding */
+    margin-bottom: 20px; /* Space between islands */
+    box-shadow: 0 0px 6px rgba(0, 0, 0, 0.4); /* Subtle shadow effect */
+}
+
+/* Island heading */
+.island h2 {
+    margin-top: 0; /* Remove top margin */
+    color: white; /* White text */
+    font-weight: 500; /* Medium weight font */
+    font-size: 18px; /* Text size */
+}
+
+/* Island paragraph */
+.island p {
+    margin-bottom: 15px; /* Space below paragraphs */
+}
+
+/* Example button styling */
+.example-button {
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px 15px; /* Add padding */
+    cursor: pointer; /* Show pointer cursor on hover */
+    font-size: 14px; /* Text size */
+}
+
+/* Horizontal bar example */
+.horizontal-bar {
+    background-color: rgba(37, 37, 37, 1); /* Dark gray background */
+    border-radius: 10px; /* Rounded corners */
+    padding: 15px; /* Internal padding */
+    margin-bottom: 20px; /* Space below the bar */
+    border-left: 4px solid rgb(160, 40, 40); /* Red accent on the left */
+}
+
+/* Simple grid layout */
+.simple-grid {
+    display: grid; /* Use CSS grid */
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 20px; /* Space between grid items */
+    margin-bottom: 20px; /* Space below the grid */
+}
+
+/* Grid item styling */
+.grid-item {
+    background-color: rgba(37, 37, 37, 1); /* Dark gray background */
+    padding: 20px; /* Internal padding */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Center text */
+}

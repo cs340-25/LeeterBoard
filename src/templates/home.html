@@ -245,8 +245,6 @@
                             e.preventDefault();
                             navigateToUniversity();
                         }
-                        // If no row is highlighted, let the form handle it normally
-                        // break;
                 }
             });
 
@@ -259,7 +257,7 @@
             })
 
 
-            // Add click handler for rows
+            // Add click handler for rows (only university names clickable)
             tableRows.forEach(row => {
                 const universityCell = row.querySelector('td:nth-child(2)');
 

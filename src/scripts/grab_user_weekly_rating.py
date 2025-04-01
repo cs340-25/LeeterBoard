@@ -51,7 +51,7 @@ async def request_all_user_ratings(batch_size: int):
     # Make all requests
     all_responses = []
     async with aiohttp.ClientSession() as session:
-        for i in range(0, len(payloads), batch_size):
+        for i in range(3070, 3080, batch_size):
             print(f"Making request {i}")
             batch_payloads = payloads[i: i + batch_size] # Gives us the payloads for this batch
             batch_usernames = payload_usernames[i: i + batch_size] # Gives us usernames correlated with each payload
@@ -70,7 +70,7 @@ async def request_all_user_ratings(batch_size: int):
             all_responses.extend(batch_responses)
 
             if i + batch_size < len(payloads):
-                await asyncio.sleep(0.25)
+                await asyncio.sleep(1)
 
     return all_responses
 

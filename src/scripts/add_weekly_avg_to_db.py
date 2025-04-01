@@ -18,13 +18,12 @@ university_avgs = client.leeterboard.university_avgs
 
 
 
-def get_previous_saturday():
+def get_second_previous_saturday():
     """
-    Returns the previous Saturday from the current date in 'YYYY-MM-DD' format.
-    If today is a Saturday, returns the Saturday from the previous week.
+    Returns the Saturday before the previous Saturday from the current date in 'YYYY-MM-DD' format.
     
     Returns:
-        str: Previous Saturday in 'YYYY-MM-DD' format.
+        str: Second previous Saturday in 'YYYY-MM-DD' format.
     """
     # Get current date
     current_date = datetime.now()
@@ -40,8 +39,11 @@ def get_previous_saturday():
     # Calculate the previous Saturday
     previous_saturday = current_date - timedelta(days=days_since_saturday)
     
+    # Now go back 7 more days to get the Saturday before that
+    second_previous_saturday = previous_saturday - timedelta(days=7)
+    
     # Return the formatted date
-    return previous_saturday.strftime('%Y-%m-%d')
+    return second_previous_saturday.strftime('%Y-%m-%d')
 
 
 
@@ -62,7 +64,7 @@ for school, curr_weekly_avg in school_curr_avgs:
 # Updates 3 fields, but pushes new current weekly school average to array for graph plotting
 def upsert_school(school_name, student_count, current_rating):
     # current_saturday = datetime.now().strftime('%Y-%m-%d')
-    previous_saturday = get_previous_saturday()
+    previous_saturday = get_second_previous_saturday()
 
     university_avgs.update_one(
         {'universityName': school_name},
