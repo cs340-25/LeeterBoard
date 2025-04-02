@@ -1,0 +1,600 @@
+/* Base styles */
+* {
+    font-family: 'Exo 2', Sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1a1a1a;
+    color: #a8a8a8;
+    min-height: 100vh;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000000;
+    padding: 12px 30px;
+    border-bottom: 1px solid #333;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #a02828;
+    letter-spacing: 0.5px;
+}
+
+.logo-highlight {
+    color: #cb1090;
+}
+
+.logo-icon {
+    margin-left: 4px;
+    font-size: 20px;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    color: #a8a8a8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.nav-item.active {
+    color: #cb1090;
+    background-color: rgba(203, 16, 144, 0.08);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #333;
+    cursor: pointer;
+    border: 2px solid rgba(203, 16, 144, 0.6);
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Main content */
+main {
+    display: flex;
+    padding: 30px;
+    gap: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* Profile bar */
+.profile-bar {
+    width: 300px;
+    background-color: #252525;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    min-height: calc(100vh - 100px);
+    border: 1px solid #333;
+}
+
+.university-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #333;
+}
+
+.university-logo img {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+.university-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    margin-bottom: 6px;
+}
+
+.university-abbreviation {
+    font-size: 20px;
+    font-weight: 700;
+    color: #a02828;
+    margin-bottom: 25px;
+}
+
+.stats-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 30px;
+    background: linear-gradient(to bottom, rgba(40, 40, 40, 0.5), rgba(30, 30, 30, 0.5));
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 11px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.stat-divider {
+    width: 1px;
+    background-color: #333;
+    margin: 0 10px;
+}
+
+.university-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background-color: rgba(40, 40, 40, 0.5);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+    transform: translateX(5px);
+    background-color: rgba(160, 40, 40, 0.1);
+    border-color: rgba(160, 40, 40, 0.3);
+}
+
+.detail-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(160, 40, 40, 0.2), rgba(203, 16, 144, 0.2));
+    border-radius: 8px;
+    border: 1px solid rgba(160, 40, 40, 0.3);
+}
+
+.detail-info {
+    flex: 1;
+}
+
+.detail-label {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.detail-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.view-members-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    color: white;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+    box-shadow: 0 4px 15px rgba(160, 40, 40, 0.3);
+    font-size: 14px;
+}
+
+.view-members-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(160, 40, 40, 0.4);
+}
+
+/* Right side content */
+.right-side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Graph container */
+.graph-container {
+    width: 100%;
+    background-color: #252525;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    flex: 3;
+}
+
+.graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 25px;
+    border-bottom: 1px solid #333;
+}
+
+.graph-header h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+}
+
+.time-filter {
+    display: flex;
+    gap: 8px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #333;
+    padding: 4px;
+}
+
+.time-filter-btn {
+    background: none;
+    border: none;
+    outline: none;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.time-filter-btn:hover {
+    color: white;
+}
+
+.time-filter-btn.active {
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.7), rgba(203, 16, 144, 0.7));
+    color: white;
+}
+
+.graph {
+    position: relative;
+    flex: 1;
+    padding: 20px 10px 10px 10px;
+    min-height: 300px;
+}
+
+#rating-display, .rating-display {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.7), rgba(203, 16, 144, 0.7));
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 180px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(160, 40, 40, 0.8);
+}
+
+/* Bottom row */
+.bottom-row {
+    display: flex;
+    gap: 30px;
+    flex: 2;
+}
+
+.uni-info, .badges {
+    flex: 1;
+    background-color: #252525;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #333;
+}
+
+.section-header h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+}
+
+.section-icon {
+    font-size: 18px;
+}
+
+/* University info content */
+.uni-info-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+}
+
+.highlight-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.highlight-title {
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
+}
+
+.highlight-user {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background-color: rgba(40, 40, 40, 0.5);
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.highlight-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.highlight-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.highlight-username {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+}
+
+.highlight-rating {
+    font-size: 14px;
+    color: #cb1090;
+    font-weight: 500;
+}
+
+.highlight-achievement {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background-color: rgba(40, 40, 40, 0.5);
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.achievement-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.achievement-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+}
+
+.achievement-date {
+    font-size: 12px;
+    color: #888;
+}
+
+.department-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.department-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.department-label {
+    width: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+}
+
+.department-bar-container {
+    flex: 1;
+    height: 8px;
+    background-color: #333;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.department-bar {
+    height: 100%;
+    background: linear-gradient(to right, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    border-radius: 4px;
+}
+
+.department-value {
+    width: 60px;
+    font-size: 14px;
+    color: #a8a8a8;
+    text-align: right;
+}
+
+/* Badges grid */
+.badges-grid {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 10px;
+    border-radius: 8px;
+    background-color: rgba(40, 40, 40, 0.5);
+    border: 1px solid #333;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.badge-item:hover {
+    transform: translateY(-3px);
+    background-color: rgba(40, 40, 40, 0.8);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.badge-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.gold {
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border: 2px solid rgba(255, 215, 0, 0.5);
+}
+
+.silver {
+    background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+    border: 2px solid rgba(192, 192, 192, 0.5);
+}
+
+.bronze {
+    background: linear-gradient(135deg, #cd7f32, #a46628);
+    border: 2px solid rgba(205, 127, 50, 0.5);
+}
+
+.locked {
+    background: linear-gradient(135deg, #444, #333);
+    border: 2px solid rgba(100, 100, 100, 0.5);
+    opacity: 0.7;
+}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard - Test Page</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/brody.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/more.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -154,6 +154,84 @@
             </div>
         </div>
 
+        <!-- Weekly Contest Rating Cards - New Section -->
+        <h2 class="section-title">Weekly Contest Rating Cards</h2>
+        <div class="rating-cards-container">
+            <!-- Tennessee Rating Card -->
+            <div class="rating-card">
+                <div class="rating-card-header tennessee">
+                    <h3>Tennessee</h3>
+                </div>
+                <div class="rating-card-body">
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-01</div>
+                        <div class="rating-score">1577.79</div>
+                        <div class="rating-change down">
+                            <span class="change-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-08</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change up">
+                            <span class="change-icon">▲</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-15</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-22</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alabama Rating Card -->
+            <div class="rating-card">
+                <div class="rating-card-header alabama">
+                    <h3>Alabama</h3>
+                </div>
+                <div class="rating-card-body">
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-01</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change up">
+                            <span class="change-icon">▲</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-08</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-15</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-22</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Widget sidebar with some example widgets -->
         <div class="widgets-container">
             <!-- Practice Trends Widget -->
@@ -201,6 +279,811 @@
                     </li>
                 </ul>
             </div>
+        </div>
+
+
+        <!-- Additional Rating Card Design Options -->
+        <h2 class="section-title">More Rating Card Design Options</h2>
+
+        <!-- Design Option 1: Flat Headers -->
+        <div class="rating-cards-container">
+            <!-- Tennessee Card - Flat Header -->
+            <div class="rating-card flat-header">
+                <div class="rating-card-header tennessee-flat">
+                    <h3>Tennessee</h3>
+                </div>
+                <div class="rating-card-body">
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-01</div>
+                        <div class="rating-score">1577.79</div>
+                        <div class="rating-change down">
+                            <span class="change-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-08</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change up">
+                            <span class="change-icon">▲</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-15</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-22</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alabama Card - Flat Header -->
+            <div class="rating-card flat-header">
+                <div class="rating-card-header alabama-flat">
+                    <h3>Alabama</h3>
+                </div>
+                <div class="rating-card-body">
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-01</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change up">
+                            <span class="change-icon">▲</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-08</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-15</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Week 2025-03-22</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Option 2: Side Accent with Rank -->
+        <h2 class="section-title">Side Accent Design</h2>
+        <div class="rating-cards-container">
+            <!-- Tennessee Card - Side Accent -->
+            <div class="rating-card side-accent tennessee-accent">
+                <div class="rating-card-header simple">
+                    <h3>Tennessee</h3>
+                    <div class="rank-badge">Rank #12</div>
+                </div>
+                <div class="rating-card-body compact">
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 01</div>
+                        <div class="rating-score">1577.79</div>
+                        <div class="rating-change down">
+                            <span class="change-icon">▼</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 08</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change up">
+                            <span class="change-icon">▲</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 15</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 22</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alabama Card - Side Accent -->
+            <div class="rating-card side-accent alabama-accent">
+                <div class="rating-card-header simple">
+                    <h3>Alabama</h3>
+                    <div class="rank-badge">Rank #16</div>
+                </div>
+                <div class="rating-card-body compact">
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 01</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change up">
+                            <span class="change-icon">▲</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 08</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 15</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                    <div class="rating-row">
+                        <div class="rating-date">Mar 22</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-change neutral">
+                            <span class="change-icon">→</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Design Option 3: Minimalist with Top Banner -->
+        <h2 class="section-title">Minimalist Design</h2>
+        <div class="rating-cards-container">
+            <!-- Tennessee Card - Minimalist -->
+            <div class="rating-card minimalist">
+                <div class="top-banner tennessee-banner"></div>
+                <div class="rating-card-header minimalist">
+                    <div class="school-logo tennessee-logo">T</div>
+                    <h3>Tennessee</h3>
+                </div>
+                <div class="rating-summary">
+                    <div class="current-rating">1588.68</div>
+                    <div class="progress-bar">
+                        <div class="progress tennessee-progress"></div>
+                    </div>
+                </div>
+                <div class="rating-card-body">
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 01</div>
+                        <div class="rating-score">1577.79</div>
+                        <div class="rating-delta negative">-10.89</div>
+                    </div>
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 08</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-delta positive">+10.89</div>
+                    </div>
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 15</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-delta neutral">0.00</div>
+                    </div>
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 22</div>
+                        <div class="rating-score">1588.68</div>
+                        <div class="rating-delta neutral">0.00</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Alabama Card - Minimalist -->
+            <div class="rating-card minimalist">
+                <div class="top-banner alabama-banner"></div>
+                <div class="rating-card-header minimalist">
+                    <div class="school-logo alabama-logo">A</div>
+                    <h3>Alabama</h3>
+                </div>
+                <div class="rating-summary">
+                    <div class="current-rating">1512.90</div>
+                    <div class="progress-bar">
+                        <div class="progress alabama-progress"></div>
+                    </div>
+                </div>
+                <div class="rating-card-body">
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 01</div>
+                        <div class="rating-score">1505.40</div>
+                        <div class="rating-delta positive">+7.50</div>
+                    </div>
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 08</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-delta neutral">0.00</div>
+                    </div>
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 15</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-delta neutral">0.00</div>
+                    </div>
+                    <div class="rating-row alt">
+                        <div class="rating-date">Mar 22</div>
+                        <div class="rating-score">1512.90</div>
+                        <div class="rating-delta neutral">0.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Widget Design Variations - Add this to the bottom of your HTML file -->
+        <h2 class="section-title">Widget Design Variations</h2>
+
+        <!-- Widget Container with Grid Layout -->
+        <div class="widgets-experimental-container">
+            
+            <!-- Variation 1: Rounded Cards with Accent Border -->
+            <div class="widget-variation rounded-accent">
+                <h3>Trending Users (Style 1)</h3>
+                <ul>
+                    <li>
+                        <div class="user-info">
+                            <div class="avatar avatar-accent">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>shivam_1v</div>
+                        </div>
+                        <span class="score up">▲ 108.00</span>
+                    </li>
+                    <li>
+                        <div class="user-info">
+                            <div class="avatar avatar-accent">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>jasonf7</div>
+                        </div>
+                        <span class="score up">▲ 57.83</span>
+                    </li>
+                    <li>
+                        <div class="user-info">
+                            <div class="avatar avatar-accent">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>dhairyachabra4747</div>
+                        </div>
+                        <span class="score up">▲ 56.96</span>
+                    </li>
+                    <li>
+                        <div class="user-info">
+                            <div class="avatar avatar-accent">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>atharvadixit15</div>
+                        </div>
+                        <span class="score up">▲ 54.82</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Variation 2: Clean Minimalist -->
+            <div class="widget-variation minimalist">
+                <h3>Trending Universities (Style 2)</h3>
+                <ul>
+                    <li>
+                        <div class="uni-info">
+                            <div class="uni-logo">KU</div>
+                            <div>Kansas University</div>
+                        </div>
+                        <div class="score-container">
+                            <div class="score-value">16.28</div>
+                            <div class="score-indicator positive"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="uni-info">
+                            <div class="uni-logo">D</div>
+                            <div>Denison</div>
+                        </div>
+                        <div class="score-container">
+                            <div class="score-value">7.90</div>
+                            <div class="score-indicator positive"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="uni-info">
+                            <div class="uni-logo">W</div>
+                            <div>Waterloo</div>
+                        </div>
+                        <div class="score-container">
+                            <div class="score-value">5.06</div>
+                            <div class="score-indicator positive"></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="uni-info">
+                            <div class="uni-logo">UMB</div>
+                            <div>UMB</div>
+                        </div>
+                        <div class="score-container">
+                            <div class="score-value">3.37</div>
+                            <div class="score-indicator positive"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Variation 3: Compact and Modern -->
+            <div class="widget-variation compact-modern">
+                <div class="widget-header">
+                    <h3>Trending Users (Style 3)</h3>
+                    <div class="filter-tabs">
+                        <span class="active">Week</span>
+                        <span>Month</span>
+                        <span>Year</span>
+                    </div>
+                </div>
+                <ul>
+                    <li>
+                        <div class="rank">1</div>
+                        <div class="user-info">
+                            <div class="avatar modern">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>shivam_1v</div>
+                        </div>
+                        <div class="trend-graph positive"></div>
+                        <span class="score modern-up">108.00</span>
+                    </li>
+                    <li>
+                        <div class="rank">2</div>
+                        <div class="user-info">
+                            <div class="avatar modern">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>jasonf7</div>
+                        </div>
+                        <div class="trend-graph positive"></div>
+                        <span class="score modern-up">57.83</span>
+                    </li>
+                    <li>
+                        <div class="rank">3</div>
+                        <div class="user-info">
+                            <div class="avatar modern">
+                                <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                            </div>
+                            <div>dhairyachabra4747</div>
+                        </div>
+                        <div class="trend-graph positive"></div>
+                        <span class="score modern-up">56.96</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Variation 4: Card-Based Layout -->
+            <div class="widget-variation card-based">
+                <h3>Top Universities (Style 4)</h3>
+                <div class="card-grid">
+                    <div class="mini-card">
+                        <div class="mini-card-header">
+                            <div class="uni-logo large">KU</div>
+                        </div>
+                        <div class="mini-card-body">
+                            <div class="uni-name">Kansas</div>
+                            <div class="uni-trend">
+                                <span class="score large-up">▲</span>
+                                <span class="trend-value">16.28</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="mini-card-header">
+                            <div class="uni-logo large">D</div>
+                        </div>
+                        <div class="mini-card-body">
+                            <div class="uni-name">Denison</div>
+                            <div class="uni-trend">
+                                <span class="score large-up">▲</span>
+                                <span class="trend-value">7.90</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="mini-card-header">
+                            <div class="uni-logo large">W</div>
+                        </div>
+                        <div class="mini-card-body">
+                            <div class="uni-name">Waterloo</div>
+                            <div class="uni-trend">
+                                <span class="score large-up">▲</span>
+                                <span class="trend-value">5.06</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mini-card">
+                        <div class="mini-card-header">
+                            <div class="uni-logo large">UMB</div>
+                        </div>
+                        <div class="mini-card-body">
+                            <div class="uni-name">UMB</div>
+                            <div class="uni-trend">
+                                <span class="score large-up">▲</span>
+                                <span class="trend-value">3.37</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hybrid Widget Design - Add this to the bottom of your HTML file -->
+        <h2 class="section-title">Enhanced Trending Widgets</h2>
+
+        <!-- Trending Users Widget -->
+        <div class="enhanced-widget">
+            <div class="enhanced-widget-header">
+                <h3>Trending Users</h3>
+                <div class="time-filter">
+                    <span class="active">Weekly</span>
+                    <span>Monthly</span>
+                </div>
+            </div>
+            
+            <ul class="enhanced-list">
+                <li class="enhanced-item">
+                    <div class="user-rank">1</div>
+                    <div class="enhanced-user-info">
+                        <div class="enhanced-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="user-name">shivam_1v</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+108.00</div>
+                    </div>
+                </li>
+                
+                <li class="enhanced-item">
+                    <div class="user-rank">2</div>
+                    <div class="enhanced-user-info">
+                        <div class="enhanced-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="user-name">jasonf7</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+57.83</div>
+                    </div>
+                </li>
+                
+                <li class="enhanced-item">
+                    <div class="user-rank">3</div>
+                    <div class="enhanced-user-info">
+                        <div class="enhanced-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="user-name">dhairyachabra4747</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+56.96</div>
+                    </div>
+                </li>
+                
+                <li class="enhanced-item">
+                    <div class="user-rank">4</div>
+                    <div class="enhanced-user-info">
+                        <div class="enhanced-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="user-name">atharvadixit15</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+54.82</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Trending Universities Widget -->
+        <div class="enhanced-widget">
+            <div class="enhanced-widget-header">
+                <h3>Trending Universities</h3>
+                <div class="time-filter">
+                    <span class="active">Weekly</span>
+                    <span>Monthly</span>
+                </div>
+            </div>
+            
+            <ul class="enhanced-list">
+                <li class="enhanced-item">
+                    <div class="user-rank ku-rank">1</div>
+                    <div class="enhanced-user-info">
+                        <div class="uni-emblem ku-emblem">KU</div>
+                        <div class="user-name">Kansas University</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+16.28</div>
+                    </div>
+                </li>
+                
+                <li class="enhanced-item">
+                    <div class="user-rank denison-rank">2</div>
+                    <div class="enhanced-user-info">
+                        <div class="uni-emblem denison-emblem">D</div>
+                        <div class="user-name">Denison</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+7.90</div>
+                    </div>
+                </li>
+                
+                <li class="enhanced-item">
+                    <div class="user-rank waterloo-rank">3</div>
+                    <div class="enhanced-user-info">
+                        <div class="uni-emblem waterloo-emblem">W</div>
+                        <div class="user-name">Waterloo</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+5.06</div>
+                    </div>
+                </li>
+                
+                <li class="enhanced-item">
+                    <div class="user-rank umb-rank">4</div>
+                    <div class="enhanced-user-info">
+                        <div class="uni-emblem umb-emblem">UMB</div>
+                        <div class="user-name">UMB</div>
+                    </div>
+                    <div class="rating-info">
+                        <div class="rating-change-label">Rating Change</div>
+                        <div class="rating-value positive">+3.37</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Refined Enhanced Widget Design -->
+        <h2 class="section-title">Enhanced Trending Widgets (Refined)</h2>
+
+        <!-- Trending Users Widget -->
+        <div class="refined-widget">
+            <div class="refined-widget-header">
+                <h3>Trending Users</h3>
+                <div class="refined-filter">
+                    <span class="active">Weekly</span>
+                    <span>Monthly</span>
+                </div>
+            </div>
+            
+            <div class="refined-legend">
+                <span class="legend-rank">Rank</span>
+                <span class="legend-user">User</span>
+                <span class="legend-rating">Rating Δ</span>
+            </div>
+            
+            <ul class="refined-list">
+                <li class="refined-item">
+                    <div class="refined-rank">1</div>
+                    <div class="refined-user-info">
+                        <div class="refined-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="refined-name">shivam_1v</div>
+                    </div>
+                    <div class="refined-rating positive">+108.00</div>
+                </li>
+                
+                <li class="refined-item">
+                    <div class="refined-rank">2</div>
+                    <div class="refined-user-info">
+                        <div class="refined-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="refined-name">jasonf7</div>
+                    </div>
+                    <div class="refined-rating positive">+57.83</div>
+                </li>
+                
+                <li class="refined-item">
+                    <div class="refined-rank">3</div>
+                    <div class="refined-user-info">
+                        <div class="refined-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="refined-name">dhairyachabra4747</div>
+                    </div>
+                    <div class="refined-rating positive">+56.96</div>
+                </li>
+                
+                <li class="refined-item">
+                    <div class="refined-rank">4</div>
+                    <div class="refined-user-info">
+                        <div class="refined-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="refined-name">atharvadixit15</div>
+                    </div>
+                    <div class="refined-rating positive">+54.82</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Trending Universities Widget -->
+        <div class="refined-widget">
+            <div class="refined-widget-header">
+                <h3>Trending Universities</h3>
+                <div class="refined-filter">
+                    <span class="active">Weekly</span>
+                    <span>Monthly</span>
+                </div>
+            </div>
+            
+            <div class="refined-legend">
+                <span class="legend-rank">Rank</span>
+                <span class="legend-user">University</span>
+                <span class="legend-rating">Rating Δ</span>
+            </div>
+            
+            <ul class="refined-list">
+                <li class="refined-item">
+                    <div class="refined-rank ku-rank">1</div>
+                    <div class="refined-user-info">
+                        <div class="refined-emblem ku-emblem">KU</div>
+                        <div class="refined-name">Kansas University</div>
+                    </div>
+                    <div class="refined-rating positive">+16.28</div>
+                </li>
+                
+                <li class="refined-item">
+                    <div class="refined-rank denison-rank">2</div>
+                    <div class="refined-user-info">
+                        <div class="refined-emblem denison-emblem">D</div>
+                        <div class="refined-name">Denison</div>
+                    </div>
+                    <div class="refined-rating positive">+7.90</div>
+                </li>
+                
+                <li class="refined-item">
+                    <div class="refined-rank waterloo-rank">3</div>
+                    <div class="refined-user-info">
+                        <div class="refined-emblem waterloo-emblem">W</div>
+                        <div class="refined-name">Waterloo</div>
+                    </div>
+                    <div class="refined-rating positive">+5.06</div>
+                </li>
+                
+                <li class="refined-item">
+                    <div class="refined-rank umb-rank">4</div>
+                    <div class="refined-user-info">
+                        <div class="refined-emblem umb-emblem">UMB</div>
+                        <div class="refined-name">UMB</div>
+                    </div>
+                    <div class="refined-rating positive">+3.37</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Sleek Widget Design -->
+        <h2 class="section-title">Refined Trending Widgets</h2>
+
+        <!-- Trending Users Widget -->
+        <div class="sleek-widget">
+            <div class="sleek-widget-header">
+                <h3>Trending Users</h3>
+            </div>
+            
+            <div class="sleek-legend">
+                <span class="legend-rank">Rank</span>
+                <span class="legend-user">User</span>
+                <span class="legend-rating">Rating Δ</span>
+            </div>
+            
+            <ul class="sleek-list">
+                <li class="sleek-item">
+                    <div class="sleek-rank">1</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="sleek-name">shivam_1v</div>
+                    </div>
+                    <div class="sleek-rating positive">+108.00</div>
+                </li>
+                
+                <li class="sleek-item">
+                    <div class="sleek-rank">2</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="sleek-name">jasonf7</div>
+                    </div>
+                    <div class="sleek-rating positive">+57.83</div>
+                </li>
+                
+                <li class="sleek-item">
+                    <div class="sleek-rank">3</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="sleek-name">dhairyachabra4747</div>
+                    </div>
+                    <div class="sleek-rating positive">+56.96</div>
+                </li>
+                
+                <li class="sleek-item">
+                    <div class="sleek-rank">4</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-avatar">
+                            <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User">
+                        </div>
+                        <div class="sleek-name">atharvadixit15</div>
+                    </div>
+                    <div class="sleek-rating positive">+54.82</div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Trending Universities Widget -->
+        <div class="sleek-widget">
+            <div class="sleek-widget-header">
+                <h3>Trending Universities</h3>
+            </div>
+            
+            <div class="sleek-legend">
+                <span class="legend-rank">Rank</span>
+                <span class="legend-user">University</span>
+                <span class="legend-rating">Rating Δ</span>
+            </div>
+            
+            <ul class="sleek-list">
+                <li class="sleek-item">
+                    <div class="sleek-rank ku-rank">1</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-emblem ku-emblem">KU</div>
+                        <div class="sleek-name">Kansas University</div>
+                    </div>
+                    <div class="sleek-rating positive">+16.28</div>
+                </li>
+                
+                <li class="sleek-item">
+                    <div class="sleek-rank denison-rank">2</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-emblem denison-emblem">D</div>
+                        <div class="sleek-name">Denison</div>
+                    </div>
+                    <div class="sleek-rating positive">+7.90</div>
+                </li>
+                
+                <li class="sleek-item">
+                    <div class="sleek-rank waterloo-rank">3</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-emblem waterloo-emblem">W</div>
+                        <div class="sleek-name">Waterloo</div>
+                    </div>
+                    <div class="sleek-rating positive">+5.06</div>
+                </li>
+                
+                <li class="sleek-item">
+                    <div class="sleek-rank umb-rank">4</div>
+                    <div class="sleek-user-info">
+                        <div class="sleek-emblem umb-emblem">UMB</div>
+                        <div class="sleek-name">UMB</div>
+                    </div>
+                    <div class="sleek-rating positive">+3.37</div>
+                </li>
+            </ul>
         </div>
     </main>
 </body>

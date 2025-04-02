@@ -97,9 +97,31 @@ def school(slug):
     # return an error.html
 
 
+# Test Route for Brody
 @app.route('/brody')
 def brody():
     return render_template('brody.html')
+
+# Test Route for Suggested AI Visuals
+@app.route('/more')
+def more():
+    return render_template('more.html')
+
+@app.route('/new')
+def new():
+    return render_template('new.html')
+
+@app.route('/unitest')
+def unitest():
+    return render_template('unitest.html')
+
+@app.route('/unitest2')
+def unitest2():
+    return render_template('unitest2.html')
+
+@app.route('/all-schools')
+def allschools():
+    return render_template('all_schools.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)

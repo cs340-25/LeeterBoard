@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard - University Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/unitest2.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Chart.js for the graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <span class="logo-text">Leeter<span class="logo-highlight">Board</span></span>
+            <span class="logo-icon">📚</span>
+        </div>
+        <div class="nav-container">
+            <nav class="main-nav">
+                <a href="#" class="nav-item active">Universities</a>
+                <a href="#" class="nav-item">Leaderboard</a>
+                <a href="#" class="nav-item">Contests</a>
+                <a href="#" class="nav-item">Compare</a>
+            </nav>
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="https://i.imgur.com/6VBx3io.png" alt="User Icon">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="profile-bar">
+            <div class="university-logo">
+                <img src="https://i.imgur.com/JQZQOyf.png" alt="MIT Logo">
+            </div>
+            <div class="university-name">Massachusetts Institute of Technology</div>
+            <div class="university-abbreviation">MIT</div>
+            
+            <div class="stats-container">
+                <div class="stat-item">
+                    <div class="stat-value">1794.6</div>
+                    <div class="stat-label">Average Rating</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-value">#2</div>
+                    <div class="stat-label">Global Rank</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <div class="stat-value">243</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+            </div>
+            
+            <div class="university-details">
+                <div class="detail-item">
+                    <div class="detail-icon">🏆</div>
+                    <div class="detail-info">
+                        <div class="detail-label">Contest Wins</div>
+                        <div class="detail-value">17</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">⭐</div>
+                    <div class="detail-info">
+                        <div class="detail-label">Top Performers</div>
+                        <div class="detail-value">32</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">📈</div>
+                    <div class="detail-info">
+                        <div class="detail-label">Monthly Growth</div>
+                        <div class="detail-value">+12.4%</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-icon">👥</div>
+                    <div class="detail-info">
+                        <div class="detail-label">New Members</div>
+                        <div class="detail-value">14 this month</div>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#" class="view-members-btn">View All Members</a>
+        </div>
+
+        <div class="right-side">
+            <div class="graph-container">
+                <div class="graph-header">
+                    <h2>Rating Progress</h2>
+                    <div class="time-filter">
+                        <button class="time-filter-btn active">3M</button>
+                        <button class="time-filter-btn">6M</button>
+                        <button class="time-filter-btn">1Y</button>
+                        <button class="time-filter-btn">All</button>
+                    </div>
+                </div>
+                <div class="graph">
+                    <canvas id="ratings-line-graph"></canvas>
+                    <div id="rating-display" class="rating-display">Contest Rating: 1,794.6</div>
+                </div>
+            </div>
+
+            <div class="bottom-row">
+                <div class="uni-info">
+                    <div class="section-header">
+                        <h2>University Highlights</h2>
+                        <span class="section-icon">🎓</span>
+                    </div>
+                    <div class="uni-info-content">
+                        <div class="highlight-item">
+                            <div class="highlight-title">Top Performer</div>
+                            <div class="highlight-user">
+                                <div class="highlight-user-avatar">
+                                    <span>MA</span>
+                                </div>
+                                <div class="highlight-user-info">
+                                    <div class="highlight-username">mit_algorithm</div>
+                                    <div class="highlight-rating">2256.78</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-title">Recent Achievement</div>
+                            <div class="highlight-achievement">
+                                <div class="achievement-icon">🏅</div>
+                                <div class="achievement-info">
+                                    <div class="achievement-name">March Coding Challenge Champions</div>
+                                    <div class="achievement-date">March 22, 2025</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <div class="highlight-title">Department Performance</div>
+                            <div class="department-bars">
+                                <div class="department-item">
+                                    <div class="department-label">CS</div>
+                                    <div class="department-bar-container">
+                                        <div class="department-bar" style="width: 90%"></div>
+                                    </div>
+                                    <div class="department-value">2102</div>
+                                </div>
+                                <div class="department-item">
+                                    <div class="department-label">EE</div>
+                                    <div class="department-bar-container">
+                                        <div class="department-bar" style="width: 75%"></div>
+                                    </div>
+                                    <div class="department-value">1876</div>
+                                </div>
+                                <div class="department-item">
+                                    <div class="department-label">Math</div>
+                                    <div class="department-bar-container">
+                                        <div class="department-bar" style="width: 65%"></div>
+                                    </div>
+                                    <div class="department-value">1643</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="badges">
+                    <div class="section-header">
+                        <h2>Achievement Badges</h2>
+                        <span class="section-icon">🏆</span>
+                    </div>
+                    <div class="badges-grid">
+                        <div class="badge-item">
+                            <div class="badge-icon gold">🏆</div>
+                            <div class="badge-name">Contest Champion</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon silver">⚡</div>
+                            <div class="badge-name">Speed Demon</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon gold">🧠</div>
+                            <div class="badge-name">Algorithm Master</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon bronze">📊</div>
+                            <div class="badge-name">Data Structure Guru</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon silver">🚀</div>
+                            <div class="badge-name">Fast Climber</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon gold">👑</div>
+                            <div class="badge-name">Elite University</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon bronze">🔍</div>
+                            <div class="badge-name">Problem Solver</div>
+                        </div>
+                        <div class="badge-item">
+                            <div class="badge-icon locked">🔒</div>
+                            <div class="badge-name">Locked Badge</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Simplified graph data (this would normally come from your backend)
+        const ratingsData = [
+            { week: '2025-03-01', average: 1765.4 },
+            { week: '2025-03-08', average: 1783.2 },
+            { week: '2025-03-15', average: 1790.1 },
+            { week: '2025-03-22', average: 1794.6 }
+        ];
+
+        const ctx = document.getElementById('ratings-line-graph');
+        
+        // Create gradient for line
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
+        gradient.addColorStop(0, 'rgb(160, 40, 40)');
+        gradient.addColorStop(1, 'rgb(203, 16, 144)');
+        
+        // Create gradient for area fill
+        const fillGradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 300);
+        fillGradient.addColorStop(0, 'rgba(160, 40, 40, 0.2)');
+        fillGradient.addColorStop(1, 'rgba(160, 40, 40, 0.01)');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ratingsData.map(item => `Week ${item.week.substring(8)}`),
+                datasets: [{
+                    data: ratingsData.map(item => item.average),
+                    fill: true,
+                    borderColor: gradient,
+                    backgroundColor: fillGradient,
+                    borderWidth: 3,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                
+                hover: {
+                    mode: 'index',
+                    intersect: false
+                },
+                
+                elements: {
+                    point: {
+                        backgroundColor: gradient,
+                        borderColor: 'white',
+                        borderWidth: 2,
+                        radius: 5,
+                        hoverRadius: 8,
+                        hitRadius: 10,
+                    },
+                    line: {
+                        tension: 0.3
+                    }
+                },
+                
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 30,
+                        top: 30,
+                        bottom: 15,
+                    }
+                },
+                
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)',
+                            font: {
+                                size: 12,
+                                family: "'Exo 2', sans-serif"
+                            },
+                            padding: 10
+                        }
+                    },
+                    
+                    y: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)',
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: 'rgba(255, 255, 255, 0.6)',
+                            font: {
+                                size: 12,
+                                family: "'Exo 2', sans-serif"
+                            },
+                            padding: 10
+                        },
+                        min: 1300,
+                        max: 1850
+                    },
+                },
+                
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                }
+            },
+        });
+    </script>
+</body>
+</html>
