@@ -81,6 +81,7 @@ def uni_comp_tool():
 
 @app.route('/<slug>', methods=['GET'])
 def school(slug):
+    print(slug)
     # GET (direct URL access from homepage)
     if slug in university_slugs:
         school_name = university_slugs[slug]
@@ -107,9 +108,6 @@ def brody():
 def more():
     return render_template('more.html')
 
-@app.route('/new')
-def new():
-    return render_template('new.html')
 
 @app.route('/unitest')
 def unitest():
@@ -122,6 +120,41 @@ def unitest2():
 @app.route('/all-schools')
 def allschools():
     return render_template('all_schools.html')
+
+
+
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+    # If user types in a school and presses submit
+    if request.method == 'POST':
+        school_input = request.form.get('school_input')
+        print(school_input)
+        for slug, school_name in university_slugs.items():
+            if school_input == school_name:
+                return redirect(url_for('school', slug=slug))
+        
+        # Did not find school, return error page
+        return render_template('testing.html')
+    
+
+    # Default display (GET)
+    
+    # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
+    school_info = database.grab_university_info()
+    school_info.sort(reverse=True)
+
+    # Grabs all user rating changes -> sorted by rating changes (desc.)
+    user_rating_changes = database.get_user_rating_changes()
+    user_rating_changes.sort(reverse=True)
+
+    # Grabs all school info (curr avg rating, school name, rating change) -> sorted by rating change (desc.)
+    school_rating_changes = database.grab_university_info()
+    school_rating_changes.sort(key=lambda x: x[2], reverse=True)
+
+    return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
+                           university_websites=university_websites, university_abbreviations=university_abbreviations)
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000)

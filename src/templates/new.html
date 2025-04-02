@@ -8,22 +8,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/new.css') }}">
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <div class="logo-container">
-            <h1 class="logo">Leeter<span class="logo-highlight">Board</span><span class="logo-icon">📚</span></h1>
-        </div>
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static', filename='icons/test_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+        </a>
         <div class="nav-container">
-            <nav class="main-nav">
-                <a href="#" class="nav-item active">Universities</a>
-                <a href="#" class="nav-item">Leaderboard</a>
-                <a href="#" class="nav-item">Contests</a>
-                <a href="#" class="nav-item">Profiles</a>
-            </nav>
-            <a href="#" class="compare-tool-button">
-                <span class="compare-icon">📈</span>
-                <span class="compare-text">Compare Universities</span>
-            </a>
+            <!-- <a href="#" class="nav-item">All Schools</a>
+            <a href="#" class="nav-item">Compare Universities</a> -->
         </div>
     </header>
     
@@ -31,13 +22,17 @@
         <div class="content-container">
             <!-- Main Rankings Table Section -->
             <div class="rankings-section">
-                <div class="rankings-header">
-                    <h2>University Rankings</h2>
-                    <div class="search-container">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" class="search-input" placeholder="Search for universities...">
+                <form method="POST" action="{{ url_for('home')}}">
+                    <div class="rankings-header">
+                        <h2>University Rankings</h2>
+                        <div class="search-container">
+                            <button type="button" class="search-button">
+                                <img src="{{ url_for('static', filename='icons/search.svg') }}" class="search-icon">
+                            </button>
+                            <input type="text" name="school_input" class="search-input" placeholder="Search for universities..." autocomplete="off">
+                        </div>
                     </div>
-                </div>
+                </form>
                 
                 <div class="table-header">
                     <div class="column-rank">Rank</div>
@@ -47,100 +42,33 @@
                 </div>
                 
                 <ul class="university-list">
-                    <!-- MIT -->
+                    {% for rating, school, rating_change in school_info %}
+
                     <li class="university-item">
                         <div class="rank-container">
-                            <div class="rank-number gold">1</div>
+                            <div class="rank-number ">{{ loop.index0 + 1 }}</div>
                         </div>
                         <div class="university-info">
-                            <div class="university-logo mit-logo">MIT</div>
+                            <!-- <img src="https://img.logo.dev/{{ university_websites[school] }}" class="university-logo"></img> -->
+                            <img src="https://cdn.brandfetch.io/{{ university_websites[school] }}/w/400/h/400?c=1idl-cR2qqIMB2mSLMf" class="university-logo"></img>
                             <div class="university-details">
-                                <div class="university-name">Massachusetts Institute of Technology</div>
+                                <div class="university-name">{{ school }}</div>
                                 <div class="university-stats">
-                                    <span class="stat-item"><span class="stat-icon">👥</span> 243 members</span>
-                                    <span class="stat-item"><span class="stat-icon">🏆</span> 17 wins</span>
+                                    <span class="stat-item"><span class="stat-icon">👥</span> [MEMBERS] </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="rating">1797.73</div>
-                        <div class="rating-change negative">-0.29</div>
+                        <div class="rating">{{ "%.2f" | format(rating) }}</div>
+                        {% if rating_change > 0 %}
+                            <div class="rating-change positive">+{{ "%.2f" | format(rating_change) }}</div>
+                        {% elif rating_change < 0 %}
+                            <div class="rating-change negative">{{ "%.2f" | format(rating_change) }}</div>
+                        {% else %}
+                            <div class="rating-change neutral">{{ "%.2f" | format(rating_change) }}</div>
+                        {% endif %}
                     </li>
                     
-                    <!-- Emory -->
-                    <li class="university-item">
-                        <div class="rank-container">
-                            <div class="rank-number silver">2</div>
-                        </div>
-                        <div class="university-info">
-                            <div class="university-logo emory-logo">E</div>
-                            <div class="university-details">
-                                <div class="university-name">Emory University</div>
-                                <div class="university-stats">
-                                    <span class="stat-item"><span class="stat-icon">👥</span> 187 members</span>
-                                    <span class="stat-item"><span class="stat-icon">🏆</span> 12 wins</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating">1784.18</div>
-                        <div class="rating-change neutral">0.00</div>
-                    </li>
-                    
-                    <!-- Waterloo -->
-                    <li class="university-item">
-                        <div class="rank-container">
-                            <div class="rank-number bronze">3</div>
-                        </div>
-                        <div class="university-info">
-                            <div class="university-logo waterloo-logo">W</div>
-                            <div class="university-details">
-                                <div class="university-name">University of Waterloo</div>
-                                <div class="university-stats">
-                                    <span class="stat-item"><span class="stat-icon">👥</span> 219 members</span>
-                                    <span class="stat-item"><span class="stat-icon">🏆</span> 14 wins</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating">1782.77</div>
-                        <div class="rating-change positive">+5.06</div>
-                    </li>
-                    
-                    <!-- Duke -->
-                    <li class="university-item">
-                        <div class="rank-container">
-                            <div class="rank-number">4</div>
-                        </div>
-                        <div class="university-info">
-                            <div class="university-logo duke-logo">D</div>
-                            <div class="university-details">
-                                <div class="university-name">Duke University</div>
-                                <div class="university-stats">
-                                    <span class="stat-item"><span class="stat-icon">👥</span> 165 members</span>
-                                    <span class="stat-item"><span class="stat-icon">🏆</span> 9 wins</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating">1741.07</div>
-                        <div class="rating-change neutral">0.00</div>
-                    </li>
-                    
-                    <!-- Dartmouth -->
-                    <li class="university-item">
-                        <div class="rank-container">
-                            <div class="rank-number">5</div>
-                        </div>
-                        <div class="university-info">
-                            <div class="university-logo dartmouth-logo">DC</div>
-                            <div class="university-details">
-                                <div class="university-name">Dartmouth College</div>
-                                <div class="university-stats">
-                                    <span class="stat-item"><span class="stat-icon">👥</span> 142 members</span>
-                                    <span class="stat-item"><span class="stat-icon">🏆</span> 8 wins</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="rating">1712.98</div>
-                        <div class="rating-change neutral">0.00</div>
-                    </li>
+                    {% endfor %}
                 </ul>
                 
                 <div class="pagination">
@@ -158,7 +86,6 @@
                 <div class="widget">
                     <div class="widget-header">
                         <h3>Trending Users</h3>
-                        <span class="widget-icon">📈</span>
                     </div>
                     
                     <div class="widget-content">
@@ -169,69 +96,25 @@
                         </div>
                         
                         <ul class="widget-list">
+
+                            {% for rating_change, user, user_avatar in user_rating_changes[:5] %}
+
                             <li class="widget-item">
                                 <div class="user-rank">
-                                    <div class="rank-circle gold">1</div>
+                                    <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                 </div>
-                                <div class="user-info">
-                                    <div class="user-avatar red-avatar">
-                                        <span>SV</span>
-                                    </div>
+                                <a href="https://leetcode.com/u/{{ user }}/" class="user-info" target="_blank">
+                                    <img src="{{ user_avatar }}" class="user-avatar">
                                     <div class="user-details">
-                                        <div class="user-name">shivam_1v</div>
-                                        <div class="user-university">MIT</div>
+                                        <div class="user-name">{{ user }}</div>
+                                        <div class="user-university">[SCHOOL]</div>
                                     </div>
-                                </div>
-                                <div class="user-rating positive">+108.00</div>
+                                </a>
+                                <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
                             </li>
+
+                            {% endfor %}
                             
-                            <li class="widget-item">
-                                <div class="user-rank">
-                                    <div class="rank-circle silver">2</div>
-                                </div>
-                                <div class="user-info">
-                                    <div class="user-avatar gold-avatar">
-                                        <span>JF</span>
-                                    </div>
-                                    <div class="user-details">
-                                        <div class="user-name">jasonf7</div>
-                                        <div class="user-university">Waterloo</div>
-                                    </div>
-                                </div>
-                                <div class="user-rating positive">+57.83</div>
-                            </li>
-                            
-                            <li class="widget-item">
-                                <div class="user-rank">
-                                    <div class="rank-circle bronze">3</div>
-                                </div>
-                                <div class="user-info">
-                                    <div class="user-avatar blue-avatar">
-                                        <span>DC</span>
-                                    </div>
-                                    <div class="user-details">
-                                        <div class="user-name">dhairyachabra4747</div>
-                                        <div class="user-university">Duke</div>
-                                    </div>
-                                </div>
-                                <div class="user-rating positive">+56.96</div>
-                            </li>
-                            
-                            <li class="widget-item">
-                                <div class="user-rank">
-                                    <div class="rank-circle">4</div>
-                                </div>
-                                <div class="user-info">
-                                    <div class="user-avatar red-avatar">
-                                        <span>AD</span>
-                                    </div>
-                                    <div class="user-details">
-                                        <div class="user-name">atharvadixit15</div>
-                                        <div class="user-university">Emory</div>
-                                    </div>
-                                </div>
-                                <div class="user-rating positive">+54.82</div>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -240,7 +123,6 @@
                 <div class="widget">
                     <div class="widget-header">
                         <h3>Trending Universities</h3>
-                        <span class="widget-icon">🚀</span>
                     </div>
                     
                     <div class="widget-content">
@@ -251,61 +133,26 @@
                         </div>
                         
                         <ul class="widget-list">
-                            <li class="widget-item">
-                                <div class="user-rank">
-                                    <div class="rank-circle gold">1</div>
-                                </div>
-                                <div class="user-info">
-                                    <div class="uni-logo ku-logo">KU</div>
-                                    <div class="user-details">
-                                        <div class="user-name">Kansas University</div>
-                                        <div class="user-count">127 members</div>
-                                    </div>
-                                </div>
-                                <div class="user-rating positive">+16.28</div>
-                            </li>
+
+                            {% for rating, school, rating_change in school_rating_changes[:5] %}
                             
                             <li class="widget-item">
                                 <div class="user-rank">
-                                    <div class="rank-circle silver">2</div>
+                                    <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                 </div>
                                 <div class="user-info">
-                                    <div class="uni-logo denison-logo">D</div>
+                                    <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
                                     <div class="user-details">
-                                        <div class="user-name">Denison</div>
-                                        <div class="user-count">98 members</div>
+                                        <div class="user-name">{{ university_abbreviations[school] }}</div>
+                                        <div class="user-count">[MEMBERS]</div>
                                     </div>
                                 </div>
-                                <div class="user-rating positive">+7.90</div>
+                                <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
                             </li>
+
+                            {% endfor %}
                             
-                            <li class="widget-item">
-                                <div class="user-rank">
-                                    <div class="rank-circle bronze">3</div>
-                                </div>
-                                <div class="user-info">
-                                    <div class="uni-logo waterloo-logo">W</div>
-                                    <div class="user-details">
-                                        <div class="user-name">Waterloo</div>
-                                        <div class="user-count">219 members</div>
-                                    </div>
-                                </div>
-                                <div class="user-rating positive">+5.06</div>
-                            </li>
-                            
-                            <li class="widget-item">
-                                <div class="user-rank">
-                                    <div class="rank-circle">4</div>
-                                </div>
-                                <div class="user-info">
-                                    <div class="uni-logo umb-logo">UMB</div>
-                                    <div class="user-details">
-                                        <div class="user-name">UMB</div>
-                                        <div class="user-count">83 members</div>
-                                    </div>
-                                </div>
-                                <div class="user-rating positive">+3.37</div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -314,69 +161,31 @@
                 <div class="widget">
                     <div class="widget-header">
                         <h3>Top Universities</h3>
-                        <span class="widget-icon">🏆</span>
                     </div>
                     
                     <div class="widget-content">
-                        <ul class="top-uni-list">
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">1</div>
-                                <div class="top-uni-logo mit-logo">MIT</div>
-                                <div class="top-uni-name">MIT</div>
-                                <div class="top-uni-rating">1797.73</div>
-                            </li>
+                        <ul class="widget-list">
+
+                            {% for rating, school, school_rating_change in school_info[:5] %}
                             
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">2</div>
-                                <div class="top-uni-logo emory-logo">E</div>
-                                <div class="top-uni-name">Emory</div>
-                                <div class="top-uni-rating">1784.18</div>
+                            <li class="widget-item">
+                                <div class="user-rank">
+                                    <div class="rank-circle">{{ loop.index0 + 1 }}</div>
+                                </div>
+                                <div class="user-info">
+                                    <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
+                                    <div class="user-details">
+                                        <div class="user-name">{{ university_abbreviations[school] }}</div>
+                                        <div class="user-count">[MEMBERS]</div>
+                                    </div>
+                                </div>
+                                <div class="user-rating">{{ "%.2f" | format(rating) }}</div>
                             </li>
+
+                            {% endfor %}
                             
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">3</div>
-                                <div class="top-uni-logo waterloo-logo">W</div>
-                                <div class="top-uni-name">Waterloo</div>
-                                <div class="top-uni-rating">1782.77</div>
-                            </li>
-                            
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">4</div>
-                                <div class="top-uni-logo duke-logo">D</div>
-                                <div class="top-uni-name">Duke</div>
-                                <div class="top-uni-rating">1741.07</div>
-                            </li>
-                            
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">5</div>
-                                <div class="top-uni-logo dartmouth-logo">DC</div>
-                                <div class="top-uni-name">Dartmouth</div>
-                                <div class="top-uni-rating">1712.98</div>
-                            </li>
-                            
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">6</div>
-                                <div class="top-uni-logo northwestern-logo">N</div>
-                                <div class="top-uni-name">Northwestern</div>
-                                <div class="top-uni-rating">1707.32</div>
-                            </li>
-                            
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">7</div>
-                                <div class="top-uni-logo yale-logo">Y</div>
-                                <div class="top-uni-name">Yale</div>
-                                <div class="top-uni-rating">1705.29</div>
-                            </li>
-                            
-                            <li class="top-uni-item">
-                                <div class="top-uni-rank">8</div>
-                                <div class="top-uni-logo ut-logo">UT</div>
-                                <div class="top-uni-name">UT Austin</div>
-                                <div class="top-uni-rating">1704.64</div>
-                            </li>
+
                         </ul>
-                        
-                        <a href="#" class="view-all-btn">View All Universities</a>
                     </div>
                 </div>
                 
@@ -384,7 +193,6 @@
                 <div class="widget activity-widget">
                     <div class="widget-header">
                         <h3>Recent Activity</h3>
-                        <span class="widget-icon">🔔</span>
                     </div>
                     
                     <div class="widget-content">
@@ -444,5 +252,46 @@
             </div>
         </div>
     </footer>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get search input element
+            const searchInput = document.querySelector('.search-input');
+        
+            // Get search form
+            const searchForm = document.querySelector('form');
+
+            // When search button is clicked
+            const searchButton = document.querySelector('.search-button');
+            searchButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                const universityName = searchInput.value.trim();
+
+                if(universityName) {
+                    searchForm.submit();
+                }
+            });
+
+            // When university row is clicked
+            const universityRows = document.querySelectorAll('.university-item');
+            universityRows.forEach(row => {
+                row.addEventListener('click', function(event) {
+                    event.preventDefault();
+
+                    const universityNameContainer = this.querySelector('.university-name');
+                    const universityName = universityNameContainer.textContent.trim();
+
+                    // Set the search input value to the clicked university name
+                    searchInput.value = universityName;
+
+                    if(universityName) {
+                        searchForm.submit();
+                    }
+                })
+            })
+        });
+    </script>
 </body>
 </html>

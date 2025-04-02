@@ -26,84 +26,29 @@ header {
     position: relative;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-}
-
 .logo {
-    font-size: 24px;
-    font-weight: 600;
-    color: #a02828;
+    height: 25px;
     cursor: pointer;
-    margin: 0;
-}
-
-.logo-highlight {
-    color: #cb1090;
-}
-
-.logo-icon {
-    margin-left: 4px;
+    display: block; /* Prevents inline spacing */
+    opacity: 0.8;
 }
 
 .nav-container {
     display: flex;
     align-items: center;
-    gap: 25px;
-}
-
-.main-nav {
-    display: flex;
-    gap: 15px;
+    gap: 50px;
 }
 
 .nav-item {
-    color: #a8a8a8;
+    background: linear-gradient(to right, rgba(4, 4, 50, 0.8), rgba(56, 1, 95, 0.8));
+    color: white; /* Changed from #a8a8a8 to white for better visibility */
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 4px;
-    transition: all 0.3s;
-}
-
-.nav-item:hover {
-    color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-.nav-item.active {
-    color: #cb1090;
-    background-color: rgba(203, 16, 144, 0.08);
-}
-
-.compare-tool-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    background: linear-gradient(to right, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
-    border-radius: 20px;
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
+    padding: 8px 16px; /* Increased padding for better button appearance */
+    border-radius: 6px; /* Changed from 4px to 6px */
     transition: all 0.3s;
     border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.compare-tool-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(203, 16, 144, 0.3);
-}
-
-.compare-icon {
-    font-size: 16px;
-}
-
-.compare-text {
-    white-space: nowrap;
 }
 
 /* Main container */
@@ -134,7 +79,7 @@ main {
 }
 
 .rankings-header {
-    background: linear-gradient(to right, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    background: linear-gradient(to right, rgba(4, 4, 50, 0.8), rgba(56, 1, 95, 0.8));
     padding: 20px 25px;
     display: flex;
     justify-content: space-between;
@@ -144,12 +89,15 @@ main {
 
 .rankings-header h2 {
     color: white;
+    opacity: 0.9;
     font-size: 20px;
     font-weight: 600;
 }
 
 .search-container {
+    display: flex;
     position: relative;
+    line-height: 0;
     width: 60%;
     max-width: 500px;
 }
@@ -169,22 +117,36 @@ main {
 .search-input:focus {
     background-color: rgba(0, 0, 0, 0.5);
     border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 10px rgba(160, 40, 40, 0.3);
+    background-color: rgba(19, 15, 63, 0.1);
 }
 
-.search-icon {
+.search-button {
     position: absolute;
     left: 15px;
     top: 50%;
+    opacity: 0.8;
     transform: translateY(-50%);
-    color: #a8a8a8;
     font-size: 18px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+}
+
+.search-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
 }
 
 /* Table Header */
 .table-header {
     display: grid;
-    grid-template-columns: 80px 1fr 180px 150px;
+    grid-template-columns: 65px 1fr 180px 150px;
     padding: 15px 25px;
     background-color: #1a1a1a;
     color: #888;
@@ -209,7 +171,7 @@ main {
 
 .university-item {
     display: grid;
-    grid-template-columns: 80px 1fr 180px 150px;
+    grid-template-columns: 65px 1fr 180px 150px;
     align-items: center;
     padding: 18px 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -219,7 +181,7 @@ main {
 }
 
 .university-item:hover {
-    background-color: rgba(160, 40, 40, 0.08);
+    background-color: rgba(19, 15, 63, 0.1);
     transform: translateX(5px);
 }
 
@@ -230,7 +192,7 @@ main {
     top: 0;
     height: 100%;
     width: 3px;
-    background-color: #cb1090;
+    background-color: rgba(47, 11, 80, 1)
 }
 
 /* Rank Styling */
@@ -240,16 +202,16 @@ main {
 }
 
 .rank-number {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
     background-color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
@@ -265,21 +227,6 @@ main {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
 }
 
-.gold {
-    background: linear-gradient(135deg, #ffd700, #ff9500);
-    color: #333;
-}
-
-.silver {
-    background: linear-gradient(135deg, #c0c0c0, #8a8a8a);
-    color: #333;
-}
-
-.bronze {
-    background: linear-gradient(135deg, #cd7f32, #a05a2c);
-    color: #333;
-}
-
 /* University Info */
 .university-info {
     display: flex;
@@ -291,7 +238,8 @@ main {
 .university-logo {
     width: 40px;
     height: 40px;
-    border-radius: 8px;
+    border-radius: 50%;
+    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -346,59 +294,6 @@ main {
     font-size: 11px;
 }
 
-/* University Logos */
-.mit-logo {
-    background: linear-gradient(135deg, #a31f34, #8a1a2c);
-}
-
-.emory-logo {
-    background: linear-gradient(135deg, #007ab8, #005a99);
-}
-
-.waterloo-logo {
-    background: linear-gradient(135deg, #ffd54f, #f9a825);
-    color: #333;
-}
-
-.duke-logo {
-    background: linear-gradient(135deg, #00539b, #003b6f);
-}
-
-.dartmouth-logo {
-    background: linear-gradient(135deg, #00693e, #004d2c);
-}
-
-.northwestern-logo {
-    background: linear-gradient(135deg, #4e2a84, #371f5e);
-}
-
-.yale-logo {
-    background: linear-gradient(135deg, #0f4d92, #0a3569);
-}
-
-.ut-logo {
-    background: linear-gradient(135deg, #bf5700, #a54b00);
-}
-
-.cmu-logo {
-    background: linear-gradient(135deg, #c41230, #9e0f27);
-}
-
-.rice-logo {
-    background: linear-gradient(135deg, #00205b, #001a4a);
-}
-
-.ku-logo {
-    background: linear-gradient(135deg, #0051ba, #003d8c);
-}
-
-.denison-logo {
-    background: linear-gradient(135deg, #c41e3a, #a51930);
-}
-
-.umb-logo {
-    background: linear-gradient(135deg, #154734, #0f3526);
-}
 
 /* Rating and Rating Change */
 .rating {
@@ -483,7 +378,7 @@ main {
 }
 
 .widget-header {
-    background: linear-gradient(to right, rgba(160, 40, 40, 0.8), rgba(203, 16, 144, 0.8));
+    background: linear-gradient(to right, rgba(11, 11, 70, 0.8), rgba(56, 1, 95, 0.8));
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
@@ -492,13 +387,10 @@ main {
 
 .widget-header h3 {
     color: white;
+    opacity: 0.9;
     font-size: 16px;
     font-weight: 600;
     margin: 0;
-}
-
-.widget-icon {
-    font-size: 18px;
 }
 
 .widget-content {
@@ -508,7 +400,7 @@ main {
 /* Widget Legend */
 .widget-legend {
     display: grid;
-    grid-template-columns: 60px 1fr 80px;
+    grid-template-columns: 47.5px 1fr 80px;
     padding: 12px 15px;
     background-color: #1a1a1a;
     font-size: 11px;
@@ -533,7 +425,7 @@ main {
 
 .widget-item {
     display: grid;
-    grid-template-columns: 60px 1fr 80px;
+    grid-template-columns: 47.5px 1fr 80px;
     align-items: center;
     padding: 12px 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -546,19 +438,18 @@ main {
 }
 
 .widget-item:hover {
-    background-color: rgba(160, 40, 40, 0.08);
+    background-color: rgba(19, 15, 63, 0.1);
     transform: translateX(5px);
 }
 
 /* User Rank */
 .user-rank {
     display: flex;
-    justify-content: center;
 }
 
 .rank-circle {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     background-color: #333;
     display: flex;
@@ -588,12 +479,14 @@ main {
     align-items: center;
     gap: 10px;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -616,19 +509,6 @@ main {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
 }
 
-.red-avatar {
-    background: linear-gradient(135deg, rgba(203, 16, 144, 0.8), rgba(160, 40, 40, 0.8));
-}
-
-.gold-avatar {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.8), rgba(255, 165, 0, 0.8));
-    color: #333;
-}
-
-.blue-avatar {
-    background: linear-gradient(135deg, rgba(0, 81, 186, 0.8), rgba(0, 60, 136, 0.8));
-}
-
 .user-details {
     display: flex;
     flex-direction: column;
@@ -637,11 +517,13 @@ main {
 
 .user-name {
     color: white;
-    font-weight: 500;
+    font-weight: 600;
+    opacity: 0.9;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     font-size: 14px;
+    text-decoration: none;
 }
 
 .user-university, .user-count {
@@ -671,95 +553,6 @@ main {
     color: #a8a8a8;
 }
 
-/* Top Universities Widget */
-.top-uni-list {
-    list-style: none;
-}
-
-.top-uni-item {
-    display: grid;
-    grid-template-columns: 30px 50px 1fr 80px;
-    align-items: center;
-    padding: 12px 15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: all 0.3s;
-    cursor: pointer;
-}
-
-.top-uni-item:last-child {
-    border-bottom: none;
-}
-
-.top-uni-item:hover {
-    background-color: rgba(160, 40, 40, 0.08);
-    transform: translateX(5px);
-}
-
-.top-uni-rank {
-    font-weight: 600;
-    color: #888;
-    text-align: center;
-    font-size: 14px;
-}
-
-.top-uni-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 14px;
-    color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: relative;
-    overflow: hidden;
-}
-
-.top-uni-logo::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
-}
-
-.top-uni-name {
-    color: white;
-    font-weight: 500;
-    padding-left: 10px;
-    font-size: 14px;
-}
-
-.top-uni-rating {
-    text-align: right;
-    font-weight: 600;
-    color: white;
-    font-size: 14px;
-}
-
-.view-all-btn {
-    display: block;
-    margin: 15px;
-    padding: 10px;
-    background: linear-gradient(to right, rgba(160, 40, 40, 0.2), rgba(203, 16, 144, 0.2));
-    color: #cb1090;
-    text-align: center;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s;
-    border: 1px solid rgba(203, 16, 144, 0.3);
-}
-
-.view-all-btn:hover {
-    background: linear-gradient(to right, rgba(160, 40, 40, 0.3), rgba(203, 16, 144, 0.3));
-    transform: translateY(-2px);
-}
-
 /* Activity Widget */
 .activity-list {
     list-style: none;
@@ -778,7 +571,7 @@ main {
 }
 
 .activity-item:hover {
-    background-color: rgba(160, 40, 40, 0.1);
+    background-color: rgba(19, 15, 63, 0.1);
     transform: translateX(5px);
 }
 
