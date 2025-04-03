@@ -9,69 +9,125 @@
 body {
     background-color: #1a1a1a;
     color: #a8a8a8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Header styling */
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: black;
-    padding: 10px 20px;
+  background-color: #000;
+  padding: 15px 40px;
+  border-bottom: 1px solid #222;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .logo {
-    font-size: 24px;
-    font-weight: 600;
+    height: 25px;
+    cursor: pointer;
+    display: block; /* Prevents inline spacing */
+    opacity: 0.8;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-link {
+  color: #9370db;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.nav-link:hover {
+  opacity: 1;
+}
+
+@keyframes glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
     color: #a02828;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 10px rgba(163, 31, 52, 0.3);
 }
 
 .logo span {
     color: #cb1090;
 }
 
-.icon-container {
-    display: flex;
-    align-items: center;
+.mit-accent {
+    color: #A31F34;
+    font-weight: 800;
 }
 
 .compare-tool-button {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 8px 16px;
-    background: linear-gradient(to right, rgba(153, 27, 82, 0.9), rgba(138, 43, 226, 0.9));
+    padding: 10px 20px;
+    background: linear-gradient(to right, rgba(163, 31, 52, 0.9), rgba(138, 43, 226, 0.7));
     border-radius: 20px;
     color: white;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .compare-tool-button:hover {
-    background: linear-gradient(to right, rgba(163, 37, 92, 1), rgba(148, 53, 236, 1));
-    box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(163, 31, 52, 0.4);
 }
 
-.compare-icon {
-    font-size: 16px;
+.compare-tool-button::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    transform: rotate(45deg);
+    z-index: 0;
+    transition: all 0.3s;
 }
 
-.compare-text {
-    white-space: nowrap;
+.compare-tool-button:hover::before {
+    left: 100%;
+}
+
+.compare-tool-button span {
+    position: relative;
+    z-index: 1;
 }
 
 /* Main container */
 main {
-    padding: 20px;
+    padding: 30px;
     display: flex;
     justify-content: center;
 }
@@ -79,82 +135,134 @@ main {
 .content-container {
     max-width: 1200px;
     width: 100%;
+    position: relative;
 }
 
-/* University Header */
+/* University Header - MIT */
 .university-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 20px;
-    background: linear-gradient(to right, rgba(153, 27, 82, 0.9), rgba(138, 43, 226, 0.9));
+    padding: 25px 30px;
+    background-color: #222;
     border-radius: 12px 12px 0 0;
-    margin-bottom: 0;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    border-left: 5px solid var(--school-color);
+}
+
+.university-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='15' font-family='Arial' font-size='12' fill='%23A31F34' fill-opacity='0.05'%3EMIT MIT MIT%3C/text%3E%3C/svg%3E");
+    background-size: 100px;
+    opacity: 0.5;
+    z-index: 0;
 }
 
 .university-info {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .university-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 55px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 800;
     color: white;
-    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px color-mix(in srgb, var(--school-color) 40%, transparent);
+    position: relative;
+    overflow: hidden;
 }
 
-.temple-logo {
-    background-color: #9e1b32;
+.university-logo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
 }
 
 .university-info h2 {
     color: white;
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 22px;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .view-stats-button {
-    padding: 8px 16px;
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 6px;
-    color: white;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: color-mix(in srgb, var(--school-color) 10%, transparent);
+    border: 2px solid var(--school-color);
+    border-radius: 8px;
+    color: var(--school-color);
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
 }
 
 .view-stats-button:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-    transform: translateY(-1px);
+    color: white;
+    transform: translateY(-2px);
+    background-color: color-mix(in srgb, var(--school-color) 40%, transparent);
 }
+
 
 /* Members Table */
 .members-table {
-    background-color: #1e1e1e;
+    background-color: #222;
     border-radius: 0 0 12px 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    border-top: none;
+    position: relative;
 }
 
 /* Table Header */
 .table-header {
     display: grid;
     grid-template-columns: 80px 1fr 180px 150px;
-    padding: 15px 20px;
-    background-color: #252525;
-    color: #888;
+    padding: 18px 25px;
+    background-color: #1a1a1a;
+    color: #8A8B8C;
     font-size: 12px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    border-bottom: 1px solid #333;
+    position: relative;
+}
+
+.table-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--school-color), transparent);
 }
 
 .column-rank, .column-username {
@@ -168,57 +276,86 @@ main {
 /* Members List */
 .members-list {
     list-style: none;
+    position: relative;
+}
+
+.user-row-clickable {
+    text-decoration: none;
+    color: inherit;
 }
 
 .member-item {
     display: grid;
     grid-template-columns: 80px 1fr 180px 150px;
     align-items: center;
-    padding: 15px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    transition: background-color 0.2s;
+    padding: 18px 25px;
+    border-bottom: 1px solid #333;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
 }
 
 .member-item:hover {
-    background-color: rgba(138, 43, 226, 0.05);
+    background-color: color-mix(in srgb, var(--school-color) 15%, transparent);
+    transform: translateX(5px);
 }
 
-.member-item:last-child {
-    border-bottom: none;
+.member-item:hover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--school-color);
 }
 
 /* Rank Styling */
 .rank-container {
-    display: flex;
-    align-items: center;
+    position: relative;
 }
 
 .rank-number {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    background-color: #333;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: 600;
     font-size: 16px;
+    background-color: #333;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
 }
 
-.gold {
-    background-color: #ffd700;
-    color: #333;
+.rank-number::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+}
+
+/* .gold {
+    background: linear-gradient(135deg, #A31F34, #cb1090);
 }
 
 .silver {
-    background-color: #c0c0c0;
-    color: #333;
+    background: linear-gradient(135deg, #8A8B8C, #a8a8a8);
 }
 
 .bronze {
-    background-color: #cd7f32;
-    color: #333;
+    background: linear-gradient(135deg, #8a5a3b, #b47e56);
+} */
+
+.member-item:hover .rank-number {
+    transform: scale(1.05);
 }
 
 /* User Info */
@@ -226,27 +363,34 @@ main {
     display: flex;
     align-items: center;
     gap: 15px;
-    overflow: hidden;
 }
 
 .user-avatar {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     overflow: hidden;
     background-color: #333;
-    flex-shrink: 0;
+    border: 2px solid #3a3a3a;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
 }
 
-.user-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.member-item:hover .user-avatar {
+    border-color: var(--school-color);
+    transform: scale(1.05);
 }
 
 .username {
     font-weight: 500;
     color: white;
+    transition: all 0.3s;
+}
+
+.member-item:hover .username {
+    color: var(--school-color);
+    font-weight: 600;
 }
 
 /* Rating */
@@ -254,12 +398,21 @@ main {
     text-align: right;
     font-weight: 600;
     color: white;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.member-item:hover .rating {
+    transform: scale(1.05);
 }
 
 /* Rating Change */
 .rating-change {
     text-align: right;
     font-weight: 600;
+    position: relative;
+    color: #a8a8a8;
+    transition: all 0.2s;
 }
 
 .rating-change.positive {
@@ -270,54 +423,16 @@ main {
     color: #e53935;
 }
 
-.rating-change.neutral {
-    color: #a8a8a8;
+.member-item:hover .rating-change {
+    transform: scale(1.05);
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .table-header, .member-item {
-        grid-template-columns: 60px 1fr 100px 80px;
-    }
-    
-    .compare-text {
-        display: none;
-    }
-    
-    .compare-tool-button {
-        padding: 8px;
-    }
-    
-    .university-info h2 {
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-    .university-header {
-        flex-direction: column;
-        gap: 10px;
-        align-items: flex-start;
-    }
-    
-    .view-stats-button {
-        align-self: stretch;
-        text-align: center;
-    }
-    
-    .table-header, .member-item {
-        grid-template-columns: 50px 1fr 80px 70px;
-        padding: 12px 10px;
-    }
-    
-    .rank-number {
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
-    }
-    
-    .user-avatar {
-        width: 30px;
-        height: 30px;
-    }
+/* MIT Pattern Divider */
+.mit-pattern-divider {
+    height: 15px;
+    margin: 30px 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='15' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='33.33' height='15' x='0' fill='%23A31F34' fill-opacity='0.7'/%3E%3Crect width='33.33' height='15' x='33.33' fill='%23A31F34' fill-opacity='0.5'/%3E%3Crect width='33.33' height='15' x='66.66' fill='%23A31F34' fill-opacity='0.3'/%3E%3C/svg%3E");
+    background-size: 100px 15px;
+    border-radius: 2px;
+    opacity: 0.8;
 }

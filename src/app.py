@@ -81,7 +81,6 @@ def uni_comp_tool():
 
 @app.route('/<slug>', methods=['GET'])
 def school(slug):
-    print(slug)
     # GET (direct URL access from homepage)
     if slug in university_slugs:
         school_name = university_slugs[slug]
@@ -109,9 +108,22 @@ def more():
     return render_template('more.html')
 
 
-@app.route('/unitest')
-def unitest():
-    return render_template('unitest.html')
+@app.route('/unitest/<slug>')
+def unitest(slug):
+    # GET (direct URL access from homepage)
+    if slug in university_slugs:
+        school_name = university_slugs[slug]
+        users = database.get_users_by_school(school_name)
+        users.sort(key=lambda user: user['currentRating'], reverse=True)
+
+        school_names_to_slugs = {v: k for k, v in university_slugs.items()}
+
+        return render_template('unitest.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
+    
+    # School not found in slug list
+    print("got to school, not found")
+    return render_template('testing.html')
+
 
 @app.route('/unitest2')
 def unitest2():

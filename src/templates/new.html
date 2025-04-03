@@ -9,12 +9,14 @@
 </head>
 <body>
     <header>
-        <a href="{{ url_for('home') }}">
-            <img src="{{ url_for('static', filename='icons/test_logo.png') }}" alt="LeeterBoard Logo" class="logo">
-        </a>
-        <div class="nav-container">
-            <!-- <a href="#" class="nav-item">All Schools</a>
-            <a href="#" class="nav-item">Compare Universities</a> -->
+        <div class="header-wrap">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='icons/test_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Compare Universities</a>
+                <a href="#" class="nav-link">All Universities</a>
+              </div>
         </div>
     </header>
     

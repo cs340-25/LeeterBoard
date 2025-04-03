@@ -14,16 +14,18 @@ body {
     flex-direction: column;
 }
 
-/* Header styling */
 header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: black;
-    padding: 12px 30px;
-    border-bottom: 1px solid #333;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    position: relative;
+  background-color: #000;
+  padding: 15px 40px;
+  border-bottom: 1px solid #222;
+}
+
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .logo {
@@ -33,22 +35,22 @@ header {
     opacity: 0.8;
 }
 
-.nav-container {
-    display: flex;
-    align-items: center;
-    gap: 50px;
+.nav-links {
+  display: flex;
+  gap: 30px;
 }
 
-.nav-item {
-    background: linear-gradient(to right, rgba(4, 4, 50, 0.8), rgba(56, 1, 95, 0.8));
-    color: white; /* Changed from #a8a8a8 to white for better visibility */
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 8px 16px; /* Increased padding for better button appearance */
-    border-radius: 6px; /* Changed from 4px to 6px */
-    transition: all 0.3s;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.nav-link {
+  color: #9370db;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+.nav-link:hover {
+  opacity: 1;
 }
 
 /* Main container */
@@ -621,7 +623,10 @@ footer {
 .footer-logo {
     font-size: 20px;
     font-weight: 600;
-    color: #a02828;
+    background-image: linear-gradient(to right, rgb(9, 9, 154), rgba(56, 1, 95, 1));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .footer-links {

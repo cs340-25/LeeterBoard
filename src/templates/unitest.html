@@ -5,488 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard - MIT Members</title>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        /* Base styles */
-        * {
-            font-family: 'Exo 2', Sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: #1a1a1a;
-            color: #a8a8a8;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0 L100 50 L50 100 L0 50 Z' fill='%23A31F34' fill-opacity='0.03'/%3E%3C/svg%3E");
-            background-size: 200px 200px;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Header styling */
-        header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background-color: black;
-            padding: 15px 25px;
-            border-bottom: 3px solid #A31F34;
-            position: relative;
-            overflow: hidden;
-        }
-
-        header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, rgba(163, 31, 52, 0.8), transparent);
-            animation: glow 3s infinite;
-        }
-
-        @keyframes glow {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #a02828;
-            cursor: pointer;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 10px rgba(163, 31, 52, 0.3);
-        }
-
-        .logo span {
-            color: #cb1090;
-        }
-
-        .mit-accent {
-            color: #A31F34;
-            font-weight: 800;
-        }
-
-        .compare-tool-button {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            background: linear-gradient(to right, rgba(163, 31, 52, 0.9), rgba(138, 43, 226, 0.7));
-            border-radius: 20px;
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .compare-tool-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(163, 31, 52, 0.4);
-        }
-
-        .compare-tool-button::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to bottom right,
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.1) 100%
-            );
-            transform: rotate(45deg);
-            z-index: 0;
-            transition: all 0.3s;
-        }
-
-        .compare-tool-button:hover::before {
-            left: 100%;
-        }
-
-        .compare-tool-button span {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Main container */
-        main {
-            padding: 30px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .content-container {
-            max-width: 1200px;
-            width: 100%;
-            position: relative;
-        }
-
-        /* University Header - MIT */
-        .university-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 30px;
-            background-color: #222;
-            border-left: 5px solid #A31F34; /* MIT red */
-            border-radius: 12px 12px 0 0;
-            position: relative;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-        
-        .university-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='15' font-family='Arial' font-size='12' fill='%23A31F34' fill-opacity='0.05'%3EMIT MIT MIT%3C/text%3E%3C/svg%3E");
-            background-size: 100px;
-            opacity: 0.5;
-            z-index: 0;
-        }
-
-        .university-info {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .university-logo {
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 800;
-            color: white;
-            background-color: #A31F34;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(163, 31, 52, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .university-logo::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
-        }
-
-        .mit-logo {
-            font-family: 'Arial', sans-serif;
-            letter-spacing: -1px;
-        }
-
-        .university-info h2 {
-            color: white;
-            font-size: 22px;
-            font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .university-tagline {
-            font-size: 12px;
-            color: #8A8B8C;
-            font-style: italic;
-            margin-top: 5px;
-        }
-
-        .view-stats-button {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            background-color: rgba(163, 31, 52, 0.1);
-            border: 2px solid #A31F34;
-            border-radius: 8px;
-            color: #A31F34;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .view-stats-button:hover {
-            background-color: #A31F34;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(163, 31, 52, 0.4);
-        }
-        
-        .view-stats-button::before {
-            content: "📊";
-            font-size: 16px;
-        }
-
-        /* Members Table */
-        .members-table {
-            background-color: #222;
-            border-radius: 0 0 12px 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid #333;
-            border-top: none;
-            position: relative;
-        }
-
-        /* Table Header */
-        .table-header {
-            display: grid;
-            grid-template-columns: 80px 1fr 180px 150px;
-            padding: 18px 25px;
-            background-color: #1a1a1a;
-            color: #8A8B8C;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-bottom: 1px solid #333;
-            position: relative;
-        }
-
-        .table-header::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, #A31F34, transparent);
-        }
-
-        .column-rank, .column-username {
-            text-align: left;
-        }
-
-        .column-rating, .column-change {
-            text-align: right;
-        }
-
-        /* Members List */
-        .members-list {
-            list-style: none;
-            position: relative;
-        }
-
-        .member-item {
-            display: grid;
-            grid-template-columns: 80px 1fr 180px 150px;
-            align-items: center;
-            padding: 18px 25px;
-            border-bottom: 1px solid #333;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .member-item:hover {
-            background-color: rgba(163, 31, 52, 0.15);
-            transform: translateX(5px);
-        }
-
-        .member-item:hover::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 3px;
-            background-color: #A31F34;
-        }
-
-        /* Rank Styling */
-        .rank-container {
-            position: relative;
-        }
-
-        .rank-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 16px;
-            background-color: #333;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s;
-        }
-
-        .rank-number::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 30%;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
-        }
-
-        .gold {
-            background: linear-gradient(135deg, #A31F34, #cb1090);
-        }
-
-        .silver {
-            background: linear-gradient(135deg, #8A8B8C, #a8a8a8);
-        }
-
-        .bronze {
-            background: linear-gradient(135deg, #8a5a3b, #b47e56);
-        }
-
-        .member-item:hover .rank-number {
-            transform: scale(1.05);
-        }
-
-        /* User Info */
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #333;
-            border: 2px solid #3a3a3a;
-            position: relative;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s;
-        }
-
-        .member-item:hover .user-avatar {
-            border-color: #A31F34;
-            transform: scale(1.05);
-        }
-
-        .username {
-            font-weight: 500;
-            color: white;
-            transition: all 0.3s;
-        }
-
-        .member-item:hover .username {
-            color: #A31F34;
-            font-weight: 600;
-        }
-
-        /* Rating */
-        .rating {
-            text-align: right;
-            font-weight: 600;
-            color: white;
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .member-item:hover .rating {
-            transform: scale(1.05);
-        }
-
-        /* Rating Change */
-        .rating-change {
-            text-align: right;
-            font-weight: 600;
-            position: relative;
-            transition: all 0.2s;
-        }
-
-        .rating-change.positive {
-            color: #2dc932;
-        }
-
-        .rating-change.negative {
-            color: #e53935;
-        }
-
-        .rating-change.neutral {
-            color: #a8a8a8;
-        }
-
-        .member-item:hover .rating-change {
-            transform: scale(1.05);
-        }
-
-
-
-        /* MIT Pattern Divider */
-        .mit-pattern-divider {
-            height: 15px;
-            margin: 30px 0;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='15' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='33.33' height='15' x='0' fill='%23A31F34' fill-opacity='0.7'/%3E%3Crect width='33.33' height='15' x='33.33' fill='%23A31F34' fill-opacity='0.5'/%3E%3Crect width='33.33' height='15' x='66.66' fill='%23A31F34' fill-opacity='0.3'/%3E%3C/svg%3E");
-            background-size: 100px 15px;
-            border-radius: 2px;
-            opacity: 0.8;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/unitest.css') }}">
 </head>
 <body>
-    <!-- Header -->
     <header>
-        <div class="logo">Leeter<span>Board</span>📚<span class="mit-accent"> MIT</span></div>
-        <a href="#" class="compare-tool-button">
-            <span>📈</span>
-            <span>Compare Universities</span>
-        </a>
+        <div class="header-wrap">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='icons/test_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Compare Universities</a>
+                <a href="#" class="nav-link">All Universities</a>
+              </div>
+        </div>
     </header>
     
     <main>
         <div class="content-container">
             <!-- University Header Bar -->
-            <div class="university-header">
+            <div class="university-header" style="--school-color: {{ university_colors[school_name] }};">
                 <div class="university-info">
-                    <div class="university-logo mit-logo">MIT</div>
+                    <img src="https://cdn.brandfetch.io/{{ university_websites[school_name] }}/w/400/h/400?c=1idl-cR2qqIMB2mSLMf" class="university-logo"></img>
                     <div>
-                        <h2>Massachusetts Institute of Technology</h2>
-                        <div class="university-tagline">mens et manus • mind and hand</div>
+                        <h2>{{ school_name }}</h2>
                     </div>
                 </div>
-                <a href="#" class="view-stats-button">VIEW STATS</a>
+                <a href="#" class="view-stats-button" style="--school-color: {{ university_colors[school_name] }};">VIEW PROFILE</a>
             </div>
             
             <!-- Members Table -->
             <div class="members-table">
-                <div class="table-header">
+                <div class="table-header" style="--school-color: {{ university_colors[school_name] }};">
                     <div class="column-rank">Rank</div>
                     <div class="column-username">Username</div>
                     <div class="column-rating">Contest Rating</div>
@@ -494,71 +43,40 @@
                 </div>
                 
                 <ul class="members-list">
+                    {% for user in users %}
                     <!-- Member items -->
-                    <li class="member-item">
-                        <div class="rank-container">
-                            <div class="rank-number gold">1</div>
-                        </div>
-                        <div class="user-info">
-                            <div class="user-avatar"></div>
-                            <div class="username">mit_algorithm</div>
-                        </div>
-                        <div class="rating">2256.78</div>
-                        <div class="rating-change negative">-2.10</div>
-                    </li>
-                    
-                    <li class="member-item">
-                        <div class="rank-container">
-                            <div class="rank-number silver">2</div>
-                        </div>
-                        <div class="user-info">
-                            <div class="user-avatar"></div>
-                            <div class="username">quantum_coder</div>
-                        </div>
-                        <div class="rating">2187.94</div>
-                        <div class="rating-change positive">+15.32</div>
-                    </li>
-                    
-                    <li class="member-item">
-                        <div class="rank-container">
-                            <div class="rank-number bronze">3</div>
-                        </div>
-                        <div class="user-info">
-                            <div class="user-avatar"></div>
-                            <div class="username">tech_beaver</div>
-                        </div>
-                        <div class="rating">2105.45</div>
-                        <div class="rating-change positive">+3.89</div>
-                    </li>
-                    
-                    <li class="member-item">
-                        <div class="rank-container">
-                            <div class="rank-number">4</div>
-                        </div>
-                        <div class="user-info">
-                            <div class="user-avatar"></div>
-                            <div class="username">infinite_loop</div>
-                        </div>
-                        <div class="rating">2089.11</div>
-                        <div class="rating-change neutral">0.00</div>
-                    </li>
-                    
-                    <li class="member-item">
-                        <div class="rank-container">
-                            <div class="rank-number">5</div>
-                        </div>
-                        <div class="user-info">
-                            <div class="user-avatar"></div>
-                            <div class="username">data_ninja</div>
-                        </div>
-                        <div class="rating">2056.78</div>
-                        <div class="rating-change positive">+8.96</div>
-                    </li>
+                    <a href="https://leetcode.com/u/{{ user.username }}/" class="user-row-clickable" target="_blank">
+                        <li class="member-item" style="--school-color: {{ university_colors[school_name] }};">
+                            <div class="rank-container">
+                                <div class="rank-number">{{ loop.index0 + 1 }}</div>
+                            </div>
+                            <div class="user-info">
+                                <img src="{{ user.userAvatar }}" div class="user-avatar"></img>
+                                <div class="username">{{ user.username }}</div>
+                            </div>
+                            <div class="rating">{{ "%.2f" | format(user.currentRating) }}</div>
+
+
+                            {% if user.ratingChange > 0 %}
+                                <div class="rating-change positive">+{{ "%.2f" | format(user.ratingChange) }}</div>
+                            {% elif user.ratingChange < 0 %}
+                                <div class="rating-change negative">{{ "%.2f" | format(user.ratingChange) }}</div>
+                            {% else %}
+                                <div class="rating-change">{{ "%.2f" | format(user.ratingChange) }}</div>
+                            {% endif %}
+                        </li>
+                    </a>
+                    {% endfor %}
                 </ul>
             </div>
             
-            <!-- MIT Pattern Divider -->
-            <div class="mit-pattern-divider"></div>
+            <!-- University Color Pattern Bar -->
+            {% macro school_pattern_divider(school_name) %}
+            {% set svg_url = 'data:image/svg+xml,%3Csvg width=%22100%22 height=%2215%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Crect width=%2233.33%22 height=%2215%22 x=%220%22 fill=%22' ~ university_colors[school_name]|replace('#', '%23') ~ '%22 fill-opacity=%220.7%22/%3E%3Crect width=%2233.33%22 height=%2215%22 x=%2233.33%22 fill=%22' ~ university_colors[school_name]|replace('#', '%23') ~ '%22 fill-opacity=%220.5%22/%3E%3Crect width=%2233.33%22 height=%2215%22 x=%2266.66%22 fill=%22' ~ university_colors[school_name]|replace('#', '%23') ~ '%22 fill-opacity=%220.3%22/%3E%3C/svg%3E' %}
+            <div class="pattern-divider" style="height: 15px; margin: 30px 0; background-image: url('{{ svg_url }}'); background-size: 100px 15px; border-radius: 2px; opacity: 0.8;"></div>
+            {% endmacro %}
+
+            {{ school_pattern_divider(school_name) }}
         </div>
     </main>
 </body>
