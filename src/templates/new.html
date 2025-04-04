@@ -45,7 +45,7 @@
                 </div>
                 
                 <ul class="university-list">
-                    {% for rating, school, rating_change in school_info %}
+                    {% for rating, school, student_count, rating_change in school_info %}
 
                     <li class="university-item">
                         <div class="rank-container">
@@ -65,7 +65,7 @@
                             <div class="university-details">
                                 <div class="university-name">{{ school }}</div>
                                 <div class="university-stats">
-                                    <span class="stat-item"><span class="stat-icon">👥</span> [MEMBERS] </span>
+                                    <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
                                 </div>
                             </div>
                         </div>
@@ -110,17 +110,17 @@
 
                             {% for rating_change, user, user_avatar in user_rating_changes[:5] %}
 
-                            <li class="widget-item">
+                            <li class="widget-item-user">
                                 <div class="user-rank">
                                     <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                 </div>
-                                <a href="https://leetcode.com/u/{{ user }}/" class="user-info" target="_blank">
+                                <div class="user-info">
                                     <img src="{{ user_avatar }}" class="user-avatar">
                                     <div class="user-details">
                                         <div class="user-name">{{ user }}</div>
                                         <div class="user-university">[SCHOOL]</div>
                                     </div>
-                                </a>
+                                </div>
                                 <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
                             </li>
 
@@ -145,9 +145,9 @@
                         
                         <ul class="widget-list">
 
-                            {% for rating, school, rating_change in school_rating_changes[:5] %}
+                            {% for rating, school, student_count, rating_change in school_rating_changes[:5] %}
                             
-                            <li class="widget-item" data-school="{{ school }}">
+                            <li class="widget-item-university" data-school="{{ school }}">
                                 <div class="user-rank">
                                     <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                 </div>
@@ -155,7 +155,7 @@
                                     <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
                                     <div class="user-details">
                                         <div class="user-name">{{ university_abbreviations[school] }}</div>
-                                        <div class="user-count">[MEMBERS]</div>
+                                        <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
                                     </div>
                                 </div>
                                 <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
@@ -177,9 +177,9 @@
                     <div class="widget-content">
                         <ul class="widget-list">
 
-                            {% for rating, school, school_rating_change in school_info[:5] %}
+                            {% for rating, school, student_count, school_rating_change in school_info[:5] %}
                             
-                            <li class="widget-item" data-school="{{ school }}">
+                            <li class="widget-item-university" data-school="{{ school }}">
                                 <div class="user-rank">
                                     <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                 </div>
@@ -187,7 +187,7 @@
                                     <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
                                     <div class="user-details">
                                         <div class="user-name">{{ university_abbreviations[school] }}</div>
-                                        <div class="user-count">[MEMBERS]</div>
+                                        <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
                                     </div>
                                 </div>
                                 <div class="user-rating">{{ "%.2f" | format(rating) }}</div>
@@ -304,7 +304,7 @@
             });
 
             // When university row in trending widget is clicked
-            const universityRowsWidgets = document.querySelectorAll('.widget-item');
+            const universityRowsWidgets = document.querySelectorAll('.widget-item-university');
             universityRowsWidgets.forEach(row => {
                 row.addEventListener('click', function(event) {
                     event.preventDefault();
@@ -337,6 +337,20 @@
                     }
                 });
             });
+
+            // Clicking on user in Trending Users Widget sends to LeetCode Profile
+            const widgetItems = document.querySelectorAll('.widget-item-user');
+            widgetItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const usernameContainer = this.querySelector('.user-name');
+                    const username = usernameContainer.textContent.trim();
+
+                    // Get the user link from this item
+                    const userLink = "https://leetcode.com/u/" + username + "/";
+                    window.open(userLink, '_blank');
+                });
+            });
+        
         });
     </script>
 </body>

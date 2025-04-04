@@ -368,7 +368,10 @@ main {
 }
 
 .stat-icon {
-    font-size: 11px;
+    height: 10px;
+    width: 10px;
+    opacity: 0.6;
+    margin-top: 3px;
 }
 
 /* Rating and Rating Change */
@@ -499,21 +502,42 @@ main {
     list-style: none;
 }
 
-.widget-item {
+.widget-item-university {
     display: grid;
     grid-template-columns: 47.5px 1fr 80px;
     align-items: center;
+    font-size: 12px;
     padding: 12px 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s;
     cursor: pointer;
 }
 
-.widget-item:last-child {
+.widget-item-university:last-child {
     border-bottom: none;
 }
 
-.widget-item:hover {
+.widget-item-university:hover {
+    background-color: rgba(19, 15, 63, 0.1);
+    transform: translateX(5px);
+}
+
+.widget-item-user {
+    display: grid;
+    grid-template-columns: 47.5px 1fr 80px;
+    align-items: center;
+    font-size: 12px;
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.widget-item-user:last-child {
+    border-bottom: none;
+}
+
+.widget-item-user:hover {
     background-color: rgba(19, 15, 63, 0.1);
     transform: translateX(5px);
 }
@@ -557,6 +581,7 @@ main {
     overflow: hidden;
     text-decoration: none;
 }
+
 
 .user-avatar {
     width: 30px;

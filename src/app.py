@@ -68,6 +68,7 @@ def home():
     return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
+
 @app.get('/uni-comp-tool')
 def uni_comp_tool():
     school_weekly_averages = database.get_school_weekly_averages()
