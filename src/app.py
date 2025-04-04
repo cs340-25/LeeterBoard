@@ -48,7 +48,7 @@ def home():
                 return redirect(url_for('school', slug=slug))
         
         # Did not find school, return error page
-        return render_template('testing.html')
+        return render_template('not_found.html')
     
 
     # Default display (GET)
@@ -65,7 +65,7 @@ def home():
     school_rating_changes = database.grab_university_info()
     school_rating_changes.sort(key=lambda x: x[2], reverse=True)
 
-    return render_template('home.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
+    return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
 @app.get('/uni-comp-tool')
@@ -89,12 +89,11 @@ def school(slug):
 
         school_names_to_slugs = {v: k for k, v in university_slugs.items()}
 
-        return render_template('school.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs)
+        return render_template('unitest.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
     
     # School not found in slug list
     print("got to school, not found")
-    return render_template('testing.html')
-    # return an error.html
+    return render_template('not_found.html')
 
 
 # Test Route for Brody
@@ -108,21 +107,21 @@ def more():
     return render_template('more.html')
 
 
-@app.route('/unitest/<slug>')
-def unitest(slug):
-    # GET (direct URL access from homepage)
-    if slug in university_slugs:
-        school_name = university_slugs[slug]
-        users = database.get_users_by_school(school_name)
-        users.sort(key=lambda user: user['currentRating'], reverse=True)
+# @app.route('/unitest/<slug>')
+# def unitest(slug):
+#     # GET (direct URL access from homepage)
+#     if slug in university_slugs:
+#         school_name = university_slugs[slug]
+#         users = database.get_users_by_school(school_name)
+#         users.sort(key=lambda user: user['currentRating'], reverse=True)
 
-        school_names_to_slugs = {v: k for k, v in university_slugs.items()}
+#         school_names_to_slugs = {v: k for k, v in university_slugs.items()}
 
-        return render_template('unitest.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
+#         return render_template('unitest.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
     
-    # School not found in slug list
-    print("got to school, not found")
-    return render_template('testing.html')
+#     # School not found in slug list
+#     print("got to school, not found")
+#     return render_template('testing.html')
 
 
 @app.route('/unitest2')
@@ -135,36 +134,36 @@ def allschools():
 
 
 
-@app.route('/new', methods=['GET', 'POST'])
-def new():
-    # If user types in a school and presses submit
-    if request.method == 'POST':
-        school_input = request.form.get('school_input')
-        print(school_input)
-        for slug, school_name in university_slugs.items():
-            if school_input == school_name:
-                return redirect(url_for('school', slug=slug))
+# @app.route('/new', methods=['GET', 'POST'])
+# def new():
+#     # If user types in a school and presses submit
+#     if request.method == 'POST':
+#         school_input = request.form.get('school_input')
+#         print(school_input)
+#         for slug, school_name in university_slugs.items():
+#             if school_input == school_name:
+#                 return redirect(url_for('school', slug=slug))
         
-        # Did not find school, return error page
-        return render_template('testing.html')
+#         # Did not find school, return error page
+#         return render_template('testing.html')
     
 
-    # Default display (GET)
+#     # Default display (GET)
     
-    # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
-    school_info = database.grab_university_info()
-    school_info.sort(reverse=True)
+#     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
+#     school_info = database.grab_university_info()
+#     school_info.sort(reverse=True)
 
-    # Grabs all user rating changes -> sorted by rating changes (desc.)
-    user_rating_changes = database.get_user_rating_changes()
-    user_rating_changes.sort(reverse=True)
+#     # Grabs all user rating changes -> sorted by rating changes (desc.)
+#     user_rating_changes = database.get_user_rating_changes()
+#     user_rating_changes.sort(reverse=True)
 
-    # Grabs all school info (curr avg rating, school name, rating change) -> sorted by rating change (desc.)
-    school_rating_changes = database.grab_university_info()
-    school_rating_changes.sort(key=lambda x: x[2], reverse=True)
+#     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by rating change (desc.)
+#     school_rating_changes = database.grab_university_info()
+#     school_rating_changes.sort(key=lambda x: x[2], reverse=True)
 
-    return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
-                           university_websites=university_websites, university_abbreviations=university_abbreviations)
+#     return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
+#                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
 
 

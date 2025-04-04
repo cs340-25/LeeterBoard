@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - LeeterBoard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Exo 2', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #a8a8a8;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background-color: #000000;
+            padding: 12px 40px;
+            position: relative;
+        }
+
+        .header-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo-section {
+            background: #14141e;
+            border-radius: 8px;
+            padding: 6px 12px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            color: #9370DB;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-weight: 400;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #a8a8a8;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .error-container {
+            max-width: 700px;
+            height: 500px;
+            text-align: center;
+            padding: 30px;
+            background-color: #222;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid #333;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-section {
+            width: 100%;
+            margin: 80px 0;
+        }
+
+        .error-code {
+            font-size: 90px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F5D14B, #D9A420);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            font-size: 24px;
+            color: white;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .error-details {
+            font-size: 16px;
+            color: #a8a8a8;
+            line-height: 1.4;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .button-section {
+            width: 100%;
+            margin-bottom: 80px;
+        }
+
+        .home-button {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(to right, rgba(4, 4, 50, 0.8), rgba(56, 1, 95, 0.8));
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px 15px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .error-code {
+                font-size: 70px;
+            }
+            
+            .error-message {
+                font-size: 20px;
+            }
+            
+            .error-details {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-wrap">
+            <a href="/" class="logo-section">
+                <div class="logo-text">LeeterBoard</div>
+            </a>
+            <div class="nav-links">
+                <a href="#" class="nav-link">Compare</a>
+                <a href="#" class="nav-link">Universities</a>
+                <a href="#" class="nav-link">About</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="error-container">
+            <div class="content-section">
+                <div class="error-code">404</div>
+                <div class="error-message">Page Not Found</div>
+                <div class="error-details">Oops! The page you're looking for doesn't exist or has been moved.</div>
+                <div class="error-details">Even the best coders have to debug sometimes...</div>
+            </div>
+            
+            <div class="button-section">
+                <a href="/" class="home-button">Return to Rankings</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
