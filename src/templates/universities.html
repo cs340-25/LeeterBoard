@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard - Universities</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/universities.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-wrap">
+            <a href="home.html" class="logo-section">
+                <img src="static/icons/final_logo.png" alt="LeeterBoard Logo" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="compare.html" class="nav-link">Compare</a>
+                <a href="universities.html" class="nav-link active">Universities</a>
+                <a href="#" class="nav-link">About</a>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="content-container">
+            <!-- Universities Header -->
+            <div class="universities-header">
+                <h1>All Universities</h1>
+                <div class="search-container">
+                    <button type="button" class="search-button">
+                        <img src="static/icons/search.svg" class="search-icon">
+                    </button>
+                    <input type="text" class="search-input" placeholder="Search for universities..." id="universitySearch">
+                </div>
+            </div>
+
+            <!-- Alphabet Navigator -->
+            <div class="alphabet-nav">
+                <div class="letter-grid">
+                    <button class="letter-button active">All</button>
+                    <button class="letter-button">A</button>
+                    <button class="letter-button">B</button>
+                    <button class="letter-button">C</button>
+                    <button class="letter-button">D</button>
+                    <button class="letter-button">E</button>
+                    <button class="letter-button">F</button>
+                    <button class="letter-button">G</button>
+                    <button class="letter-button">H</button>
+                    <button class="letter-button">I</button>
+                    <button class="letter-button">J</button>
+                    <button class="letter-button">K</button>
+                    <button class="letter-button">L</button>
+                    <button class="letter-button">M</button>
+                    <button class="letter-button">N</button>
+                    <button class="letter-button">O</button>
+                    <button class="letter-button">P</button>
+                    <button class="letter-button">Q</button>
+                    <button class="letter-button">R</button>
+                    <button class="letter-button">S</button>
+                    <button class="letter-button">T</button>
+                    <button class="letter-button">U</button>
+                    <button class="letter-button">V</button>
+                    <button class="letter-button">W</button>
+                    <button class="letter-button">X</button>
+                    <button class="letter-button">Y</button>
+                    <button class="letter-button">Z</button>
+                </div>
+            </div>
+
+            <!-- Universities Grid -->
+            <div class="universities-grid">
+                <!-- University Card - MIT -->
+                <div class="university-card">
+                    <div class="left-border" style="--school-color: #A31F34;"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-logo-name">
+                                <img src="https://cdn.brandfetch.io/mit.edu/w/400/h/400" class="university-logo" alt="MIT logo">
+                                <div class="name-container">
+                                    <h2 class="university-name">Massachusetts Institute of Technology</h2>
+                                    <div class="student-count">
+                                        <img src="static/icons/students.svg" class="students-icon">
+                                        <span>30 students</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="school-abbrev">MIT</div>
+                        </div>
+                        <div class="card-buttons">
+                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                            <a href="#" class="view-members-btn" style="--school-color: #A31F34;">VIEW MEMBERS</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- University Card - Stanford -->
+                <div class="university-card">
+                    <div class="left-border" style="--school-color: #8C1515;"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-logo-name">
+                                <img src="https://cdn.brandfetch.io/stanford.edu/w/400/h/400" class="university-logo" alt="Stanford logo">
+                                <div class="name-container">
+                                    <h2 class="university-name">Stanford University</h2>
+                                    <div class="student-count">
+                                        <img src="static/icons/students.svg" class="students-icon">
+                                        <span>28 students</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="school-abbrev">Stanford</div>
+                        </div>
+                        <div class="card-buttons">
+                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                            <a href="#" class="view-members-btn" style="--school-color: #8C1515;">VIEW MEMBERS</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- University Card - Waterloo -->
+                <div class="university-card">
+                    <div class="left-border" style="--school-color: #FDD54F;"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-logo-name">
+                                <img src="https://cdn.brandfetch.io/uwaterloo.ca/w/400/h/400" class="university-logo" alt="Waterloo logo">
+                                <div class="name-container">
+                                    <h2 class="university-name">University of Waterloo</h2>
+                                    <div class="student-count">
+                                        <img src="static/icons/students.svg" class="students-icon">
+                                        <span>17 students</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="school-abbrev">Waterloo</div>
+                        </div>
+                        <div class="card-buttons">
+                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                            <a href="#" class="view-members-btn" style="--school-color: #FDD54F;">VIEW MEMBERS</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- University Card - UC Berkeley -->
+                <div class="university-card">
+                    <div class="left-border" style="--school-color: #003262;"></div>
+                    <div class="card-inner">
+                        <div class="card-top">
+                            <div class="card-logo-name">
+                                <img src="https://cdn.brandfetch.io/berkeley.edu/w/400/h/400" class="university-logo" alt="UC Berkeley logo">
+                                <div class="name-container">
+                                    <h2 class="university-name">University of California, Berkeley</h2>
+                                    <div class="student-count">
+                                        <img src="static/icons/students.svg" class="students-icon">
+                                        <span>25 students</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="school-abbrev">UC Berkeley</div>
+                        </div>
+                        <div class="card-buttons">
+                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
+                            <a href="#" class="view-members-btn" style="--school-color: #003262;">VIEW MEMBERS</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- More cards would be added here, following the same pattern -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="pagination-btn active">1</button>
+                <button class="pagination-btn">2</button>
+                <button class="pagination-btn">3</button>
+                <span class="pagination-dots">...</span>
+                <button class="pagination-btn">10</button>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">Leeter<span class="logo-highlight">Board</span></span>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-copyright">
+                © 2025 LeeterBoard. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Alphabet navigation
+            const letterButtons = document.querySelectorAll('.letter-button');
+            letterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    letterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    // Filter functionality would be added here
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('universitySearch');
+            const universityCards = document.querySelectorAll('.university-card');
+            
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase().trim();
+                
+                universityCards.forEach(card => {
+                    const universityName = card.querySelector('.university-name').textContent.toLowerCase();
+                    const schoolAbbrev = card.querySelector('.school-abbrev').textContent.toLowerCase();
+                    
+                    if (universityName.includes(searchTerm) || schoolAbbrev.includes(searchTerm)) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

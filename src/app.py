@@ -129,9 +129,9 @@ def more():
 def unitest2():
     return render_template('unitest2.html')
 
-@app.route('/all-schools')
-def allschools():
-    return render_template('all_schools.html')
+@app.route('/universities')
+def universities():
+    return render_template('universities.html')
 
 
 @app.route('/compare')
