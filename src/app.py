@@ -134,6 +134,15 @@ def allschools():
     return render_template('all_schools.html')
 
 
+@app.route('/compare')
+def compare():
+    school_weekly_averages = database.get_school_weekly_averages()
+    ratings_json = json.dumps(school_weekly_averages)
+
+    school_names = database.grab_all_schools_only()
+    return render_template('compare.html', ratings_json=ratings_json, school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations, school_websites=university_websites)
+
+
 
 # @app.route('/new', methods=['GET', 'POST'])
 # def new():
