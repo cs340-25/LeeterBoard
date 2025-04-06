@@ -10,12 +10,12 @@
 <body>
     <header class="header">
         <div class="header-wrap">
-            <a href="home.html" class="logo-section">
+            <a href="{{ url_for('home') }}" class="logo-section">
                 <img src="static/icons/final_logo.png" alt="LeeterBoard Logo" class="logo">
             </a>
             <div class="nav-links">
-                <a href="compare.html" class="nav-link">Compare</a>
-                <a href="universities.html" class="nav-link active">Universities</a>
+                <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
+                <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
                 <a href="#" class="nav-link">About</a>
             </div>
         </div>
@@ -69,101 +69,43 @@
 
             <!-- Universities Grid -->
             <div class="universities-grid">
-                <!-- University Card - MIT -->
-                <div class="university-card">
-                    <div class="left-border" style="--school-color: #A31F34;"></div>
-                    <div class="card-inner">
-                        <div class="card-top">
-                            <div class="card-logo-name">
-                                <img src="https://cdn.brandfetch.io/mit.edu/w/400/h/400" class="university-logo" alt="MIT logo">
-                                <div class="name-container">
-                                    <h2 class="university-name">Massachusetts Institute of Technology</h2>
-                                    <div class="student-count">
-                                        <img src="static/icons/students.svg" class="students-icon">
-                                        <span>30 students</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="school-abbrev">MIT</div>
-                        </div>
-                        <div class="card-buttons">
-                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
-                            <a href="#" class="view-members-btn" style="--school-color: #A31F34;">VIEW MEMBERS</a>
-                        </div>
-                    </div>
-                </div>
+                {% for current_avg_rating, school_name, student_count, rating_change in school_info %}
 
                 <!-- University Card - Stanford -->
-                <div class="university-card">
-                    <div class="left-border" style="--school-color: #8C1515;"></div>
+                <div class="university-card" style="--school-color: {{ school_colors[school_name] }};">
                     <div class="card-inner">
                         <div class="card-top">
                             <div class="card-logo-name">
-                                <img src="https://cdn.brandfetch.io/stanford.edu/w/400/h/400" class="university-logo" alt="Stanford logo">
+                                <img src="https://cdn.brandfetch.io/{{ school_websites[school_name] }}/w/400/h/400" class="university-logo" alt="Stanford logo">
                                 <div class="name-container">
-                                    <h2 class="university-name">Stanford University</h2>
+                                    <h2 class="university-name">{{ school_name }}</h2>
                                     <div class="student-count">
-                                        <img src="static/icons/students.svg" class="students-icon">
-                                        <span>28 students</span>
+                                        <img src="static/icons/students.svg" class="students-icon"><span>{{ student_count }} students</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="school-abbrev">Stanford</div>
                         </div>
+
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <div class="stat-value">#[    ]</div>
+                                <div class="stat-label">Global Rank</div>
+                            </div>
+                            <div class="stat-divider"></div>
+                            <div class="stat-item">
+                                <div class="stat-value">{{ "%.2f" | format(current_avg_rating) }}</div>
+                                <div class="stat-label">Average Rating</div>
+                            </div>
+                        </div>
+
                         <div class="card-buttons">
-                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
-                            <a href="#" class="view-members-btn" style="--school-color: #8C1515;">VIEW MEMBERS</a>
+                            <a href="#" class="view-btn" style="--school-color: {{ school_colors[school_name] }};">VIEW PROFILE</a>
+                            <a href="#" class="view-btn" style="--school-color: {{ school_colors[school_name] }};">VIEW MEMBERS</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- University Card - Waterloo -->
-                <div class="university-card">
-                    <div class="left-border" style="--school-color: #FDD54F;"></div>
-                    <div class="card-inner">
-                        <div class="card-top">
-                            <div class="card-logo-name">
-                                <img src="https://cdn.brandfetch.io/uwaterloo.ca/w/400/h/400" class="university-logo" alt="Waterloo logo">
-                                <div class="name-container">
-                                    <h2 class="university-name">University of Waterloo</h2>
-                                    <div class="student-count">
-                                        <img src="static/icons/students.svg" class="students-icon">
-                                        <span>17 students</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="school-abbrev">Waterloo</div>
-                        </div>
-                        <div class="card-buttons">
-                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
-                            <a href="#" class="view-members-btn" style="--school-color: #FDD54F;">VIEW MEMBERS</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- University Card - UC Berkeley -->
-                <div class="university-card">
-                    <div class="left-border" style="--school-color: #003262;"></div>
-                    <div class="card-inner">
-                        <div class="card-top">
-                            <div class="card-logo-name">
-                                <img src="https://cdn.brandfetch.io/berkeley.edu/w/400/h/400" class="university-logo" alt="UC Berkeley logo">
-                                <div class="name-container">
-                                    <h2 class="university-name">University of California, Berkeley</h2>
-                                    <div class="student-count">
-                                        <img src="static/icons/students.svg" class="students-icon">
-                                        <span>25 students</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="school-abbrev">UC Berkeley</div>
-                        </div>
-                        <div class="card-buttons">
-                            <a href="#" class="view-profile-btn">VIEW PROFILE</a>
-                            <a href="#" class="view-members-btn" style="--school-color: #003262;">VIEW MEMBERS</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
 
                 <!-- More cards would be added here, following the same pattern -->
             </div>
@@ -212,15 +154,14 @@
             // Search functionality
             const searchInput = document.getElementById('universitySearch');
             const universityCards = document.querySelectorAll('.university-card');
-            
+
             searchInput.addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase().trim();
                 
                 universityCards.forEach(card => {
                     const universityName = card.querySelector('.university-name').textContent.toLowerCase();
-                    const schoolAbbrev = card.querySelector('.school-abbrev').textContent.toLowerCase();
                     
-                    if (universityName.includes(searchTerm) || schoolAbbrev.includes(searchTerm)) {
+                    if (universityName.includes(searchTerm)) {
                         card.style.display = 'flex';
                     } else {
                         card.style.display = 'none';

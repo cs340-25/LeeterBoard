@@ -112,7 +112,7 @@ def standardize_db_universities():
 
 # This function takes each user's currentRating and calculates the updated average
 # Returns a list of tuples (university name, avg contest rating)
-def grab_university_info() -> List[Tuple[float, str, int, float]]:
+def grab_university_info(min_students: int = 0) -> List[Tuple[float, str, int, float]]:
     cursor = university_avgs.find()
 
     school_info = []
@@ -123,7 +123,7 @@ def grab_university_info() -> List[Tuple[float, str, int, float]]:
         prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
         rating_change = current_avg_rating - prev_avg_rating
 
-        if student_count >= 5:
+        if student_count >= min_students:
             school_info.append((current_avg_rating, school_name, student_count, rating_change))
 
     return school_info

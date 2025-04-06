@@ -105,13 +105,9 @@ header {
   color: #fff;
 }
 
-.nav-link:hover::before, .nav-link.active::before {
+.nav-link:hover::before {
   visibility: visible;
   width: 100%;
-}
-
-.nav-link.active {
-  color: #fff;
 }
 
 /* Main container */
@@ -232,9 +228,9 @@ main {
 /* Universities Grid */
 .universities-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 30px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(3, minmax(300px, 1fr));
+  gap: 55px;
+  margin-bottom: 55px;
 }
 
 /* University Card */
@@ -247,21 +243,12 @@ main {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   height: 250px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 4px solid var(--school-color, #9370db);
 }
 
 .university-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-}
-
-/* Left color border */
-.left-border {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 7px;
-  height: 100%;
-  background-color: var(--school-color, #9370db);
 }
 
 /* Card inner content */
@@ -278,6 +265,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  margin-bottom: 20px;
 }
 
 /* Logo and name container */
@@ -285,7 +273,7 @@ main {
   display: flex;
   gap: 15px;
   align-items: flex-start;
-  width: 80%;
+  width: 100%;
 }
 
 .university-logo {
@@ -293,13 +281,14 @@ main {
   height: 55px;
   border-radius: 8px;
   object-fit: cover;
-  border: 1px solid #000;
+  background-color: #fff;
+  padding: 3px;
 }
 
 .name-container {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .university-name {
@@ -324,14 +313,42 @@ main {
   opacity: 0.7;
 }
 
-/* School abbreviation */
-.school-abbrev {
-  background-color: #1a1a1a;
+.stats-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #333;
+  border-radius: 10px;
+  padding: 15px;
+  background: linear-gradient(to bottom, rgba(40, 40, 40, 0.5), rgba(30, 30, 30, 0.5));
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.stat-value {
+  font-size: 18px;
+  font-weight: 700;
   color: white;
-  padding: 8px 14px;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.stat-divider {
+  width: 1px;
+  background-color: #333;
+  margin: 0 10px;
 }
 
 /* Card buttons */
@@ -341,7 +358,7 @@ main {
   margin-top: auto;
 }
 
-.view-profile-btn, .view-members-btn {
+.view-btn {
   flex: 1;
   text-align: center;
   padding: 12px 0;
@@ -354,22 +371,22 @@ main {
   transition: all 0.2s;
 }
 
-.view-profile-btn {
+/* .view-profile-btn {
   background-color: #14121F;
   color: white;
 }
 
 .view-profile-btn:hover {
   background-color: #1F1C2E;
-}
+} */
 
-.view-members-btn {
+.view-btn {
   background-color: transparent;
-  color: var(--school-color, #9370db);
+  color: rgba(255, 255, 255, 0.8);
   border: 1px solid var(--school-color, #9370db);
 }
 
-.view-members-btn:hover {
+.view-btn:hover {
   background-color: var(--school-color, #9370db);
   color: #1a1a1a;
 }

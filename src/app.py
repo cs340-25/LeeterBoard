@@ -54,7 +54,7 @@ def home():
     # Default display (GET)
     
     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
-    school_info = database.grab_university_info()
+    school_info = database.grab_university_info(5)
     school_info.sort(reverse=True)
 
     # Grabs all user rating changes -> sorted by rating changes (desc.)
@@ -131,7 +131,13 @@ def unitest2():
 
 @app.route('/universities')
 def universities():
-    return render_template('universities.html')
+    school_info = database.grab_university_info()
+
+    # Sort A-Z for this page
+    school_info.sort(key=lambda x: x[1])
+    print(school_info)
+
+    return render_template('universities.html', school_info=school_info, school_colors=university_colors, school_websites=university_websites)
 
 
 @app.route('/compare')
