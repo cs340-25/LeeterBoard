@@ -258,3 +258,29 @@ def get_school_weekly_averages() -> Dict[str, List[Tuple[str, float]]]:
             school_weekly_averages[school_name].append(rating)
         
     return school_weekly_averages
+
+
+
+def grab_homepage_universities() -> List[Tuple[int, int, float, str, int, float]]:
+    cursor = university_avgs.find()
+
+    school_info = []
+    for school in cursor:
+        # This function will only return a list of schools with a current rank and previous rank
+        # So, previousRank != 0 and currentRank != 0
+        previous_rank = school['previousRank']
+        current_rank = school['currentRank']
+
+        if previous_rank != -1 and current_rank != -1:
+            school_name = school['universityName']
+            student_count = school['studentCount']
+
+            # Calculate average contest rating change (weekly)
+            current_avg_rating = school['currentAverage']
+            prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
+            rating_change = current_avg_rating - prev_avg_rating
+
+            school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change))
+            # print(f"{school_name} went {rank_change} from {previous_rank} to {current_rank}")
+
+    return school_info

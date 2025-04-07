@@ -52,10 +52,14 @@ def home():
     
 
     # Default display (GET)
+
+
+
     
     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by curr avg rating (desc.)
-    school_info = database.grab_university_info(5)
-    school_info.sort(reverse=True)
+    # school_info = database.grab_university_info(5)
+    school_info = database.grab_homepage_universities()
+    school_info.sort()
 
     # Grabs all user rating changes -> sorted by rating changes (desc.)
     user_rating_changes = database.get_user_rating_changes()
@@ -63,7 +67,7 @@ def home():
 
     # Grabs all school info (curr avg rating, school name, rating change) -> sorted by rating change (desc.)
     school_rating_changes = database.grab_university_info()
-    school_rating_changes.sort(key=lambda x: x[2], reverse=True)
+    school_rating_changes.sort(key=lambda x: x[3], reverse=True)
 
     return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
                            university_websites=university_websites, university_abbreviations=university_abbreviations)

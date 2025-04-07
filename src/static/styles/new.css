@@ -205,7 +205,7 @@ main {
 /* Table Header */
 .table-header {
     display: grid;
-    grid-template-columns: 65px 1fr 180px 150px;
+    grid-template-columns: 90px 1fr 180px 150px;
     padding: 15px 25px;
     background-color: #1a1a1a;
     color: #888;
@@ -230,7 +230,7 @@ main {
 
 .university-item {
     display: grid;
-    grid-template-columns: 65px 1fr 180px 150px;
+    grid-template-columns: 90px 1fr 180px 150px;
     align-items: center;
     padding: 18px 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -254,11 +254,46 @@ main {
     background-color: rgba(56, 1, 95, 1);
 }
 
-/* Rank Styling */
 .rank-container {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    gap: 2.5px;
 }
+
+/* Rank Styling */
+.rank-change-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 7px;
+    width: 24px; 
+}
+
+.rank-change-indicator img {
+    width: 16px;
+    height: 16px;
+}
+
+.rank-change-indicator p {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.rank-change-indicator.up {
+    color: #2dc932;
+}
+
+.rank-change-indicator.down {
+    color: #e53935;
+}
+
+.rank-change-indicator.neutral {
+    color: #888;
+}
+
 
 .rank-number {
     width: 32px;
