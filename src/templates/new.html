@@ -159,25 +159,21 @@
                         </div>
                         
                         <ul class="widget-list">
-
                             {% for rating_change, user, user_avatar in user_rating_changes[:5] %}
-
-                            <li class="widget-item-user">
-                                <div class="user-rank">
-                                    <div class="rank-circle">{{ loop.index0 + 1 }}</div>
-                                </div>
-                                <div class="user-info">
-                                    <img src="{{ user_avatar }}" class="user-avatar">
-                                    <div class="user-details">
-                                        <div class="user-name">{{ user }}</div>
-                                        <div class="user-university">[SCHOOL]</div>
+                                <li class="widget-item-user">
+                                    <div class="user-rank">
+                                        <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                     </div>
-                                </div>
-                                <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
-                            </li>
-
+                                    <div class="user-info">
+                                        <img src="{{ user_avatar }}" class="user-avatar">
+                                        <div class="user-details">
+                                            <div class="user-name">{{ user }}</div>
+                                            <div class="user-university">[SCHOOL]</div>
+                                        </div>
+                                    </div>
+                                    <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
+                                </li>
                             {% endfor %}
-                            
                         </ul>
                     </div>
                 </div>
@@ -196,26 +192,21 @@
                         </div>
                         
                         <ul class="widget-list">
-
                             {% for rating, school, student_count, rating_change in school_rating_changes[:5] %}
-                            
-                            <li class="widget-item-university" data-school="{{ school }}">
-                                <div class="user-rank">
-                                    <div class="rank-circle">{{ loop.index0 + 1 }}</div>
-                                </div>
-                                <div class="user-info">
-                                    <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
-                                    <div class="user-details">
-                                        <div class="user-name">{{ university_abbreviations[school] }}</div>
-                                        <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
+                                <li class="widget-item-university" data-school="{{ school }}">
+                                    <div class="user-rank">
+                                        <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                     </div>
-                                </div>
-                                <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
-                            </li>
-
+                                    <div class="user-info">
+                                        <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
+                                        <div class="user-details">
+                                            <div class="user-name">{{ university_abbreviations[school] }}</div>
+                                            <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
+                                        </div>
+                                    </div>
+                                    <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
+                                </li>
                             {% endfor %}
-                            
-
                         </ul>
                     </div>
                 </div>
@@ -228,69 +219,21 @@
                     
                     <div class="widget-content">
                         <ul class="widget-list">
-
                             {% for current_rank, rank_change, rating, school, student_count, school_rating_change in school_info[:5] %}
-                            
-                            <li class="widget-item-university" data-school="{{ school }}">
-                                <div class="user-rank">
-                                    <div class="rank-circle">{{ loop.index0 + 1 }}</div>
-                                </div>
-                                <div class="user-info">
-                                    <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
-                                    <div class="user-details">
-                                        <div class="user-name">{{ university_abbreviations[school] }}</div>
-                                        <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
+                                <li class="widget-item-university" data-school="{{ school }}">
+                                    <div class="user-rank">
+                                        <div class="rank-circle">{{ loop.index0 + 1 }}</div>
                                     </div>
-                                </div>
-                                <div class="user-rating">{{ "%.2f" | format(rating) }}</div>
-                            </li>
-
+                                    <div class="user-info">
+                                        <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
+                                        <div class="user-details">
+                                            <div class="user-name">{{ university_abbreviations[school] }}</div>
+                                            <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
+                                        </div>
+                                    </div>
+                                    <div class="user-rating">{{ "%.2f" | format(rating) }}</div>
+                                </li>
                             {% endfor %}
-                            
-
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Recent Activity Widget -->
-                <div class="widget activity-widget">
-                    <div class="widget-header">
-                        <h3>Recent Activity</h3>
-                    </div>
-                    
-                    <div class="widget-content">
-                        <ul class="activity-list">
-                            <li class="activity-item">
-                                <div class="activity-icon contest">🏁</div>
-                                <div class="activity-content">
-                                    <div class="activity-title">Weekly Challenge #42 Completed</div>
-                                    <div class="activity-time">2 hours ago</div>
-                                </div>
-                            </li>
-                            
-                            <li class="activity-item">
-                                <div class="activity-icon achievement">🏅</div>
-                                <div class="activity-content">
-                                    <div class="activity-title">MIT earned "Algorithm Masters" badge</div>
-                                    <div class="activity-time">Yesterday</div>
-                                </div>
-                            </li>
-                            
-                            <li class="activity-item">
-                                <div class="activity-icon user">👤</div>
-                                <div class="activity-content">
-                                    <div class="activity-title">shivam_1v broke the rating record</div>
-                                    <div class="activity-time">3 days ago</div>
-                                </div>
-                            </li>
-                            
-                            <li class="activity-item">
-                                <div class="activity-icon contest">🏁</div>
-                                <div class="activity-content">
-                                    <div class="activity-title">March Coding Challenge announced</div>
-                                    <div class="activity-time">5 days ago</div>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>
