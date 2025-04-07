@@ -261,7 +261,7 @@ def get_school_weekly_averages() -> Dict[str, List[Tuple[str, float]]]:
 
 
 
-def grab_homepage_universities() -> List[Tuple[int, int, float, str, int, float]]:
+def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, float]]:
     cursor = university_avgs.find()
 
     school_info = []
@@ -271,7 +271,23 @@ def grab_homepage_universities() -> List[Tuple[int, int, float, str, int, float]
         previous_rank = school['previousRank']
         current_rank = school['currentRank']
 
-        if previous_rank != -1 and current_rank != -1:
+        # We are passing in a parameter (filter)
+        # True = filter out schools that have -1 in both rank fields (current + previous)
+            # This means that the school has less than 5 students (aka not factored into the weekly ranking calculation script)
+        # False = do not filter out (aka include all schools) [for universities page]
+        if filter:
+            if previous_rank != -1 and current_rank != -1:
+                school_name = school['universityName']
+                student_count = school['studentCount']
+
+                # Calculate average contest rating change (weekly)
+                current_avg_rating = school['currentAverage']
+                prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
+                rating_change = current_avg_rating - prev_avg_rating
+
+                school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change))
+                # print(f"{school_name} went {rank_change} from {previous_rank} to {current_rank}")
+        else:
             school_name = school['universityName']
             student_count = school['studentCount']
 

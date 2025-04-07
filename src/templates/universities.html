@@ -69,14 +69,15 @@
 
             <!-- Universities Grid -->
             <div class="universities-grid">
-                {% for current_avg_rating, school_name, student_count, rating_change in school_info %}
+                {% for current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change in school_info %}
 
                 <!-- University Card - Stanford -->
                 <div class="university-card" style="--school-color: {{ school_colors[school_name] }};">
                     <div class="card-inner">
                         <div class="card-top">
                             <div class="card-logo-name">
-                                <img src="https://cdn.brandfetch.io/{{ school_websites[school_name] }}/w/400/h/400" class="university-logo" alt="Stanford logo">
+                                <img src="https://img.logo.dev/{{ school_websites[school_name] }}" class="university-logo"></img>
+                                <!-- <img src="https://cdn.brandfetch.io/{{ school_websites[school_name] }}/w/400/h/400" class="university-logo" > -->
                                 <div class="name-container">
                                     <h2 class="university-name">{{ school_name }}</h2>
                                     <div class="student-count">
@@ -88,7 +89,11 @@
 
                         <div class="stats-container">
                             <div class="stat-item">
-                                <div class="stat-value">#[    ]</div>
+                                {% if current_rank == -1 and previous_rank == -1 %}
+                                    <div class="stat-value">-</div>
+                                {% else %}
+                                    <div class="stat-value">#{{ current_rank }}</div>
+                                {% endif %}
                                 <div class="stat-label">Global Rank</div>
                             </div>
                             <div class="stat-divider"></div>
