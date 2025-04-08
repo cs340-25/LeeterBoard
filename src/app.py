@@ -120,8 +120,11 @@ def compare():
     school_weekly_averages = database.get_school_weekly_averages()
     ratings_json = json.dumps(school_weekly_averages)
 
+    school_rankings = database.get_university_ranks()
+    rankings_json = json.dumps(school_rankings)
+
     school_names = database.grab_all_schools_only()
-    return render_template('compare.html', ratings_json=ratings_json, school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations, school_websites=university_websites)
+    return render_template('compare.html', ratings_json=ratings_json, school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations, school_websites=university_websites, rankings_json=rankings_json)
 
 
 if __name__ == '__main__':

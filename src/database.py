@@ -300,3 +300,23 @@ def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, 
             # print(f"{school_name} went {rank_change} from {previous_rank} to {current_rank}")
 
     return school_info
+
+
+def get_university_ranks() -> Dict[str, int]:
+    cursor = university_avgs.find(
+        {},
+        {'universityName': 1, 'currentRank': 1, 'previousRank': 1}
+    )
+
+    school_rankings = defaultdict()
+    for school in cursor:
+        school_name = school['universityName']
+        current_rank = school['currentRank']
+        previous_rank = school['previousRank']
+
+        if current_rank != -1 and previous_rank != -1:
+            school_rankings[school_name] = current_rank
+        else:
+            school_rankings[school_name] = -1
+    
+    return school_rankings

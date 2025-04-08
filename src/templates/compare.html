@@ -284,6 +284,8 @@
                 // Grab the location of where we will be adding the stat cards
                 const selectedSchoolStats = document.getElementById('selectedSchoolStats');
                 const allSchoolsData = JSON.parse('{{ ratings_json|safe }}');
+                const rankingsData = JSON.parse('{{ rankings_json|safe }}')
+                console.log(rankingsData);
 
                 // Clear existing cards first
                 selectedSchoolStats.innerHTML = '';
@@ -318,7 +320,8 @@
                     // Add rank badge
                     const rankSpan = document.createElement('div');
                     rankSpan.className = 'stat-card-rank';
-                    rankSpan.textContent = `Rank #${index + 12}`; // Example - replace with actual rank when available
+                    console.log(school);
+                    rankSpan.textContent = `Rank #${rankingsData[school]}`; // Example - replace with actual rank when available
                     schoolHeader.appendChild(rankSpan);
                     
                     schoolStatCard.appendChild(schoolHeader);
@@ -368,9 +371,8 @@
                                 trend.classList.add('negative');
                             }
                         } else {
-                            // For first item, match the example
-                            trend.textContent = '▼';
-                            trend.classList.add('negative');
+                            trend.textContent = '→';
+                            trend.classList.add('neutral');
                         }
 
                         weekData.appendChild(trend);
@@ -515,7 +517,6 @@
                     // Clear previous stats
                     universityStats.innerHTML = '';
 
-
                     // Collect all university stats into an array for sorting
                     const statsArray = [];
                     window.myChart.data.datasets.forEach(dataset => {
@@ -548,35 +549,6 @@
                         uniItem.appendChild(uniText);
                         universityStats.appendChild(uniItem);
                     });
-
-
-
-
-
-
-
-
-
-
-                    // // Add stats for each university
-                    // window.myChart.data.datasets.forEach(dataset => {
-                    //     const value = dataset.data[dataIndex];
-                    //     if(value !== undefined) {
-                    //         const uniItem = document.createElement('div');
-                    //         uniItem.className = 'uni-stat-item';
-
-                    //         const colorDot = document.createElement('div');
-                    //         colorDot.className = 'uni-color-dot';
-                    //         colorDot.style.backgroundColor = dataset.borderColor;
-
-                    //         const uniText = document.createElement('span');
-                    //         uniText.textContent = `${dataset.label}: ${value}`;
-
-                    //         uniItem.appendChild(colorDot);
-                    //         uniItem.appendChild(uniText);
-                    //         universityStats.appendChild(uniItem);
-                    //     }
-                    // });
                 }
             }
 
