@@ -20,6 +20,7 @@ header {
   padding: 16px 40px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Purple Glow Across Top */
@@ -56,20 +57,55 @@ header {
 }
 
 .logo-section {
-  background: #14141e;
   border-radius: 8px;
-  padding: 8px 14px;
+  padding: 6px 10px;
   cursor: pointer;
+  align-items: center;
+  position: relative;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  box-shadow: 0 0 0 rgba(98, 77, 227, 0); /* Start with transparent shadow */
+}
+
+.logo-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(207, 183, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: none;
+}
+
+.logo-section:hover {
+  box-shadow: 0 4px 8px rgba(98, 77, 227, 0.15);
+}
+
+.logo-section:hover::before {
+  animation: shimmer 1.2s ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+      left: -100%;
+  }
+  100% {
+      left: 150%;
+  }
 }
 
 .logo {
   height: 28px;
-  opacity: 0.8;
   transition: all 0.2s;
-}
-
-.logo:hover {
-  opacity: 1;
+  margin-top: 3px;
+  margin-right: 4px;
 }
 
 .nav-links {
