@@ -15,7 +15,7 @@
             </a>
             <div class="nav-links">
                 <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
-                <a href="#" class="nav-link">Universities</a>
+                <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
                 <a href="#" class="nav-link">About</a>
               </div>
         </div>
@@ -26,7 +26,8 @@
             <!-- University Header Bar -->
             <div class="university-header" style="--school-color: {{ university_colors[school_name] }};">
                 <div class="university-info">
-                    <img src="https://cdn.brandfetch.io/{{ university_websites[school_name] }}/w/400/h/400?c=1idl-cR2qqIMB2mSLMf" class="university-logo"></img>
+                    <img src="https://img.logo.dev/{{ university_websites[school_name] }}" class="university-logo"></img>
+                    <!-- <img src="https://cdn.brandfetch.io/{{ university_websites[school_name] }}/w/400/h/400?c=1idl-cR2qqIMB2mSLMf" class="university-logo"></img> -->
                     <div>
                         <h2>{{ school_name }}</h2>
                     </div>

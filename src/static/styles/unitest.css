@@ -198,7 +198,7 @@ main {
     background-color: color-mix(in srgb, var(--school-color) 10%, transparent);
     border: 2px solid var(--school-color);
     border-radius: 8px;
-    color: var(--school-color);
+    color: rgba(255, 255, 255, 0.8);
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;

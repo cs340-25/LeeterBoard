@@ -397,26 +397,15 @@ main {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.2s;
-}
-
-/* .view-profile-btn {
-  background-color: #14121F;
-  color: white;
-}
-
-.view-profile-btn:hover {
-  background-color: #1F1C2E;
-} */
-
-.view-btn {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.8);
-  border: 1px solid var(--school-color, #9370db);
+  background-color: color-mix(in srgb, var(--school-color) 10%, transparent);
+  border: 2px solid var(--school-color);
 }
 
 .view-btn:hover {
-  background-color: var(--school-color, #9370db);
-  color: #1a1a1a;
+  background-color: color-mix(in srgb, var(--school-color) 40%, transparent);
+  color: white;
 }
 
 /* Pagination */

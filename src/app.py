@@ -108,9 +108,11 @@ def universities():
 
     # Sort A-Z for this page
     school_info.sort(key=lambda x: x[3])
-    print(len(school_info))
+    print(len(school_info)) 
 
-    return render_template('universities.html', school_info=school_info, school_colors=university_colors, school_websites=university_websites)
+    school_names_to_slugs = {v: k for k, v in university_slugs.items()}
+
+    return render_template('universities.html', school_info=school_info, school_colors=university_colors, school_websites=university_websites, school_names_to_slugs=school_names_to_slugs)
 
 
 @app.route('/compare')
@@ -120,7 +122,6 @@ def compare():
 
     school_names = database.grab_all_schools_only()
     return render_template('compare.html', ratings_json=ratings_json, school_names=school_names, school_colors=university_colors, school_abbrev=university_abbreviations, school_websites=university_websites)
-
 
 
 if __name__ == '__main__':

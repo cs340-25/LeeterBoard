@@ -263,7 +263,7 @@ main {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-height: calc(65vh - 130px);
+    max-height: calc(82.5vh - 130px);
     overflow-y: auto;
 }
 
@@ -294,7 +294,7 @@ main {
 .school-name {
     font-weight: 500;
     color: white;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .remove-school {
