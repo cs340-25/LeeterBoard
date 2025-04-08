@@ -12,6 +12,9 @@ from data.university_colors import university_colors
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+
+# Temporary Placeholder For university profile page
+# CALEB: Migrate contents and ideas from /unitest2 to here
 @app.get('/unipage2/<slug>')
 def unipage2(slug):
     regular_school_name = university_slugs[slug]
@@ -30,11 +33,7 @@ def unipage2(slug):
     return render_template('unipage2.html', ratings_json=ratings_json, logo_url=logo_url)
 
 
-@app.get('/unipage')
-def unipage():
-    return render_template('unipage.html')
-
-
+# Main Page
 @app.route('/', methods=['GET', 'POST'])
 def home():
     # If user types in a school and presses submit
@@ -63,11 +62,11 @@ def home():
     school_rating_changes = database.grab_university_info(5)
     school_rating_changes.sort(key=lambda x: x[3], reverse=True)
 
-    return render_template('new.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
+    return render_template('home.html', school_info=school_info, user_rating_changes=user_rating_changes, school_rating_changes=school_rating_changes,
                            university_websites=university_websites, university_abbreviations=university_abbreviations)
 
 
-
+# Members Page for Each University (Student Rankings)
 @app.route('/<slug>', methods=['GET'])
 def school(slug):
     # GET (direct URL access from homepage)
@@ -78,7 +77,7 @@ def school(slug):
 
         school_names_to_slugs = {v: k for k, v in university_slugs.items()}
 
-        return render_template('unitest.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
+        return render_template('students.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
     
     # School not found in slug list
     print("got to school, not found")
@@ -102,6 +101,7 @@ def unitest2():
     return render_template('unitest2.html')
 
 
+# All Universities Page (Alphabetical)
 @app.route('/universities')
 def universities():
     school_info = database.grab_homepage_universities(False)
@@ -115,6 +115,7 @@ def universities():
     return render_template('universities.html', school_info=school_info, school_colors=university_colors, school_websites=university_websites, school_names_to_slugs=school_names_to_slugs)
 
 
+# University Graph Comparison Tool Page
 @app.route('/compare')
 def compare():
     school_weekly_averages = database.get_school_weekly_averages()
