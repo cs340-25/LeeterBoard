@@ -13,20 +13,134 @@
 }
 
 header {
-    display: flex;
+  background-color: #000000;
+  padding: 16px 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Purple Glow Across Top */
+.header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(147, 112, 219, 0.1) 20%, 
+        rgba(147, 112, 219, 0.3) 40%,
+        rgba(147, 112, 219, 0.5) 50%,
+        rgba(147, 112, 219, 0.3) 60%,
+        rgba(147, 112, 219, 0.1) 80%,
+        transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.header-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo-section {
+    border-radius: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
     align-items: center;
-    justify-content: space-between;
-    background-color: black;
-    padding: 10px 20px;
+    position: relative;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    box-shadow: 0 0 0 rgba(98, 77, 227, 0); /* Start with transparent shadow */
+}
+
+.logo-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(207, 183, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: none;
+}
+
+.logo-section:hover {
+    box-shadow: 0 4px 8px rgba(98, 77, 227, 0.15);
+}
+
+.logo-section:hover::before {
+    animation: shimmer 1.2s ease-in-out;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 150%;
+    }
 }
 
 .logo {
-    height: 40px;
+    height: 28px;
+    transition: all 0.2s;
+    margin-top: 3px;
+    margin-right: 4px;
 }
 
-.user_icon {
-    height: 40px;
-    cursor: pointer;
+.nav-links {
+  display: flex;
+  gap: 40px;
+}
+
+.nav-link {
+    font-weight: 400;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #a8a8a8;
+    padding: 5px 0;
+    text-decoration: none;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background-color: #9370db;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.nav-link:hover {
+    color: #fff;
+}
+
+.nav-link:hover::before {
+    visibility: visible;
+    width: 100%;
 }
 
 main {
@@ -39,31 +153,35 @@ main {
 
 .profile-bar {
     display: flex;
-    width: 20%;
+    width: calc(22% - 50px); /* Subtract the margin */
+    margin-left: 50px;
+    flex-shrink: 0; /* Prevent it from shrinking */;
     height: 100%;
-    margin-left: 150px;
-    background-color: rgb(37, 37, 37, 1);
     border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     align-items: center;
+    background-color: #252525;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
 }
 
 .profile-bar img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     margin-right: 8px;
     margin-top: 25px;
-    border-radius: 50%;
+    border-radius: 15px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
     border: 2px solid rgba(0, 0, 0, 1);
 }
 
 .right-side {
     display: flex;
-    width: 60%;
     flex-direction: column;
     gap: 20px;  
+    width: calc(78% - 50px); /* Subtract the margin */
+    flex-shrink: 0; /* Prevent it from shrinking */;
+    margin-right: 50px;
 }
 
 .graph {
@@ -71,9 +189,10 @@ main {
     display: flex;
     width: 100%;
     height: 60%;
-    background-color: rgb(37, 37, 37, 1);
     border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #252525;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
 }
 
 #rating-display, .rating-display {
@@ -102,14 +221,16 @@ main {
 
 .uni-info {
     width: 100%;
-    background-color: rgb(37, 37, 37, 1);
     border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #252525;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
 }
 
 .badges {
     width: 100%;
-    background-color: rgb(37, 37, 37, 1);
     border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #252525;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #333;
 }

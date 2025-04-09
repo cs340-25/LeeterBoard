@@ -11,9 +11,17 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <header>
-        <img src="{{ url_for('static', filename='icons/leeterboard_logo.png') }}" alt="LeeterBoard Logo" class="logo">
-        <img src="{{ url_for('static', filename='icons/user_icon.png') }}" alt="User Icon" class="user_icon">
+    <header class="header">
+        <div class="header-wrap">
+            <a href="{{ url_for('home') }}" class="logo-section">
+                <img src="{{ url_for('static', filename='icons/final_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
+                <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
+                <a href="#" class="nav-link">About</a>
+              </div>
+        </div>
     </header>
 
     <main>
