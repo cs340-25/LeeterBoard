@@ -71,7 +71,6 @@
             <div class="universities-grid">
                 {% for current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change in school_info %}
 
-                <!-- University Card - Stanford -->
                 <div class="university-card" style="--school-color: {{ school_colors[school_name] }};">
                     <div class="card-inner">
                         <div class="card-top">
@@ -111,8 +110,6 @@
                 </div>
 
                 {% endfor %}
-
-                <!-- More cards would be added here, following the same pattern -->
             </div>
 
             <!-- Pagination -->
@@ -146,15 +143,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Alphabet navigation
-            const letterButtons = document.querySelectorAll('.letter-button');
-            letterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    letterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    // Filter functionality would be added here
-                });
-            });
+
 
             // Search functionality
             const searchInput = document.getElementById('universitySearch');
@@ -171,6 +160,46 @@
                     } else {
                         card.style.display = 'none';
                     }
+                });
+            }); 
+
+            const letterButtons = document.querySelectorAll('.letter-button');
+            
+            letterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    letterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    // Filter functionality would be added here
+                    const letter = this.textContent.toLowerCase();
+
+                    // Handle "All" button selection
+                    if(letter === 'all') {
+                        universityCards.forEach(card => {
+                            card.style.display = 'flex';
+                        });
+                        return;
+                    }
+
+                    // Any other letter is selected
+                    universityCards.forEach(card => {
+                        const universityName = card.querySelector('.university-name').textContent.toLowerCase();
+                        
+                        // Special handing for "University of X" pattern
+                        if(universityName.startsWith('university of ')) {
+                            const filteredName = universityName.substring(14); // Remove the "University Of " prefix
+                            if(filteredName.startsWith(letter)) {
+                                card.style.display = 'flex';
+                                return;
+                            }
+                        }
+
+                        // Standard check for other universities
+                        if(universityName.startsWith(letter)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
                 });
             });
         });
