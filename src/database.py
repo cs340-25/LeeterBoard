@@ -148,7 +148,7 @@ def get_users_by_school(school: str) -> List[dict]:
 def get_user_rating_changes() -> List[Tuple[(float, str, str)]]:
     cursor = leet_users.find(
         {},
-        {'username': 1, 'currentRating': 1, 'previousRatings': 1, 'userAvatar': 1}
+        {'username': 1, 'currentRating': 1, 'previousRatings': 1, 'userAvatar': 1, 'school': 1}
     )
 
     user_rating_changes = []
@@ -161,11 +161,12 @@ def get_user_rating_changes() -> List[Tuple[(float, str, str)]]:
 
         username = user['username']
         user_avatar = user['userAvatar']
+        school = user['school']
         current_rating = user['currentRating']
         prev_rating = user['previousRatings'][-1]
         rating_change = current_rating - prev_rating
 
-        user_rating_changes.append((rating_change, username, user_avatar))
+        user_rating_changes.append((rating_change, username, user_avatar, school))
 
     return user_rating_changes
 
@@ -315,3 +316,26 @@ def get_university_ranks() -> Dict[str, int]:
             school_rankings[school_name] = -1
     
     return school_rankings
+
+
+
+# Get the information for one university's profile
+def get_school_profile_info(school_name: str):
+    school_info = university_avgs.find_one(
+        {'universityName': school_name},
+    )
+
+    if not school_info:
+        return None
+
+    school_name = school_info['universityName']
+    print(school_name)
+    students = school_info['studentCount']
+    curr_rating = school_info['currentAverage']
+    prev_rating = school_info['weeklyAverages'][-2]['average']
+    rating_change = curr_rating - prev_rating
+    rank = school_info['currentRank']
+
+    return (school_name, students, curr_rating, rating_change, rank)
+
+

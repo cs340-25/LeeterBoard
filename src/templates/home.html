@@ -151,7 +151,7 @@
                         </div>
                         
                         <ul class="widget-list">
-                            {% for rating_change, user, user_avatar in user_rating_changes[:5] %}
+                            {% for rating_change, user, user_avatar, school in user_rating_changes[:5] %}
                                 <li class="widget-item-user">
                                     <div class="user-rank">
                                         <div class="rank-circle">{{ loop.index0 + 1 }}</div>
@@ -160,7 +160,7 @@
                                         <img src="{{ user_avatar }}" class="user-avatar">
                                         <div class="user-details">
                                             <div class="user-name">{{ user }}</div>
-                                            <div class="user-university">[SCHOOL]</div>
+                                            <div class="user-university">{{ university_abbreviations[school] }}</div>
                                         </div>
                                     </div>
                                     <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>

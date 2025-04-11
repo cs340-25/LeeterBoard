@@ -18,19 +18,17 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 @app.get('/unipage2/<slug>')
 def unipage2(slug):
     regular_school_name = university_slugs[slug]
-
     school_weekly_averages = database.get_school_weekly_averages()
-    # for school, averages in school_weekly_averages.items():
-    #     print(f"{school}")
-    #     for rating in averages:
-    #         print(f"{rating['week']}, {rating['average']}")
-    #     print("\n")
 
     # Convert the python list to JSON string for Chart.js
     ratings_json = json.dumps(school_weekly_averages[regular_school_name])
     logo_url = university_websites[regular_school_name]
+
+    # Get all the school's info
+    print(regular_school_name)
+    school_info = database.get_school_profile_info(regular_school_name)
     
-    return render_template('unipage2.html', ratings_json=ratings_json, logo_url=logo_url)
+    return render_template('unipage2.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors)
 
 
 # Main Page

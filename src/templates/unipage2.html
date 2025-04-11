@@ -25,19 +25,72 @@
     </header>
 
     <main>
-        <div class="profile-bar">
-            <img src="https://img.logo.dev/{{ logo_url }}">
+        <div class="profile-bar" style="--school-color: {{ university_colors[school_info[0]] }};">
+            <div class="profile-top-pattern"></div>
+
+            <!-- Updated school logo container -->
+            <div class="school-logo-container">
+                <img src="https://img.logo.dev/{{ logo_url }}" class="school-logo">
+            </div>
+            <div class="school-name">{{ school_info[0] }}</div>
+            <div class="school-abbrev">{{ university_abbreviations[school_info[0]] }}</div>
+
+            <div class="university-details">
+                <div class="detail-item">
+                    <img src="{{ url_for('static', filename='icons/rank_icon.svg') }}" class="detail-icon"></img>
+                    <div class="detail-info">
+                        <div class="detail-label">GLOBAL RANK</div>
+                        <div class="detail-value">{{ school_info[4] }}</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <img src="{{ url_for('static', filename='icons/rating_icon.svg') }}" class="detail-icon"></img>
+                    <div class="detail-info">
+                        <div class="detail-label">CONTEST RATING</div>
+                        <div class="detail-value">{{ "%.2f" | format(school_info[2]) }}</div>
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <img src="{{ url_for('static', filename='icons/rating_change_icon.svg') }}" class="detail-icon"></img>
+                    <div class="detail-info">
+                        <div class="detail-label">RATING CHANGE</div>
+                        {% if school_info[3] < 0 %}
+                            <div class="detail-value">+{{ "%.2f" | format(school_info[3]) }}</div>
+                        {% else %}
+                            <div class="detail-value">{{ "%.2f" | format(school_info[3]) }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="detail-item">
+                    <img src="{{ url_for('static', filename='icons/students_black.svg') }}" class="detail-icon"></img>
+                    <div class="detail-info">
+                        <div class="detail-label">STUDENTS</div>
+                        <div class="detail-value">{{ school_info[1] }}</div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <a href="#" class="view-members-btn">View All Members</a>
         </div>
 
-        <div class="right-side">
+        <div class="right-side" style="--school-color: {{ university_colors[school_info[0]] }};">
             <div class="graph">
                 <canvas id="ratings-line-graph"></canvas>
                 <div id="rating-display" class="rating-display"></div>
             </div>
 
             <div class="bottom-row">
-                <div class="uni-info"></div>
-                <div class="badges"></div>
+                <div class="uni-info">
+                    <div class="section-header">
+                        <h2>University Highlights</h2>
+                    </div>
+                </div>
+                <div class="badges">
+                    <div class="section-header">
+                        <h2>Badges</h2>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -51,13 +104,33 @@
         const ctx = document.getElementById('ratings-line-graph');
         const ratingDisplay = document.getElementById('rating-display');
 
-        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
-        gradient.addColorStop(0, 'rgb(160, 40, 40)')
-        gradient.addColorStop(1, 'rgb(151, 56, 121)')
+        const schoolColor = '{{ university_colors[school_info[0]] }}';
+        console.log(schoolColor);
 
-        const fillGradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
-        fillGradient.addColorStop(0, 'rgba(160, 40, 40, 0.08)')
-        fillGradient.addColorStop(1, 'rgba(151, 56, 121, 0.08)')
+        // Create the main line gradient using the school color
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 400, 0);
+        gradient.addColorStop(0, schoolColor);
+        gradient.addColorStop(1, schoolColor);
+
+        // Create a semi-transparent version for the fill
+        // Convert hex to rgba for transparency
+        function hexToRgba(hex, alpha = 1) {
+            // Remove the hash if it exists
+            hex = hex.replace('#', '');
+            
+            // Parse the hex values
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+            
+            // Return rgba value
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+
+        // Create the fill gradient with transparency - VERTICAL (top to bottom)
+        const fillGradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        fillGradient.addColorStop(0, hexToRgba(schoolColor, 0.20)); // More opaque at top
+        fillGradient.addColorStop(1, hexToRgba(schoolColor, 0.02)); // Nearly transparent at bottom
 
         new Chart(ctx, {
             type: 'line',
@@ -68,6 +141,7 @@
                     fill: true,
                     borderColor: gradient,
                     backgroundColor: fillGradient,
+                    borderWidth: 3,
                 }]
             },
             options: {
@@ -81,14 +155,20 @@
                 
                 elements: {
                     point: {
-                        pointBackgroundColor: gradient,
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
+                        backgroundColor: 'rgba(15, 15, 15, 0.2)',
+                        borderColor: gradient,
+                        borderWidth: 1,
+                        radius: 6,
+                        pointStyle: 'circle',
+                        hitRadius: 12,
+                        hoverRadius: 9,
                         hoverBorderWidth: 2,
-                        hoverBorderColor: 'white'
+                        hoverBorderColor: 'white',
+                        hoverBackgroundColor: gradient
                     },
                     line: {
-                        tension: 0.25
+                        tension: 0.25,
+                        borderWidth: 2 
                     }
                 },
 
@@ -116,7 +196,18 @@
 
                     y: {
                         grid: {
-                            display: false,
+                            display: true, // Enable the grid lines
+                            color: function(context) {
+                                // Only show grid lines at even indices
+                                if (context.tick.value % 100 === 0) {
+                                    return 'rgba(255, 255, 255, 0.00)'; // Very subtle lines for others
+                                }
+                                return 'rgba(255, 255, 255, 0.1)'; // Slightly more visible for these lines
+                            },
+                            lineWidth: 1,
+                            drawBorder: false,
+                            tickMarkLength: 0,
+                            z: -1
                         },
                         ticks: {
                             color: 'rgba(255, 255, 255, 0.5)',

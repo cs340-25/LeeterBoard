@@ -146,33 +146,237 @@ header {
 main {
     display: flex;
     flex-direction: row;
-    margin-top: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     gap: 20px;
-    height: 82.5vh;
+    height: 140vh;
+}
+
+/* Top background pattern */
+.profile-top-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(to bottom, 
+    rgba(20, 20, 20, 0.8), 
+    transparent
+  );
+  z-index: 0;
+  overflow: hidden;
+}
+
+.profile-top-pattern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 30%, color-mix(in srgb, var(--school-color) 15%, transparent) 5%, transparent 15%),
+    radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--school-color) 20%, transparent) 5%, transparent 15%),
+    radial-gradient(circle at 40% 70%, color-mix(in srgb, var(--school-color) 10%, transparent) 8%, transparent 20%);
+  opacity: 0.3;
 }
 
 .profile-bar {
     display: flex;
-    width: calc(22% - 50px); /* Subtract the margin */
-    margin-left: 50px;
-    flex-shrink: 0; /* Prevent it from shrinking */;
+    width: calc(22% - 25px);
+    margin-left: 25px;
+    flex-shrink: 0;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 20px;
     flex-direction: column;
     align-items: center;
-    background-color: #252525;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(145deg, #272727, #232323);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+  }
+
+/* Glowing accent line */
+.profile-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.5px;
+    height: 100%;
+    background: var(--school-color);
+    box-shadow: 0 0 15px var(--school-color);
+    opacity: 0.7;
 }
 
-.profile-bar img {
-    width: 100px;
-    height: 100px;
-    margin-right: 8px;
-    margin-top: 25px;
+.school-logo {
+    width: 125px;
+    height: 125px;
     border-radius: 15px;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
     border: 2px solid rgba(0, 0, 0, 1);
+}
+
+.school-logo-container {
+  position: relative;
+  margin-top: 40px;
+  z-index: 1;
+}
+
+.school-logo {
+  width: 125px;
+  height: 125px;
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+  border: 3px solid #2a2a2a;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.school-logo::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  bottom: -5px;
+  left: -5px;
+  border: 1px solid color-mix(in srgb, var(--school-color) 40%, transparent);
+  border-radius: 22px;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.school-logo-container:hover .school-logo {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 
+              0 0 15px color-mix(in srgb, var(--school-color) 30%, transparent);
+}
+
+.school-logo-container:hover .school-logo::after {
+  opacity: 1;
+}
+
+.school-name {
+  margin-top: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: rgba(255,255,255, 0.9);
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 15px;
+}
+
+.school-abbrev {
+  background: linear-gradient(135deg, #0d0d0d, #171717);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--school-color);
+  border: 1px solid #333;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.university-details {
+  width: 87.5%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+  margin-top: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #232323, #1d1d1d);
+  border: 1px solid #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.detail-item:hover {
+  transform: translateX(8px);
+  background: linear-gradient(145deg, 
+    color-mix(in srgb, var(--school-color) 5%, #232323), 
+    color-mix(in srgb, var(--school-color) 8%, #1d1d1d)
+  );
+  border-color: color-mix(in srgb, var(--school-color) 30%, #333);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), 
+              0 0 10px color-mix(in srgb, var(--school-color) 10%, transparent);
+}
+
+.detail-icon {
+  width: 25px;
+  height: 25px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--school-color) 15%, #1a1a1a);
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--school-color) 25%, #333);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.detail-item:hover .detail-icon {
+  background: color-mix(in srgb, var(--school-color) 25%, #1a1a1a);
+  transform: scale(1.05);
+}
+
+.detail-info {
+  flex: 1;
+}
+
+.detail-label {
+  font-size: 11px;
+  color: #999;
+  margin-bottom: 3px;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+}
+
+.view-members-btn {
+    margin-top: auto;
+    width: 87.5%;
+    padding: 12px 0;
+    background: color-mix(in srgb, var(--school-color) 60%, transparent);
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    border-radius: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+    box-shadow: 0 2px 7px color-mix(in srgb, var(--school-color) 30%, transparent);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.view-members-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px color-mix(in srgb, var(--school-color) 40%, transparent);
 }
 
 .right-side {
@@ -181,7 +385,6 @@ main {
     gap: 20px;  
     width: calc(78% - 50px); /* Subtract the margin */
     flex-shrink: 0; /* Prevent it from shrinking */;
-    margin-right: 50px;
 }
 
 .graph {
@@ -198,8 +401,8 @@ main {
 #rating-display, .rating-display {
     position: absolute;
     top: 20px;
-    right: 20px;
-    background: linear-gradient(to right, rgba(160, 40, 40, 0.6), rgba(203, 16, 144, 0.6));
+    right: 45px;
+    background: color-mix(in srgb, var(--school-color) 35%, transparent);
     padding: 10px 16px;
     border-radius: 6px;
     color: rgba(255, 255, 255, 0.75);
@@ -208,7 +411,7 @@ main {
     width: 160px;
     font-family: inherit;
     white-space: nowrap;
-    border: 1.75px solid rgba(160, 40, 40, 0.85);
+    border: 1.75px solid color-mix(in srgb, var(--school-color) 80%, transparent);
 }
 
 .bottom-row {
@@ -219,18 +422,58 @@ main {
     gap: 20px;
 }
 
-.uni-info {
-    width: 100%;
-    border-radius: 15px;
-    background-color: #252525;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border: 1px solid #333;
+.uni-info, .badges {
+  width: 100%;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #272727, #232323);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  border: 1px solid #333;
+  overflow: hidden;
+  position: relative;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.badges {
-    width: 100%;
-    border-radius: 15px;
-    background-color: #252525;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-    border: 1px solid #333;
+/* Section headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  position: relative;
+  padding-left: 15px;
+}
+
+.section-header h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  background: var(--school-color);
+  border-radius: 2px;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -10px;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--school-color) 30%, #333),
+    rgba(51, 51, 51, 0.5)
+  );
 }
