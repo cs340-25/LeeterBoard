@@ -173,8 +173,8 @@ main {
 }
 
 .rankings-header {
-    /* background: linear-gradient(to right, rgba(4, 4, 50, 0.8), rgba(56, 1, 95, 0.8)); */
-    background: linear-gradient(90deg, rgba(128,0,32,0.8), rgba(105, 17, 130, 0.8));
+    background: linear-gradient(to right, rgba(4, 4, 50, 1), rgba(56, 1, 95, 1));
+    /* background: linear-gradient(to right, rgba(128,0,32,0.8), rgba(193, 106, 8, 0.8)); */
     padding: 20px 25px;
     display: flex;
     justify-content: space-between;
@@ -501,7 +501,8 @@ main {
 }
 
 .pagination-btn.active {
-    background: linear-gradient(to right, rgba(4, 4, 50, 0.8), rgba(56, 1, 95, 0.8));
+    background: linear-gradient(to right, rgba(4, 4, 50, 1), rgba(56, 1, 95, 1));
+    /* background: linear-gradient(to right, rgba(128,0,32,0.8), rgba(193, 106, 8, 0.8)); */
     color: white;
 }
 
@@ -528,7 +529,8 @@ main {
 }
 
 .widget-header {
-    background: linear-gradient(to right, rgba(11, 11, 70, 0.8), rgba(56, 1, 95, 0.8));
+    background: linear-gradient(to right, rgba(11, 11, 70, 1), rgba(56, 1, 95, 1));
+    /* background: linear-gradient(to right, rgba(128,0,32,0.7), rgba(193, 106, 8, 0.7)); */
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;

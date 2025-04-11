@@ -4,14 +4,31 @@ import aiohttp
 import json
 import time
 
-# Binary search to find max page size
-def find_max_page(contest_id: int):
-    low = 1
-    high = 5000
+from pymongo import MongoClient
 
-    while(low <= high):
-        mid = low + (high - low) // 2
-        print(mid)
+
+import os
+from dotenv import load_dotenv
+# Load csrftoken from env
+csrftoken = os.getenv("CSRFTOKEN")
+
+# # Load mongodb
+# mongodb_uri = os.getenv("MONGODB_URI")
+# client = MongoClient(mongodb_uri)
+# leet_users = client.leeterboard.leet_users
+
+
+
+
+
+# STEP 1: Binary search to find max page size of the Weekly Contest
+def find_max_page(contest_id: int) -> int:
+    left = 1
+    right = 7500
+
+    max_page = -1
+    while(left <= right):
+        mid = left + (right - left) // 2
 
         # Gives us permission to make the request (Avoid 403)
         headers = {
@@ -21,7 +38,7 @@ def find_max_page(contest_id: int):
         }
 
         # Slight delay to avoid rate limiting
-        time.sleep(1)
+        time.sleep(0.25)
 
         response = requests.get(
             f"https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={mid}&region=global_v2",
@@ -30,90 +47,105 @@ def find_max_page(contest_id: int):
 
         # Even if the page is too large, it should still return a 200, but with empty data
         if response.status_code == 200:
-            print(f"Status code: {response.status_code}")
-            # Logic here
+            data = response.json()
+            if data and data['user_num']:
+                # We have a valid page, update max_page, and search for a larger one
+                max_page = mid
+                left = mid + 1
 
-        break
+                print(f"VALID... INCREASING MIN TO {mid}")
+            else:
+                # We have selected a page too large, search for a smaller one
+                right = mid - 1
+                print(f"INVALID.. SHRINKING MAX TO {mid}")
 
-find_max_page(440)
-
-
-
-
-# # Simply returns the proper url with the modified portions
-# def get_weekly_contest_url(contest_id: int, page: int) -> str:
-#     return f"https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={page}&region=global_v2"
-
-
-# # Makes the individual HTTP request and waits for the response body and parses it as JSON
-# async def fetch_contest_page(session, url, headers):
-#     async with session.get(url, headers=headers, ssl=False) as response:
-#         return await response.json()
+    return max_page
 
 
-# # Performs all of the asynchronous requests
-# async def request_all_contest_pages(batch_size: int):
-#     headers = {
-#         "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36",
-#         "Referer": "https://leetcode.com/contest/weekly-contest-437/ranking/1229/?region=global_v2",
-#         "Content-Type": "application/json"
-#     }
 
-#     # Generate all URLs (1 per page)
-#     all_urls = []
-#     contest_number = 440
-#     contest_max_pages = 1264
-#     for page_number in range(1, contest_max_pages):
-#         all_urls.append(get_weekly_contest_url(contest_number, page_number))
 
-#     responses = []
-#     async with aiohttp.ClientSession() as session:
-#         # Process requests in batches
-#         # 0 -> 9, 10 -> 19, 20 -> 29k
-#         for i in range(0, len(all_urls), batch_size):
-#             print(f"Making request {i}")
-#             batch = all_urls[i:i + batch_size]
+
+
+# STEP 2: Grab all users from the Weekly Contest
+
+# Simply returns the proper url with the modified portions
+def get_weekly_contest_url(contest_id: int, page: int) -> str:
+    return f"https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={page}&region=global_v2"
+
+
+# Makes the individual HTTP request and waits for the response body and parses it as JSON
+async def fetch_contest_page(session, url, headers, cookies):
+    async with session.get(url, headers=headers, cookies=cookies, ssl=False) as response:
+        return await response.json()
+
+
+# Performs all of the asynchronous requests
+async def request_all_contest_pages(batch_size: int):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36",
+    }
+
+    # Generate all URLs (1 per page)
+    all_urls = []
+    contest_number = 444
+    contest_max_pages = 50
+
+    # Add a delay from the last request in find_max_page()
+    time.sleep(1)
+
+    for page_number in range(1, contest_max_pages):
+        all_urls.append(get_weekly_contest_url(contest_number, page_number))
+
+    responses = []
+    async with aiohttp.ClientSession() as session:
+        # Process requests in batches
+        # 0 -> 9, 10 -> 19, 20 -> 29k
+        for i in range(0, 30, batch_size):
+            print(f"Making request {i}")
+            batch = all_urls[i:i + batch_size]
             
-#             # Go through the batch
-#             tasks = []
-#             for batch_url in batch:
-#                 tasks.append(fetch_contest_page(session, batch_url, headers))
+            # Go through the batch
+            tasks = []
+            for batch_url in batch:
+                tasks.append(fetch_contest_page(session, batch_url, headers))
             
-#             # Send out all batched requests and store responses
-#             batch_responses = await asyncio.gather(*tasks)
-#             responses.extend(batch_responses)
+            # Send out all batched requests and store responses
+            batch_responses = await asyncio.gather(*tasks)
 
-#             if i + batch_size < len(all_urls):
-#                 await asyncio.sleep(1)
+            responses.extend(batch_responses)
 
-#     return responses
+            if i + batch_size < len(all_urls):
+                await asyncio.sleep(1)
 
-# results = asyncio.run(request_all_contest_pages(10))
+    return responses
 
-# all_new_users = []
-# for data in results:
-#     for user in data['total_rank']:
-#         if(user['country_code'] == 'US'):
-#             all_new_users.append(user)
+# Results is the giant list of responses
+results = asyncio.run(request_all_contest_pages(5))
+
+all_new_users = []
+for data in results:
+    for user in data['total_rank']:
+        if(user['country_code'] == 'US'):
+            all_new_users.append(user['username'])
+
+# Print all the new users
+print(len(all_new_users))
     
 
-# Now, we want to see how many of these users have a school
-# Now, see if the user in already in our database
-    # If not, we need to create a new document for them in the database
-    # Run the fuzzy matching script to find the best school match for them
-
-# Now that our database contains all of the new users found this week, we can
-# safely run the script to pull the new weekly ratings for each user in our database
-
-
-# With this information, we will be able to have all of the data we need for what is currently on the site
 
 
 
 
-# WORKING ON THIS NOW (created weekly script + mongodb collection)
-# However, we need to find a way to calculate weekly averages across all universities for the graphs
-# We may want to create a new collection for each of these universities and store their past weekly averages there
-# Could potentially just run the calculate_university_info() function once weekly and then whatever that returns will
-# be the updated data point for that week, but obviously all of the operations before this will occur before this
-# in real time as well
+
+# STEP 3: Filter out users that are already in our database
+# for username in all_new_users:
+#     username = username.lower()
+#     # Check if the user exists
+#     result = leet_users.find_one({'username': username})
+
+#     if result:
+#         print(f"{username} = FOUND")
+#     else:
+#         # Since the user's school was not included in their original request response, we need to
+#         # make the graphQL query to grab their user profile -> if they have a school -> run the fuzzy finding algorithms
+#         print(f"{username} = NOT FOUND")

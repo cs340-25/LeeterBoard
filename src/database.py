@@ -30,11 +30,15 @@ def delete_user(username: str) -> None:
 
 
 # Given an document in the db collection, update the school in the entry to the new value
-def upsert_user(user: dict, matched_school: str) -> None:
+# User in weekly_script.py to add a new users weekly per contest
+def upsert_user(username: str, matched_school: str, user_avatar: str, country_code: str, rating: float) -> None:
     leet_users.update_one(
-        {'username': user['username']},
+        {'username': username},
         {'$set': {
-            'school': matched_school
+            'school': matched_school,
+            'userAvatar': user_avatar,
+            'country_code': country_code,
+            'currentRating': rating,
         }},
         upsert=True,
     )
@@ -84,24 +88,24 @@ def standardize_school_name(school: str) -> str:
 
 
 # Grabs all schools from db and updates their info
-def standardize_db_universities():
-    # Grabs document from leet_users collection
-    cursor = leet_users.find()
+# def standardize_db_universities():
+#     # Grabs document from leet_users collection
+#     cursor = leet_users.find()
 
-    # Iterating through each document in the collection
-    for user in cursor:
-        # Grab original school name in db
-        original_school = user['school']
+#     # Iterating through each document in the collection
+#     for user in cursor:
+#         # Grab original school name in db
+#         original_school = user['school']
 
-        # Try to match it with a standard one from list
-        standardized_school = standardize_school_name(original_school)
+#         # Try to match it with a standard one from list
+#         standardized_school = standardize_school_name(original_school)
 
-        if standardized_school is not None: # Match found
-            # Replace the user's original school with the updated name in the db
-            upsert_user(user, standardized_school)
-        else: # No match found
-            # Remove user from db
-            leet_users.delete_one({'username': user['username']})
+#         if standardized_school is not None: # Match found
+#             # Replace the user's original school with the updated name in the db
+#             upsert_user(user, standardized_school)
+#         else: # No match found
+#             # Remove user from db
+#             leet_users.delete_one({'username': user['username']})
 
 
 
@@ -164,6 +168,12 @@ def get_user_rating_changes() -> List[Tuple[(float, str, str)]]:
 
     user_rating_changes = []
     for user in cursor:
+        # Factor out users that do not have 1 item in their previousRatings Array
+        prev_ratings = user.get('previousRatings', [])
+        # Check if it doesn't exist or it has length less than 1
+        if not prev_ratings:
+            continue
+
         username = user['username']
         user_avatar = user['userAvatar']
         current_rating = user['currentRating']
