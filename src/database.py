@@ -87,30 +87,6 @@ def standardize_school_name(school: str) -> str:
         return None
 
 
-# Grabs all schools from db and updates their info
-# def standardize_db_universities():
-#     # Grabs document from leet_users collection
-#     cursor = leet_users.find()
-
-#     # Iterating through each document in the collection
-#     for user in cursor:
-#         # Grab original school name in db
-#         original_school = user['school']
-
-#         # Try to match it with a standard one from list
-#         standardized_school = standardize_school_name(original_school)
-
-#         if standardized_school is not None: # Match found
-#             # Replace the user's original school with the updated name in the db
-#             upsert_user(user, standardized_school)
-#         else: # No match found
-#             # Remove user from db
-#             leet_users.delete_one({'username': user['username']})
-
-
-
-
-
 
 # API FUNCTIONS FOR YOU TO CALL IN APP.PY
 

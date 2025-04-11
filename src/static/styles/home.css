@@ -469,49 +469,6 @@ main {
     color: #a8a8a8;
 }
 
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    padding: 20px;
-    background-color: #1a1a1a;
-    border-top: 1px solid #333;
-    margin-top: auto;
-}
-
-.pagination-btn {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #333;
-    color: #a8a8a8;
-    border: none;
-    border-radius: 6px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.pagination-btn:hover {
-    background-color: #444;
-    color: white;
-}
-
-.pagination-btn.active {
-    background: linear-gradient(to right, rgba(4, 4, 50, 1), rgba(56, 1, 95, 1));
-    /* background: linear-gradient(to right, rgba(128,0,32,0.8), rgba(193, 106, 8, 0.8)); */
-    color: white;
-}
-
-.pagination-dots {
-    display: flex;
-    align-items: center;
-    color: #a8a8a8;
-}
-
 /* Widgets Section */
 .widgets-section {
     display: flex;
