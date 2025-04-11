@@ -13,9 +13,15 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import database
 
 load_dotenv()
-mongodb_uri = os.getenv("MONGODB_URI")
+mongodb_uri = os.getenv('MONGODB_URI')
 client = MongoClient(mongodb_uri)
 leet_users = client.leeterboard.leet_users
+
+
+# WEEKLY CONTEST NUMBER:
+weekly_contest_number = 444
+
+
 
 # STEP 1: Binary search to find max page size of the Weekly Contest
 def find_max_page(contest_id: int) -> int:
@@ -28,16 +34,16 @@ def find_max_page(contest_id: int) -> int:
 
         # Gives us permission to make the request (Avoid 403)
         headers = {
-            "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36",
-            "Referer": "https://leetcode.com/contest/weekly-contest-437/ranking/1229/?region=global_v2",
-            "Content-Type": "application/json"
+            'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36',
+            'Referer': 'https://leetcode.com/contest/weekly-contest-437/ranking/1229/?region=global_v2',
+            'Content-Type': 'application/json'
         }
 
         # Slight delay to avoid rate limiting
         time.sleep(0.25)
 
         response = requests.get(
-            f"https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={mid}&region=global_v2",
+            f'https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={mid}&region=global_v2',
             headers=headers
         )
 
@@ -49,40 +55,39 @@ def find_max_page(contest_id: int) -> int:
                 max_page = mid
                 left = mid + 1
 
-                print(f"VALID... INCREASING MIN TO {mid}")
+                print(f'VALID... INCREASING MIN TO {mid}')
             else:
                 # We have selected a page too large, search for a smaller one
                 right = mid - 1
-                print(f"INVALID.. SHRINKING MAX TO {mid}")
+                print(f'INVALID.. SHRINKING MAX TO {mid}')
 
     return max_page
-
-# max_page = find_max_page(444)
-# print(max_page)
 
 
 
 # STEP 2: Grab the users from all contest pages
 def generate_url(contest_id: int, page: int) -> str:
-    return f"https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={page}&region=global_v2"
+    return f'https://leetcode.com/contest/api/ranking/weekly-contest-{contest_id}/?pagination={page}&region=global_v2'
 
 def get_users_from_contest(contest: int):
     headers = {
-        "User-Agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36",
-        "Referer": "https://leetcode.com/contest/weekly-contest-437/ranking/1229/?region=global_v2",
-        "Content-Type": "application/json"
+        'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Mobile Safari/537.36',
+        'Referer': 'https://leetcode.com/contest/weekly-contest-437/ranking/1229/?region=global_v2',
+        'Content-Type': 'application/json'
     }
 
     all_urls = []
     contest_id = contest
-    contest_max_pages = 20
+    contest_max_pages = find_max_page(weekly_contest_number)
 
-    for page in range(1, contest_max_pages):
+    for page in range(1, contest_max_pages + 1):
         all_urls.append(generate_url(contest_id, page))
 
     all_responses = []
+    cnt = 1
     for url in all_urls:
-        print("Requesting page...")
+        print(f'Requesting page... {cnt}')
+        cnt += 1
         response = requests.get(url, headers=headers)
 
         if response.status_code == 200:
@@ -90,11 +95,11 @@ def get_users_from_contest(contest: int):
             if data and data['user_num']:
                 all_responses.append(data)
             else:
-                print("failure")
+                print('failure')
 
     return all_responses
     
-responses = get_users_from_contest(444)
+responses = get_users_from_contest(weekly_contest_number)
 
 # Filtering out users that countryCode is not United States
 all_users = []
@@ -161,15 +166,15 @@ def generate_user_rating_query(username: str):
     return payload
 
 
-
+# Request all the necessary information for each user
 def request_user_school(new_users):
-    url = "https://leetcode.com/graphql/"
-    headers={"Content-Type": "application/json"}
+    url = 'https://leetcode.com/graphql/'
+    headers={'Content-Type': 'application/json'}
 
     users_info = []
     for user in new_users:
         profile_payload = generate_user_school_query(user)
-        print(f"Making request for {user}")
+        print(f'Making request for {user}')
         profile_response = requests.get(url=url, headers=headers, json=profile_payload)
 
         # Grab the user's profile info
@@ -178,7 +183,7 @@ def request_user_school(new_users):
             if profile_info:
                 school = profile_info['data']['matchedUser']['profile']['school']
                 user_avatar = profile_info['data']['matchedUser']['profile']['userAvatar']
-                country_code = "US"
+                country_code = 'US'
 
                 if school is not None and user_avatar is not None and country_code is not None:
                     # If we've secured the previous 3 data points, we should now grab the contest rating
@@ -186,15 +191,23 @@ def request_user_school(new_users):
                     rating_response = requests.get(url=url, headers=headers, json=rating_payload)
 
                     if rating_response.status_code == 200:
+                        # Check if rating_info['data']['userContestRating'] is null/None
+                        # Example of user having no contest ranking
+                        # This would happen if a user participated in their first contest but they haven't gotten a rating yet
                         rating_info = rating_response.json()
                         if rating_info:
+                            contest_ranking_container = rating_info['data'].get('userContestRanking')
+                            if contest_ranking_container is None:
+                                print(f'  {user} CONTEST RATING WAS NULL, SKIPPING...')
+                                continue
+                            
                             rating = rating_info['data']['userContestRanking']['rating']
 
                             users_info.append((user, school, user_avatar, country_code, rating))
                     else:
-                        print(f"Failed to Fetch User Contest Rating: {rating_response.status_code}")
+                        print(f'Failed to Fetch User Contest Rating: {rating_response.status_code}')
         else:
-            print(f"Failed to Fetch User Profile: {profile_response.status_code}")
+            print(f'Failed to Fetch User Profile: {profile_response.status_code}')
 
 
     return users_info
@@ -205,18 +218,18 @@ def request_user_school(new_users):
 # Have a school on their LeetCode profile
 
 # So, now we need to run the rapidfuzz algorithm that can match their school to one of our standard names
-# If we find a match, add this new user to the database
+# If we find a match, add this new user + their info to the database
 users_info = request_user_school(new_users)
 for username, school, user_avatar, country_code, rating in users_info:
     school = school.lower().strip()
     matched_school = database.standardize_school_name(school)
 
     if matched_school:
-        print(f"{username}:")
-        print(f"  {matched_school}")
-        print(f"  {user_avatar}")
-        print(f"  {country_code}")
-        print(f"  {rating}")
+        print(f'{username}:')
+        print(f'  {matched_school}')
+        print(f'  {user_avatar}')
+        print(f'  {country_code}')
+        print(f'  {rating}')
         print()
 
         # Add user + their information to DB
