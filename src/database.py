@@ -150,13 +150,22 @@ def get_users_by_school(school: str) -> List[dict]:
     }))
 
 
+    # Do not return users that do not have a previousRatings array with len < 1
+    valid_users = []
     for user in users:
-        # Grab their current rating
+        # Factor out users that do not have 1 item in their previousRatings Array
+        prev_ratings = user.get('previousRatings', [])
+        # Check if it doesn't exist or it has length less than 1
+        if not prev_ratings:
+            continue
+
+        # Calculate weekly rating change
         current_rating = user['currentRating']
         prev_current_rating = user['previousRatings'][-1]
         user['ratingChange'] = current_rating - prev_current_rating
+        valid_users.append(user)
 
-    return users
+    return valid_users
 
 
 # Returns a list of every user (not just by school) associated with their rating change
