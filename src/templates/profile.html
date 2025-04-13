@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeeterBoard</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles/unipage2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Add Chart.js for ratings line graph-->
@@ -71,7 +71,7 @@
 
             </div>
             
-            <a href="#" class="view-members-btn">View All Members</a>
+            <a href="{{ url_for('school', slug=school_names_to_slugs[school_info[0]]) }}" class="view-members-btn">VIEW MEMBERS</a>
         </div>
 
         <div class="right-side" style="--school-color: {{ university_colors[school_info[0]] }};">

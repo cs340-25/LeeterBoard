@@ -14,7 +14,6 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 
 # Temporary Placeholder For university profile page
-# CALEB: Migrate contents and ideas from /unitest2 to here
 @app.get('/profile/<slug>')
 def profile(slug):
     regular_school_name = university_slugs[slug]
@@ -27,8 +26,11 @@ def profile(slug):
     # Get all the school's info
     print(regular_school_name)
     school_info = database.get_school_profile_info(regular_school_name)
+
+
+    school_names_to_slugs = {v: k for k, v in university_slugs.items()}
     
-    return render_template('unipage2.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors)
+    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs)
 
 
 # Main Page
