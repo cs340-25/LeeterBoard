@@ -32,7 +32,7 @@
                         <h2>{{ school_name }}</h2>
                     </div>
                 </div>
-                <a href="#" class="view-stats-button" style="--school-color: {{ university_colors[school_name] }};">VIEW PROFILE</a>
+                <a href="{{ url_for('profile', slug=school_names_to_slugs[school_name]) }}" class="view-stats-button" style="--school-color: {{ university_colors[school_name] }};">VIEW PROFILE</a>
             </div>
             
             <!-- Members Table -->

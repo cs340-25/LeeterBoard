@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="card-buttons">
-                            <a href="#" class="view-btn" style="--school-color: {{ school_colors[school_name] }};">VIEW PROFILE</a>
+                            <a href="{{ url_for('profile', slug=school_names_to_slugs[school_name]) }}" class="view-btn" style="--school-color: {{ school_colors[school_name] }};">VIEW PROFILE</a>
                             <a href="{{ url_for('school', slug=school_names_to_slugs[school_name]) }}" class="view-btn" style="--school-color: {{ school_colors[school_name] }};">VIEW MEMBERS</a>
                         </div>
                     </div>

@@ -132,6 +132,18 @@
         fillGradient.addColorStop(0, hexToRgba(schoolColor, 0.20)); // More opaque at top
         fillGradient.addColorStop(1, hexToRgba(schoolColor, 0.02)); // Nearly transparent at bottom
 
+
+        // Assign min and max values for chart
+        let minValue = Math.min(...ratingsData.map(item => item.average));
+        let maxValue = Math.max(...ratingsData.map(item => item.average));
+
+        minValue = (Math.floor(minValue / 100) * 100) - 100;
+        maxValue = (Math.ceil(maxValue / 100) * 100) + 100;
+
+        console.log("test");
+        console.log(minValue);
+        console.log(maxValue);
+
         new Chart(ctx, {
             type: 'line',
             data: {
@@ -215,8 +227,8 @@
                                 size: 10
                             }
                         },
-                        min: 1300,
-                        max: 1800
+                        min: minValue,
+                        max: maxValue
                     },
                 },
 

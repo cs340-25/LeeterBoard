@@ -15,8 +15,8 @@ app.config['TEMPLATES_AUTO_RELOAD'] = True
 
 # Temporary Placeholder For university profile page
 # CALEB: Migrate contents and ideas from /unitest2 to here
-@app.get('/unipage2/<slug>')
-def unipage2(slug):
+@app.get('/profile/<slug>')
+def profile(slug):
     regular_school_name = university_slugs[slug]
     school_weekly_averages = database.get_school_weekly_averages()
 
