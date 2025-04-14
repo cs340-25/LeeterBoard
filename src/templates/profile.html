@@ -40,7 +40,11 @@
                     <img src="{{ url_for('static', filename='icons/rank_icon.svg') }}" class="detail-icon"></img>
                     <div class="detail-info">
                         <div class="detail-label">GLOBAL RANK</div>
-                        <div class="detail-value">{{ school_info[4] }}</div>
+                        {% if school_info[4] == -1 %}
+                            <div class="detail-value">-</div>
+                        {% else %}
+                            <div class="detail-value">{{ school_info[4] }}</div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="detail-item">
@@ -54,10 +58,12 @@
                     <img src="{{ url_for('static', filename='icons/rating_change_icon.svg') }}" class="detail-icon"></img>
                     <div class="detail-info">
                         <div class="detail-label">RATING CHANGE</div>
-                        {% if school_info[3] < 0 %}
-                            <div class="detail-value">+{{ "%.2f" | format(school_info[3]) }}</div>
+                        {% if school_info[3] > 0 %}
+                            <div class="detail-value positive">+{{ "%.2f" | format(school_info[3]) }}</div>
+                        {% elif school_info[3] < 0 %}
+                            <div class="detail-value negative">{{ "%.2f" | format(school_info[3]) }}</div>
                         {% else %}
-                            <div class="detail-value">{{ "%.2f" | format(school_info[3]) }}</div>
+                            <div class="detail-value neutral">{{ "%.2f" | format(school_info[3]) }}</div>
                         {% endif %}
                     </div>
                 </div>
@@ -81,14 +87,67 @@
             </div>
 
             <div class="bottom-row">
-                <div class="uni-info">
+                <div class="uni-highlights">
                     <div class="section-header">
                         <h2>University Highlights</h2>
                     </div>
+
+                    <div class="highlight-card">
+                        <div class="highlight-icon" style="background-color: var(--school-color);">
+                            <!-- Placeholder for icon -->
+                        </div>
+                        <div class="highlight-content">
+                            <div class="highlight-label">TOP PERFORMER</div>
+                            <div class="highlight-value">James Chen</div>
+                            <div class="highlight-detail">629.84 Rating</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Most Improved Card -->
+                    <div class="highlight-card">
+                        <div class="highlight-icon" style="background-color: var(--school-color);">
+                            <!-- Placeholder for icon -->
+                        </div>
+                        <div class="highlight-content">
+                            <div class="highlight-label">MOST IMPROVED</div>
+                            <div class="highlight-value">Emma Watson</div>
+                            <div class="highlight-detail">+78.25 Points</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Rating Range Card -->
+                    <div class="highlight-card">
+                        <div class="highlight-icon" style="background-color: var(--school-color);">
+                            <!-- Placeholder for icon -->
+                        </div>
+                        <div class="highlight-content">
+                            <div class="highlight-label">RATING RANGE</div>
+                            <div class="highlight-value">117.12 Points</div>
+                            <div class="highlight-detail">512.72 - 629.84</div>
+                        </div>
+                    </div>
                 </div>
+
+
                 <div class="badges">
                     <div class="section-header">
                         <h2>Badges</h2>
+                    </div>
+                    <!-- Badge counter -->
+                    <div class="badge-counter">
+                        <span>3 COLLECTED</span>
+                    </div>
+                    
+                    <!-- Badge display area (you'll insert your own images here) -->
+                    <div class="badge-display-area">
+                        <!-- This is just a placeholder div where you'll put your badge images -->
+                    </div>
+                    
+                    <!-- Most recent badge info -->
+                    <div class="recent-badge-info">
+                        <div class="recent-label">MOST RECENT BADGE</div>
+                        <div class="badge-title">CHART TOPPER</div>
+                        <div class="badge-description">REACHED TOP 10 SITEWIDE</div>
                     </div>
                 </div>
             </div>
