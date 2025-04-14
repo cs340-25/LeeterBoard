@@ -29,8 +29,12 @@ def profile(slug):
 
 
     school_names_to_slugs = {v: k for k, v in university_slugs.items()}
+
+
+    # University Highlights
+    university_highlights = database.get_university_highlights(regular_school_name)
     
-    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs)
+    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs, university_highlights=university_highlights)
 
 
 # Main Page

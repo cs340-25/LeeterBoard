@@ -339,3 +339,71 @@ def get_school_profile_info(school_name: str):
     return (school_name, students, curr_rating, rating_change, rank)
 
 
+# Grabs and Calculates the information for "University Highlights"
+def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float, float)]:
+    cursor = leet_users.find(
+        {'school': school_name},
+    )
+
+    # MOST IMPROVED (current rating - first ever rating on site)
+    most_improved = "none"
+    most_improved_pts = -1
+
+
+    # TOP PERFORMER
+    top_performer = "none"
+    top_performer_rating = -1
+
+
+    # RATING RANGE
+    min_rating = float('inf')
+    max_rating = float('-inf')
+    for user in cursor:
+        curr_rating = user['currentRating']
+
+        # MOST IMPROVED
+        # Factor out users that do not have 1 item in their previousRatings Array
+        prev_ratings = user.get('previousRatings', [])
+        # Check if it doesn't exist or it has length less than 1
+        if not prev_ratings:
+            continue
+        else:
+            first_rating = user['previousRatings'][0]
+            improved = curr_rating - first_rating
+            if improved > most_improved_pts:
+                most_improved_pts = improved
+                most_improved = user['username']
+
+
+        min_rating = min(min_rating, curr_rating)
+
+        if curr_rating > max_rating:
+            max_rating = curr_rating
+            top_performer = user['username']
+            top_performer_rating = curr_rating
+
+    print(f"MOST IMPROVED: {most_improved}")
+    print(f"{min_rating} -> {max_rating}")
+    print(f"TOP PERFORMER: {top_performer}")
+
+
+
+    # HISTORICAL PEAK
+    school_info = university_avgs.find_one(
+        {'universityName': school_name}
+    )
+
+    historical_peak = -1
+    for entry in school_info['weeklyAverages']:
+        rating = entry['average']
+        historical_peak = max(historical_peak, rating)
+
+    print(f"HISTORICAL PEAK: {historical_peak}")
+
+
+    return (top_performer, top_performer_rating, most_improved, most_improved_pts, min_rating, max_rating, historical_peak)
+
+
+
+
+

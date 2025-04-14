@@ -98,8 +98,8 @@
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">TOP PERFORMER</div>
-                            <div class="highlight-value">James Chen</div>
-                            <div class="highlight-detail">629.84 Rating</div>
+                            <div class="highlight-value">{{ university_highlights[0] }}</div>
+                            <div class="highlight-detail">{{ "%.2f" | format(university_highlights[1]) }} Rating</div>
                         </div>
                     </div>
                     
@@ -110,8 +110,8 @@
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">MOST IMPROVED</div>
-                            <div class="highlight-value">Emma Watson</div>
-                            <div class="highlight-detail">+78.25 Points</div>
+                            <div class="highlight-value">{{ university_highlights[2] }}</div>
+                            <div class="highlight-detail">+{{ "%.2f" | format(university_highlights[3]) }} Points</div>
                         </div>
                     </div>
                     
@@ -122,8 +122,20 @@
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">RATING RANGE</div>
-                            <div class="highlight-value">117.12 Points</div>
-                            <div class="highlight-detail">512.72 - 629.84</div>
+                            <div class="highlight-value">{{ "%.2f" | format(university_highlights[5] - university_highlights[4]) }}</div>
+                            <div class="highlight-detail">{{ "%.2f" | format(university_highlights[4]) }} to {{ "%.2f" | format(university_highlights[5]) }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Rating Range Card -->
+                    <div class="highlight-card">
+                        <div class="highlight-icon" style="background-color: var(--school-color);">
+                            <!-- Placeholder for icon -->
+                        </div>
+                        <div class="highlight-content">
+                            <div class="highlight-label">HISTORICAL PEAK</div>
+                            <div class="highlight-value">{{ "%.2f" | format(university_highlights[6]) }}</div>
+                            <div class="highlight-detail">All-Time</div>
                         </div>
                     </div>
                 </div>
