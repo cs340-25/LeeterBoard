@@ -151,15 +151,39 @@
                     </div>
                     
                     <!-- Badge display area (you'll insert your own images here) -->
-                    <div class="badge-display-area">
-                        <!-- This is just a placeholder div where you'll put your badge images -->
+                    <!-- Replace the existing badge-display-area div with this -->
+                    <div class="badge-carousel-container">
+                        
+                        <!-- Badge carousel -->
+                        <div class="badge-carousel">
+                            <!-- <div class="badge-item left">
+                                <img src="../static/icons/badges/mythic/crown_snatcher.png" class="badge-icon">
+                            </div>
+                            <div class="badge-item center active">
+                                <img src="../static/icons/badges/ultra_mythic/summit_champ.png" class="badge-icon">
+                            </div>
+                            <div class="badge-item right">
+                                <img src="../static/icons/badges/mythic/top_gun.png" class="badge-icon">
+                            </div>
+                            <div class="badge-item right">
+                                <img src="../static/icons/badges/legendary/rank_resurrection.png" class="badge-icon">
+                            </div> -->
+                            
+                        </div>
+                        
+                        <!-- Right arrow -->
+                        <div class="carousel-arrow arrow-right">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </div>
                     </div>
                     
-                    <!-- Most recent badge info -->
+                    <!-- current badge info -->
                     <div class="recent-badge-info">
-                        <div class="recent-label">MOST RECENT BADGE</div>
-                        <div class="badge-title">CHART TOPPER</div>
-                        <div class="badge-description">REACHED TOP 10 SITEWIDE</div>
+                        <div class="recent-label">CURRENT BADGE</div>
+                        <div class="badge-title">SUMMIT CHAMPION</div>
+                        <div class="badge-description">REACHED TOP 1 SITEWIDE</div>
                     </div>
                 </div>
             </div>
@@ -327,5 +351,139 @@
 
         ratingDisplay.style.display = 'none';
     </script>
+
+<script>
+    // Badge data (expanded with more badges)
+    const badgeData = [
+        {
+            id: 1,
+            title: "CROWN SNATCHER",
+            description: "DETHRONED THE #1 RANKED UNIVERSITY",
+            image: "../static/icons/badges/mythic/crown_snatcher.png"
+        },
+        {
+            id: 2,
+            title: "SUMMIT CHAMPION",
+            description: "REACHED TOP 1 SITEWIDE",
+            image: "../static/icons/badges/ultra_mythic/summit_champ.png"
+        },
+        {
+            id: 3,
+            title: "TOP GUN",
+            description: "MAINTAINED TOP 10 POSITION FOR 3 CONSECUTIVE MONTHS",
+            image: "../static/icons/badges/mythic/top_gun.png"
+        },
+        {
+            id: 4,
+            title: "TALENT FACTORY",
+            description: "5+ STUDENTS RANKED IN GLOBAL TOP 100",
+            image: "../static/icons/badges/mythic/talent_factory.png"
+        },
+        // Add more badges as needed
+    ];
+    
+    // DOM Elements
+    const carousel = document.querySelector('.badge-carousel');
+    const badgeTitle = document.querySelector('.badge-title');
+    const badgeDescription = document.querySelector('.badge-description');
+    
+    // Keep track of which badge is active
+    let activeIndex = 1;
+    
+    // Initialize the carousel with all badges
+    function initializeCarousel() {
+        // Clear existing badges
+        carousel.innerHTML = '';
+        
+        // Add all badges to the carousel
+        badgeData.forEach((badge, index) => {
+            const badgeElement = document.createElement('div');
+            badgeElement.className = `badge-item ${index === activeIndex ? 'active' : ''}`;
+            badgeElement.dataset.index = index;
+            badgeElement.innerHTML = `<img src="${badge.image}" class="badge-icon">`;
+            carousel.appendChild(badgeElement);
+        });
+        
+        // Update badge info
+        updateBadgeInfo(activeIndex);
+        
+        // Initial scroll to the active badge (without animation)
+        scrollToActiveBadge(false);
+    }
+    
+    // Update badge info display
+    function updateBadgeInfo(index) {
+        badgeTitle.textContent = badgeData[index].title;
+        badgeDescription.textContent = badgeData[index].description;
+    }
+    
+    // Scroll to the active badge (for initial positioning only)
+    function scrollToActiveBadge(animated = true) {
+        const activeItem = carousel.querySelector(`.badge-item[data-index="${activeIndex}"]`);
+        if (!activeItem) return;
+        
+        // Calculate position to center the active badge
+        const containerWidth = carousel.clientWidth;
+        const itemWidth = activeItem.offsetWidth;
+        const scrollLeft = activeItem.offsetLeft - (containerWidth / 2) + (itemWidth / 2);
+        
+        carousel.scrollTo({
+            left: scrollLeft,
+            behavior: animated ? 'smooth' : 'auto'
+        });
+    }
+    
+    // Find which badge is closest to center and activate it
+    function updateActiveOnScroll() {
+        // Get the center point of the container
+        const containerRect = carousel.getBoundingClientRect();
+        const centerX = containerRect.left + containerRect.width / 2;
+        
+        let closestItem = null;
+        let closestDistance = Infinity;
+        
+        // Find the badge closest to the center
+        const badgeItems = carousel.querySelectorAll('.badge-item');
+        badgeItems.forEach(item => {
+            const itemRect = item.getBoundingClientRect();
+            const itemCenterX = itemRect.left + itemRect.width / 2;
+            const distance = Math.abs(centerX - itemCenterX);
+            
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestItem = item;
+            }
+        });
+        
+        if (closestItem) {
+            const newIndex = parseInt(closestItem.dataset.index);
+            
+            // Only update if the active badge has changed
+            if (newIndex !== activeIndex) {
+                // Remove active class from current active
+                const currentActive = carousel.querySelector('.badge-item.active');
+                if (currentActive) {
+                    currentActive.classList.remove('active');
+                }
+                
+                // Add active class to new active
+                closestItem.classList.add('active');
+                
+                // Update active index and badge info
+                activeIndex = newIndex;
+                updateBadgeInfo(activeIndex);
+            }
+        }
+    }
+    
+    // Set up scroll event listener without snap behavior
+    carousel.addEventListener('scroll', () => {
+        // Update active badge while scrolling
+        updateActiveOnScroll();
+    });
+    
+    // Initialize the carousel on page load
+    initializeCarousel();
+</script>
 </body>
 </html>
