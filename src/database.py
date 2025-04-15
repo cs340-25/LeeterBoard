@@ -274,6 +274,9 @@ def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, 
 
         previous_rank = previous_rankings[-2]
         current_rank = school['currentRank']
+        # print(f"{school['universityName']}")
+        # print(f"curr: {current_rank}, prev: {previous_rank}")
+        # print()
 
         # We are passing in a parameter (filter)
         # True = filter out schools that have -1 in both rank fields (current + previous)
