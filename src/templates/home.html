@@ -51,60 +51,60 @@
                         <div class="rank-container">
                             {% if current_rank == 1 %}
                                 <div class="rank-number gold">{{ current_rank }}</div>
-                                {% if current_rank > previous_rank %}
+                                {% if current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
-                                        <p>{{ current_rank - previous_rank }}</p>
+                                        <p>{{ previous_rank - current_rank }}</p>
                                     </div>
-                                {% elif current_rank < previous_rank %}
+                                {% elif current_rank > previous_rank %}
                                     <div class="rank-change-indicator down">
                                         <img src="{{ url_for('static', filename='icons/down.svg') }}">
-                                        <p>{{ previous_rank - current_rank }}</p>
+                                        <p>{{ current_rank - previous_rank }}</p>
                                     </div>
                                 {% else %}
                                     <div class="rank-change-indicator neutral"></div>
                                 {% endif %}
                             {% elif current_rank == 2 %}
                                 <div class="rank-number silver">{{ current_rank }}</div>
-                                {% if current_rank > previous_rank %}
+                                {% if current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
-                                        <p>{{ current_rank - previous_rank }}</p>
+                                        <p>{{ previous_rank - current_rank }}</p>
                                     </div>
-                                {% elif current_rank < previous_rank %}
+                                {% elif current_rank > previous_rank %}
                                     <div class="rank-change-indicator down">
                                         <img src="{{ url_for('static', filename='icons/down.svg') }}">
-                                        <p>{{ previous_rank - current_rank }}</p>
+                                        <p>{{ current_rank - previous_rank }}</p>
                                     </div>
                                 {% else %}
                                     <div class="rank-change-indicator neutral"></div>
                                 {% endif %}
                             {% elif current_rank == 3 %}
                                 <div class="rank-number bronze">{{ current_rank }}</div>
-                                {% if current_rank > previous_rank %}
+                                {% if current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
-                                        <p>{{ current_rank - previous_rank }}</p>
+                                        <p>{{ previous_rank - current_rank }}</p>
                                     </div>
-                                {% elif current_rank < previous_rank %}
+                                {% elif current_rank > previous_rank %}
                                     <div class="rank-change-indicator down">
                                         <img src="{{ url_for('static', filename='icons/down.svg') }}">
-                                        <p>{{ previous_rank - current_rank }}</p>
+                                        <p>{{ current_rank - previous_rank }}</p>
                                     </div>
                                 {% else %}
                                     <div class="rank-change-indicator neutral"></div>
                                 {% endif %}
                             {% else %}
                                 <div class="rank-number">{{ current_rank }}</div>
-                                {% if current_rank > previous_rank %}
+                                {% if current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
-                                        <p>{{ current_rank - previous_rank }}</p>
+                                        <p>{{ previous_rank - current_rank }}</p>
                                     </div>
-                                {% elif current_rank < previous_rank %}
+                                {% elif current_rank > previous_rank %}
                                     <div class="rank-change-indicator down">
                                         <img src="{{ url_for('static', filename='icons/down.svg') }}">
-                                        <p>{{ previous_rank - current_rank }}</p>
+                                        <p>{{ current_rank - previous_rank }}</p>
                                     </div>
                                 {% else %}
                                     <div class="rank-change-indicator neutral"></div>

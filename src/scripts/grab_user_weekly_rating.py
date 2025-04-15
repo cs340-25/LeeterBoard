@@ -70,7 +70,7 @@ async def request_all_user_ratings(batch_size: int):
             all_responses.extend(batch_responses)
 
             if i + batch_size < len(payloads):
-                await asyncio.sleep(1)
+                await asyncio.sleep(2)
 
     return all_responses
 

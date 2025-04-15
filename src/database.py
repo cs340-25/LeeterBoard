@@ -99,6 +99,10 @@ def grab_university_info(min_students: int = 0) -> List[Tuple[float, str, int, f
     for school in cursor:
         school_name = school['universityName']
         student_count = school['studentCount']
+
+        # Make sure that the university has previousRankings and weeklyAverages >= 2 length
+        if len(school['previousRankings']) < 2 or len(school['weeklyAverages']) < 2: continue
+
         current_avg_rating = school['currentAverage']
         prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
         rating_change = current_avg_rating - prev_avg_rating
@@ -262,9 +266,13 @@ def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, 
 
     school_info = []
     for school in cursor:
-        # This function will only return a list of schools with a current rank and previous rank
-        # So, previousRank != 0 and currentRank != 0
-        previous_rank = school['previousRank']
+        # If a school has curr and prev rank parameters set to -1, this just means that
+        # they have < 5 students
+        if 'previousRankings' not in school: continue
+        previous_rankings = school['previousRankings']
+        if len(previous_rankings) <= 1: continue
+
+        previous_rank = previous_rankings[-2]
         current_rank = school['currentRank']
 
         # We are passing in a parameter (filter)
@@ -282,7 +290,6 @@ def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, 
                 rating_change = current_avg_rating - prev_avg_rating
 
                 school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change))
-                # print(f"{school_name} went {rank_change} from {previous_rank} to {current_rank}")
         else:
             school_name = school['universityName']
             student_count = school['studentCount']
@@ -301,16 +308,15 @@ def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, 
 def get_university_ranks() -> Dict[str, int]:
     cursor = university_avgs.find(
         {},
-        {'universityName': 1, 'currentRank': 1, 'previousRank': 1}
+        {'universityName': 1, 'currentRank': 1, 'previousRankings': 1}
     )
 
-    school_rankings = defaultdict()
+    school_rankings = defaultdict(int)
     for school in cursor:
         school_name = school['universityName']
         current_rank = school['currentRank']
-        previous_rank = school['previousRank']
 
-        if current_rank != -1 and previous_rank != -1:
+        if 'previousRankings' in school and len(school['previousRankings']) >= 2:
             school_rankings[school_name] = current_rank
         else:
             school_rankings[school_name] = -1
@@ -402,6 +408,9 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
 
 
     return (top_performer, top_performer_rating, most_improved, most_improved_pts, min_rating, max_rating, historical_peak)
+
+
+
 
 
 

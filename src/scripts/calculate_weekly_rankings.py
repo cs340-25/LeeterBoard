@@ -22,7 +22,7 @@ university_avgs = client.leeterboard.university_avgs
 def calculate_weekly_rankings():
     cursor = university_avgs.find(
         {},
-        {'universityName': 1, 'currentAverage': 1, 'studentCount': 1}
+        {'universityName': 1, 'currentAverage': 1, 'studentCount': 1, 'weeklyAverages': 1}
     )
 
     school_averages = []
@@ -32,15 +32,18 @@ def calculate_weekly_rankings():
         school_avg = school['currentAverage']
 
         # Do not factor in schools with < 5 students into our rankings
-        if student_count < 5:
+        # Do not factor in schools without 2 previous weekly averages into our rankings
+        if student_count < 5 or len(school['weeklyAverages']) < 2:
             print(f"Skipping {school_name} -> STUDENTS: {student_count}")
 
             university_avgs.update_one(
                 {'universityName': school_name},
                 {
                     '$set': {
-                        'previousRank': -1,
                         'currentRank': -1
+                    },
+                    '$push': {
+                        'previousRankings': -1
                     }
                 },
                 upsert=True
@@ -70,13 +73,15 @@ def calculate_weekly_rankings():
         else:
             previous_ranking = -1
         
-        # Update the university's currentRanking and weeklyRankings in the collection
+        # Update the university's currentRanking and previousRankings in the collection
         university_avgs.update_one(
             {'universityName': school_name},
             {
                 '$set': {
-                    'previousRank': previous_ranking,
                     'currentRank': rank
+                },
+                '$push': {
+                    'previousRankings': rank
                 }
             },
             upsert=True
