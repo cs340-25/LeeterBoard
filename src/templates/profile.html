@@ -29,8 +29,12 @@
             <div class="profile-top-pattern"></div>
 
             <!-- Updated school logo container -->
-            <div class="school-logo-container">
-                <img src="https://img.logo.dev/{{ logo_url }}" class="school-logo">
+            <div class="logo-frame">
+                <div class="school-logo-container">
+                    <img src="https://img.logo.dev/{{ logo_url }}" class="school-logo">
+                </div>
+                <div class="logo-accent"></div>
+                <img src="{{ url_for('static', filename='icons/titan.png') }}" class="rank-badge">
             </div>
             <div class="school-name">{{ school_info[0] }}</div>
             <div class="school-abbrev">{{ university_abbreviations[school_info[0]] }}</div>
