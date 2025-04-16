@@ -28,8 +28,31 @@
                 <div class="university-info">
                     <img src="https://img.logo.dev/{{ university_websites[school_name] }}" class="university-logo"></img>
                     <!-- <img src="https://cdn.brandfetch.io/{{ university_websites[school_name] }}/w/400/h/400?c=1idl-cR2qqIMB2mSLMf" class="university-logo"></img> -->
-                    <div>
-                        <h2>{{ school_name }}</h2>
+                    <div class="university-details">
+                        <div class="university-name">
+                            {{ school_name }}
+                            {% if mmr_rank == 'Bronze' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/bronze.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Silver' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/silver.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Gold' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/gold.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Platinum' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/platinum.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Diamond' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/diamond.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Champion' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/champion.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Titan' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/titan.png') }}" class="rank-badge">
+                            {% elif mmr_rank == 'Immortal' %}
+                                <img src="{{ url_for('static', filename='icons/final_ranks/immortal.png') }}" class="rank-badge">
+                            {% endif %}
+                        </div>
+                        
+                        <div class="university-stats">
+                            <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
+                        </div>
                     </div>
                 </div>
                 <a href="{{ url_for('profile', slug=school_names_to_slugs[school_name]) }}" class="view-stats-button" style="--school-color: {{ university_colors[school_name] }};">VIEW PROFILE</a>

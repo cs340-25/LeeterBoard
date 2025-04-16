@@ -286,23 +286,25 @@ def grab_homepage_universities(filter) -> List[Tuple[int, int, float, str, int, 
             if previous_rank != -1 and current_rank != -1:
                 school_name = school['universityName']
                 student_count = school['studentCount']
+                mmr_rank = school['mmrRank']
 
                 # Calculate average contest rating change (weekly)
                 current_avg_rating = school['currentAverage']
                 prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
                 rating_change = current_avg_rating - prev_avg_rating
 
-                school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change))
+                school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change, mmr_rank))
         else:
             school_name = school['universityName']
             student_count = school['studentCount']
+            mmr_rank = school['mmrRank']
 
             # Calculate average contest rating change (weekly)
             current_avg_rating = school['currentAverage']
             prev_avg_rating = school['weeklyAverages'][-2]['average'] # Grabs the second to last
             rating_change = current_avg_rating - prev_avg_rating
 
-            school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change))
+            school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change, mmr_rank))
             # print(f"{school_name} went {rank_change} from {previous_rank} to {current_rank}")
 
     return school_info

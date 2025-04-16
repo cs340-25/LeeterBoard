@@ -87,7 +87,10 @@ def school(slug):
 
         school_names_to_slugs = {v: k for k, v in university_slugs.items()}
 
-        return render_template('students.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites)
+        # MMR Rank
+        mmr_rank = database.get_university_rank(school_name)
+
+        return render_template('students.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites, mmr_rank=mmr_rank, student_count=len(users))
     
     # School not found in slug list
     print("got to school, not found")

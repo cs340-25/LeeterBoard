@@ -45,7 +45,7 @@
                 </div>
                 
                 <ul class="university-list">
-                    {% for current_rank, previous_rank, rating, school, student_count, rating_change in school_info %}
+                    {% for current_rank, previous_rank, rating, school, student_count, rating_change, mmr_rank in school_info %}
 
                     <li class="university-item">
                         <div class="rank-container">
@@ -115,7 +115,27 @@
                             <img src="https://img.logo.dev/{{ university_websites[school] }}" class="university-logo"></img>
                             <!-- <img src="https://cdn.brandfetch.io/{{ university_websites[school] }}/w/400/h/400?c=1idl-cR2qqIMB2mSLMf" class="university-logo"></img> -->
                             <div class="university-details">
-                                <div class="university-name">{{ school }}</div>
+                                <div class="university-name">
+                                    {{ school }}
+                                    {% if mmr_rank == 'Bronze' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/bronze.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Silver' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/silver.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Gold' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/gold.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Platinum' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/platinum.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Diamond' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/diamond.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Champion' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/champion.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Titan' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/titan.png') }}" class="rank-badge">
+                                    {% elif mmr_rank == 'Immortal' %}
+                                        <img src="{{ url_for('static', filename='icons/final_ranks/immortal.png') }}" class="rank-badge">
+                                    {% endif %}
+                                </div>
+                                
                                 <div class="university-stats">
                                     <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
                                 </div>
@@ -211,7 +231,7 @@
                     
                     <div class="widget-content">
                         <ul class="widget-list">
-                            {% for current_rank, rank_change, rating, school, student_count, school_rating_change in school_info[:5] %}
+                            {% for current_rank, rank_change, rating, school, student_count, school_rating_change, mmr_rank in school_info[:5] %}
                                 <li class="widget-item-university" data-school="{{ school }}">
                                     <div class="user-rank">
                                         <div class="rank-circle">{{ loop.index0 + 1 }}</div>

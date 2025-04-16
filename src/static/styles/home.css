@@ -268,7 +268,7 @@ main {
     display: grid;
     grid-template-columns: 90px 1fr 180px 150px;
     align-items: center;
-    padding: 18px 25px;
+    padding: 16px 25px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     transition: all 0.3s;
     cursor: pointer;
@@ -417,13 +417,25 @@ main {
 }
 
 .university-name {
-    font-weight: 500;
+    font-weight: 600; /* Increase font weight */
     color: white;
     white-space: nowrap;
+    display: flex;
+    align-items: center; /* Center align items vertically */
+    gap: 8px; /* Add gap between name and badge */
     overflow: hidden;
     text-overflow: ellipsis;
-    font-size: 15px;
+    font-size: 16px; /* Increase font size slightly */
 }
+
+.rank-badge {
+    height: 28px; /* Consistent height */
+    width: 28px; /* Consistent width */
+    margin-top: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
 
 .university-stats {
     display: flex;
@@ -1286,7 +1298,8 @@ footer {
     .nav-links {
         gap: 10px 20px; /* Adjust vertical/horizontal gap */
     }
-     .nav-link {
+
+    .nav-link {
         font-size: 12px;
         letter-spacing: 1px;
     }
