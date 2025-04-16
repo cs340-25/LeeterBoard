@@ -357,11 +357,13 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
     # MOST IMPROVED (current rating - first ever rating on site)
     most_improved = "none"
     most_improved_pts = -1
+    most_improved_avatar = "none"
 
 
     # TOP PERFORMER
     top_performer = "none"
     top_performer_rating = -1
+    top_performer_avatar = "none"
 
 
     # RATING RANGE
@@ -382,6 +384,7 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
             if improved > most_improved_pts:
                 most_improved_pts = improved
                 most_improved = user['username']
+                most_improved_avatar = user['userAvatar']
 
 
         min_rating = min(min_rating, curr_rating)
@@ -390,6 +393,7 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
             max_rating = curr_rating
             top_performer = user['username']
             top_performer_rating = curr_rating
+            top_performer_avatar = user['userAvatar']
 
     # print(f"MOST IMPROVED: {most_improved}")
     # print(f"{min_rating} -> {max_rating}")
@@ -410,7 +414,7 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
     # print(f"HISTORICAL PEAK: {historical_peak}")
 
 
-    return (top_performer, top_performer_rating, most_improved, most_improved_pts, min_rating, max_rating, historical_peak)
+    return (top_performer, top_performer_rating, top_performer_avatar, most_improved, most_improved_pts, most_improved_avatar, min_rating, max_rating, historical_peak)
 
 
 

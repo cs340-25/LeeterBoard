@@ -113,9 +113,10 @@
                         <h2>University Highlights</h2>
                     </div>
 
+                    <!-- Top Performer Card -->
                     <div class="highlight-card">
-                        <div class="highlight-icon" style="background-color: var(--school-color);">
-                            <!-- Placeholder for icon -->
+                        <div class="highlight-icon" style="background-color: var(--school-color); padding: 0; overflow: hidden;">
+                            <img src="{{ university_highlights[2] }}" class="user-icon" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">TOP PERFORMER</div>
@@ -126,32 +127,32 @@
                     
                     <!-- Most Improved Card -->
                     <div class="highlight-card">
-                        <div class="highlight-icon" style="background-color: var(--school-color);">
-                            <!-- Placeholder for icon -->
+                        <div class="highlight-icon" style="background-color: var(--school-color); padding: 0; overflow: hidden;">
+                            <img src="{{ university_highlights[5] }}" class="user-icon" style="width: 100%; height: 100%; object-fit: cover;">
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">MOST IMPROVED</div>
-                            <div class="highlight-value">{{ university_highlights[2] }}</div>
-                            <div class="highlight-detail">+{{ "%.2f" | format(university_highlights[3]) }} Points</div>
+                            <div class="highlight-value">{{ university_highlights[3] }}</div>
+                            <div class="highlight-detail">+{{ "%.2f" | format(university_highlights[4]) }} Points</div>
                         </div>
                     </div>
                     
                     <!-- Rating Range Card -->
                     <div class="highlight-card">
                         <div class="highlight-icon" style="background-color: var(--school-color);">
-                            <!-- Placeholder for icon -->
+                            <img src="{{ url_for('static', filename='icons/rating_range.svg') }}" class="detail-icon"></img>
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">RATING RANGE</div>
-                            <div class="highlight-value">{{ "%.2f" | format(university_highlights[5] - university_highlights[4]) }}</div>
-                            <div class="highlight-detail">{{ "%.2f" | format(university_highlights[4]) }} to {{ "%.2f" | format(university_highlights[5]) }}</div>
+                            <div class="highlight-value">{{ "%.2f" | format(university_highlights[7] - university_highlights[6]) }}</div>
+                            <div class="highlight-detail">{{ "%.2f" | format(university_highlights[6]) }} to {{ "%.2f" | format(university_highlights[7]) }}</div>
                         </div>
                     </div>
 
-                    <!-- Rating Range Card -->
+                    <!-- Historical Peak Card -->
                     <div class="highlight-card">
                         <div class="highlight-icon" style="background-color: var(--school-color);">
-                            <!-- Placeholder for icon -->
+                            <img src="{{ url_for('static', filename='icons/historical_peak.svg') }}" class="detail-icon"></img>
                         </div>
                         <div class="highlight-content">
                             <div class="highlight-label">HISTORICAL PEAK</div>
