@@ -69,7 +69,7 @@
 
             <!-- Universities Grid -->
             <div class="universities-grid">
-                {% for current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change in school_info %}
+                {% for current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change, mmr_rank in school_info %}
 
                 <div class="university-card" style="--school-color: {{ school_colors[school_name] }};">
                     <div class="card-inner">

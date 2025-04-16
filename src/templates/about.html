@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeeterBoard - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/about.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="header-wrap">
+            <a href="{{ url_for('home') }}" class="logo-section">
+                <img src="{{ url_for('static', filename='icons/final_logo.png') }}" alt="LeeterBoard Logo" class="logo">
+            </a>
+            <div class="nav-links">
+                <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
+                <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
+                <a href="#" class="nav-link">About</a>
+              </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="main-content">
+            <!-- What is LeeterBoard Section -->
+            <div class="profile-bar">
+                <div class="section-header">
+                    <h2>What is LeeterBoard?</h2>
+                </div>
+                <div class="section-content">
+                    <p>LeeterBoard is a university contest leaderboard that gathers LeetCode contest data and categorizes participants based on their universities. Our platform allows you to filter rankings by institution, track performance relative to peers, and compare standings across universities.</p>
+                    <p>Our motivation stems from the idea that seeing rankings at a university level could enhance the competitive spirit of coding contests. By providing visibility on how students perform within and across institutions, we aim to promote motivation and engagement in competitive programming on LeetCode.</p>
+                </div>
+            </div>
+
+            <!-- How It Works Section -->
+            <div class="profile-bar">
+                <div class="section-header">
+                    <h2>How It Works</h2>
+                </div>
+                <div class="section-content">
+                    <p>LeeterBoard gathers user contest rating data on a weekly basis, ensuring that our rankings are updated frequently. Additionally, we work to gather as many new students as we can every single week by ensuring that users new to the contest scene are factored in as well.</p>
+                    <ul class="feature-list">
+                        <li>University-specific leaderboards and profiles</li>
+                        <li>Comparative rankings across institutions</li>
+                        <li>Performance trends over time</li>
+                        <li>Weekly rating updates</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- MMR Rank Badges Section -->
+            <div class="profile-bar">
+                <div class="section-header">
+                    <h2>MMR Rank Badges</h2>
+                </div>
+                <div class="section-content">
+                    <p>Our MMR (Matchmaking Rating) system categorizes universities into different tiers based on their average contest rating. Each tier is represented by a unique badge that showcases the university's current standing.</p>
+                    
+                    <div class="badges-container">
+                        <div class="badge-card bronze">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/bronze.png') }}" class="rank-badge">
+                            <h3>Bronze</h3>
+                            <div class="mmr-range">0 - 1400</div>
+                            <p>Emerging competitors taking their first steps toward mastery</p>
+                        </div>
+                        
+                        <div class="badge-card silver">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/silver.png') }}" class="rank-badge">
+                            <h3>Silver</h3>
+                            <div class="mmr-range">1401 - 1500</div>
+                            <p>Dedicated participants showing promising potential</p>
+                        </div>
+                        
+                        <div class="badge-card gold">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/gold.png') }}" class="rank-badge">
+                            <h3>Gold</h3>
+                            <div class="mmr-range">1501 - 1550</div>
+                            <p>Accomplished competitors with consistent performance</p>
+                        </div>
+                        
+                        <div class="badge-card platinum">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/platinum.png') }}" class="rank-badge">
+                            <h3>Platinum</h3>
+                            <div class="mmr-range">1551 - 1600</div>
+                            <p>Advanced strategists demonstrating superior skill</p>
+                        </div>
+                        
+                        <div class="badge-card diamond">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/diamond.png') }}" class="rank-badge">
+                            <h3>Diamond</h3>
+                            <div class="mmr-range">1601 - 1650</div>
+                            <p>Elite competitors recognized for exceptional talent</p>
+                        </div>
+                        
+                        <div class="badge-card champion">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/champion.png') }}" class="rank-badge">
+                            <h3>Champion</h3>
+                            <div class="mmr-range">1651 - 1700</div>
+                            <p>Distinguished masters excelling in high-pressure scenarios</p>
+                        </div>
+                        
+                        <div class="badge-card titan">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/titan.png') }}" class="rank-badge">
+                            <h3>Titan</h3>
+                            <div class="mmr-range">1701 - 1750</div>
+                            <p>Formidable competitors revered for their outstanding prowess</p>
+                        </div>
+                        
+                        <div class="badge-card immortal">
+                            <img src="{{ url_for('static', filename='icons/final_ranks/immortal.png') }}" class="rank-badge">
+                            <h3>Immortal</h3>
+                            <div class="mmr-range">1751+</div>
+                            <p>Legendary figures who have achieved unparalleled excellence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Achievement Badges Section -->
+            <div class="profile-bar">
+                <div class="section-header">
+                    <h2>Achievement Badges</h2>
+                </div>
+                <div class="section-content">
+                    <p>Universities can earn special achievement badges by reaching specific milestones or demonstrating excellence in various areas of competitive programming. These badges highlight particular strengths and accomplishments.</p>
+                    
+                    <div class="achievement-badges">
+                        <!-- Mythic Tier (Ultra-rare) -->
+                        <div class="badge-card ultra-mythic">
+                            <img src="{{ url_for('static', filename='icons/badges/ultra_mythic/summit_champ.png') }}" class="rank-badge">
+                            <h3>SUMMIT CHAMPION</h3>
+                            <div class="badge-tier">Ultra-Mythic Tier</div>
+                            <p>REACHED #1 POSITION IN GLOBAL RANKINGS</p>
+                        </div>
+                        
+                        <div class="badge-card mythic">
+                            <img src="{{ url_for('static', filename='icons/badges/mythic/crown_snatcher.png') }}" class="rank-badge">
+                            <h3>CROWN SNATCHER</h3>
+                            <div class="badge-tier">Mythic Tier</div>
+                            <p>DETHRONED THE PREVIOUS #1 RANKED UNIVERSITY</p>
+                        </div>
+                        
+                        <div class="badge-card mythic">
+                            <img src="{{ url_for('static', filename='icons/badges/mythic/top_gun.png') }}" class="rank-badge">
+                            <h3>TOP GUN</h3>
+                            <div class="badge-tier">Mythic Tier</div>
+                            <p>HAD THE HIGHEST RATED INDIVIDUAL ON THE SITE</p>
+                        </div>
+                        
+                        <div class="badge-card mythic">
+                            <img src="{{ url_for('static', filename='icons/badges/mythic/talent_factory.png') }}" class="rank-badge">
+                            <h3>TALENT FACTORY</h3>
+                            <div class="badge-tier">Mythic Tier</div>
+                            <p>3+ STUDENTS ACHIEVED 1750+ CONTEST RATING</p>
+                        </div>
+                        
+                        <!-- Legendary Tier (Elite) -->
+                        <div class="badge-card legendary">
+                            <img src="{{ url_for('static', filename='icons/badges/legendary/podium_elite.png') }}" class="rank-badge">
+                            <h3>PODIUM ELITE</h3>
+                            <div class="badge-tier">Legendary Tier</div>
+                            <p>SECURED A TOP 3 POSITION IN GLOBAL RANKINGS</p>
+                        </div>
+                        
+                        <div class="badge-card legendary">
+                            <img src="{{ url_for('static', filename='icons/badges/legendary/vanguard_5.png') }}" class="rank-badge">
+                            <h3>VANGUARD 5</h3>
+                            <div class="badge-tier">Legendary Tier</div>
+                            <p>ACHIEVED TOP 5 POSITION IN GLOBAL RANKINGS</p>
+                        </div>
+                        
+                        <div class="badge-card legendary">
+                            <img src="{{ url_for('static', filename='icons/badges/legendary/ascension_streak.png') }}" class="rank-badge">
+                            <h3>ASCENSION STREAK</h3>
+                            <div class="badge-tier">Legendary Tier</div>
+                            <p>IMPROVED CONTEST RATING FOR 5 CONSECUTIVE WEEKS</p>
+                        </div>
+                        
+                        <div class="badge-card legendary">
+                            <img src="{{ url_for('static', filename='icons/badges/legendary/rank_resurrection.png') }}" class="rank-badge">
+                            <h3>RANK RESURRECTION</h3>
+                            <div class="badge-tier">Legendary Tier</div>
+                            <p>RECOVERED 5+ POSITIONS AFTER A RANKING DROP</p>
+                        </div>
+                        
+                        <!-- Additional Legendary Badge in New Row -->
+                        <div class="badge-card legendary">
+                            <img src="{{ url_for('static', filename='icons/badges/legendary/skyrocket_surge.png') }}" class="rank-badge">
+                            <h3>SKYROCKET SURGE</h3>
+                            <div class="badge-tier">Legendary Tier</div>
+                            <p>JUMPED 10+ RANKS IN A SINGLE WEEK</p>
+                        </div>
+                        
+                        <!-- Epic Tier (Strong Performance) -->
+                        <div class="badge-card epic">
+                            <img src="{{ url_for('static', filename='icons/badges/epic/prestige_10.png') }}" class="rank-badge">
+                            <h3>PRESTIGE 10</h3>
+                            <div class="badge-tier">Epic Tier</div>
+                            <p>REACHED TOP 10 IN GLOBAL RANKINGS</p>
+                        </div>
+                        
+                        <div class="badge-card epic">
+                            <img src="{{ url_for('static', filename='icons/badges/epic/prime_25.png') }}" class="rank-badge">
+                            <h3>PRIME 25</h3>
+                            <div class="badge-tier">Epic Tier</div>
+                            <p>ACHIEVED TOP 25 IN GLOBAL RANKINGS</p>
+                        </div>
+                        
+                        <div class="badge-card epic">
+                            <img src="{{ url_for('static', filename='icons/badges/epic/rapid_ascent.png') }}" class="rank-badge">
+                            <h3>RAPID ASCENT</h3>
+                            <div class="badge-tier">Epic Tier</div>
+                            <p>JUMPED 5+ RANKS IN A SINGLE WEEK</p>
+                        </div>
+                        
+                        <!-- Rare Tier (Engaged) -->
+                        <div class="badge-card epic">
+                            <img src="{{ url_for('static', filename='icons/badges/epic/momentum_mastery.png') }}" class="rank-badge">
+                            <h3>MOMENTUM MASTERY</h3>
+                            <div class="badge-tier">Epic Tier</div>
+                            <p>GAINED 1+ RANK FOR 3 CONSECUTIVE WEEKS</p>
+                        </div>
+                        
+                        <div class="badge-card rare">
+                            <img src="{{ url_for('static', filename='icons/badges/rare/rising_stars.png') }}" class="rank-badge">
+                            <h3>RISING STARS</h3>
+                            <div class="badge-tier">Rare Tier</div>
+                            <p>3+ STUDENTS IMPROVED RATINGS IN THE SAME WEEK</p>
+                        </div>
+                        
+                        <div class="badge-card rare">
+                            <img src="{{ url_for('static', filename='icons/badges/rare/trending_trailblazer.png') }}" class="rank-badge">
+                            <h3>TRENDING TRAILBLAZER</h3>
+                            <div class="badge-tier">Rare Tier</div>
+                            <p>FEATURED ON THE TRENDING UNIVERSITIES WIDGET</p>
+                        </div>
+                        
+                        <div class="badge-card rare">
+                            <img src="{{ url_for('static', filename='icons/badges/rare/star_ascendant.png') }}" class="rank-badge">
+                            <h3>STAR ASCENDANT</h3>
+                            <div class="badge-tier">Rare Tier</div>
+                            <p>HAD A STUDENT FEATURED ON TRENDING WIDGET</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="profile-bar">
+                <div class="section-header">
+                    <h2>Frequently Asked Questions</h2>
+                </div>
+                <div class="section-content">
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <div class="faq-question">How often is data updated?</div>
+                            <div class="faq-answer">
+                                <p>Our leaderboard is updated after each LeetCode contest, typically on a weekly basis.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">How are universities scored?</div>
+                            <div class="faq-answer">
+                                <p>University contest ratings are determined by calculating the average contest performance of all students affiliated with that institution.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <div class="faq-question">Why is my profile not on the site?</div>
+                            <div class="faq-answer">
+                                <p>There are several reasons why you might not appear on LeeterBoard:</p>
+                                <ul class="faq-list">
+                                    <li><strong>Contest participation:</strong> You need to have an official LeetCode contest rating on your profile for you to be factored into our calculations.</li>
+                                    <li><strong>Profile requirements:</strong> Your LeetCode profile must include:
+                                        <ul>
+                                            <li>A country code set to US</li>
+                                            <li>Your university name in the school field</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>School name matching:</strong> We use fuzzy matching to connect profile entries with standardized university names. If your university is misspelled or uses an unofficial name variant, our system may not recognize it.</li>
+                                    <li><strong>Recent additions:</strong> If you've just updated your profile correctly, please allow up to one week for our system to include you in the next data refresh.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Why is my university not listed on the main page leaderboard?</div>
+                            <div class="faq-answer">
+                                <p>Your university may have less than 5 students recognized on our site. We only display universities with at least 5 students on the main page for fairness reasons. For example, it would be unfair to rank a university with 1 student having a super high average over a university with 100 students with varying averages.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <div class="faq-question">Does LeeterBoard have any official affiliation with LeetCode?</div>
+                            <div class="faq-answer">
+                                <p>No, LeeterBoard is an independent platform that processes publicly available contest data. We are not officially affiliated with LeetCode.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="profile-bar">
+                <div class="section-header">
+                    <h2>Contact Us</h2>
+                </div>
+                <div class="section-content">
+                    <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <p>Email: contact@leeterboard.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🌐</div>
+                            <p>GitHub: <a href="https://github.com/LeeterBoard">github.com/LeeterBoard</a></p>
+                        </div>
+                    </div>
+                    
+                    <p class="contact-message">Our team is dedicated to providing accurate and useful university-based rankings for competitive programming. Your input helps us improve!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-text">Leeter<span class="logo-highlight">Board</span></span>
+            </div>
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">FAQ</a>
+                <a href="#">Contact</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+            <div class="footer-copyright">
+                © 2025 LeeterBoard. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
