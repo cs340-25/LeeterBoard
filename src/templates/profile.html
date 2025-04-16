@@ -34,7 +34,24 @@
                     <img src="https://img.logo.dev/{{ logo_url }}" class="school-logo">
                 </div>
                 <div class="logo-accent"></div>
-                <img src="{{ url_for('static', filename='icons/titan.png') }}" class="rank-badge">
+
+                {% if mmr_rank == 'Bronze' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/bronze.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Silver' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/silver.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Gold' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/gold.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Platinum' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/platinum.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Diamond' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/diamond.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Champion' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/champion.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Titan' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/titan.png') }}" class="rank-badge">
+                {% elif mmr_rank == 'Immortal' %}
+                    <img src="{{ url_for('static', filename='icons/final_ranks/immortal.png') }}" class="rank-badge">
+                {% endif %}
             </div>
             <div class="school-name">{{ school_info[0] }}</div>
             <div class="school-abbrev">{{ university_abbreviations[school_info[0]] }}</div>

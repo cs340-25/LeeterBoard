@@ -36,9 +36,11 @@ def profile(slug):
 
     # University Badges
     badges = database.get_university_badges(regular_school_name)
-    print(badges)
+    # University MMR Rank
+    mmr_rank = database.get_university_rank(regular_school_name)
+    print(mmr_rank)
     
-    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs, university_highlights=university_highlights, badges=badges, badge_count=len(badges))
+    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs, university_highlights=university_highlights, badges=badges, badge_count=len(badges), mmr_rank=mmr_rank)
 
 
 # Main Page

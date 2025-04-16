@@ -423,6 +423,13 @@ def get_university_badges(school_name: str):
     return school.get('badges', [])
     
 
+def get_university_rank(school_name: str):
+    school = university_avgs.find_one(
+        {'universityName': school_name},
+        {'mmrRank': 1}
+    )
+
+    return school.get('mmrRank', 'NONE')
 
 
 
