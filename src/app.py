@@ -24,7 +24,7 @@ def profile(slug):
     logo_url = university_websites[regular_school_name]
 
     # Get all the school's info
-    print(regular_school_name)
+    # print(regular_school_name)
     school_info = database.get_school_profile_info(regular_school_name)
 
 
@@ -33,8 +33,12 @@ def profile(slug):
 
     # University Highlights
     university_highlights = database.get_university_highlights(regular_school_name)
+
+    # University Badges
+    badges = database.get_university_badges(regular_school_name)
+    print(badges)
     
-    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs, university_highlights=university_highlights)
+    return render_template('profile.html', ratings_json=ratings_json, logo_url=logo_url, school_info=school_info, university_abbreviations=university_abbreviations, university_colors=university_colors, school_names_to_slugs=school_names_to_slugs, university_highlights=university_highlights, badges=badges, badge_count=len(badges))
 
 
 # Main Page
