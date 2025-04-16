@@ -147,7 +147,7 @@
                     </div>
                     <!-- Badge counter -->
                     <div class="badge-counter">
-                        <span>3 COLLECTED</span>
+                        <span>{{ badge_count }} COLLECTED</span>
                     </div>
                     
                     <!-- Badge display area (you'll insert your own images here) -->
@@ -180,11 +180,13 @@
                     </div>
                     
                     <!-- current badge info -->
-                    <div class="recent-badge-info">
-                        <div class="recent-label">CURRENT BADGE</div>
-                        <div class="badge-title">SUMMIT CHAMPION</div>
-                        <div class="badge-description">REACHED TOP 1 SITEWIDE</div>
-                    </div>
+                    {% if badge_count > 0 %}
+                        <div class="recent-badge-info">
+                            <div class="recent-label">CURRENT BADGE</div>
+                            <div class="badge-title">SUMMIT CHAMPION</div>
+                            <div class="badge-description">REACHED TOP 1 SITEWIDE</div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -194,7 +196,7 @@
     <!-- This is all simply for the line graph (Definitely Needs Improvement)--> 
     <script>
         // Parse the JSON string received from Python
-        const ratingsData = JSON.parse('{{ ratings_json|safe }}')
+        const ratingsData = JSON.parse('{{ ratings_json|safe }}');
 
         const ctx = document.getElementById('ratings-line-graph');
         const ratingDisplay = document.getElementById('rating-display');
@@ -352,138 +354,215 @@
         ratingDisplay.style.display = 'none';
     </script>
 
-<script>
-    // Badge data (expanded with more badges)
-    const badgeData = [
-        {
-            id: 1,
-            title: "CROWN SNATCHER",
-            description: "DETHRONED THE #1 RANKED UNIVERSITY",
-            image: "../static/icons/badges/mythic/crown_snatcher.png"
-        },
-        {
-            id: 2,
-            title: "SUMMIT CHAMPION",
-            description: "REACHED TOP 1 SITEWIDE",
-            image: "../static/icons/badges/ultra_mythic/summit_champ.png"
-        },
-        {
-            id: 3,
-            title: "TOP GUN",
-            description: "MAINTAINED TOP 10 POSITION FOR 3 CONSECUTIVE MONTHS",
-            image: "../static/icons/badges/mythic/top_gun.png"
-        },
-        {
-            id: 4,
-            title: "TALENT FACTORY",
-            description: "5+ STUDENTS RANKED IN GLOBAL TOP 100",
-            image: "../static/icons/badges/mythic/talent_factory.png"
-        },
-        // Add more badges as needed
-    ];
-    
-    // DOM Elements
-    const carousel = document.querySelector('.badge-carousel');
-    const badgeTitle = document.querySelector('.badge-title');
-    const badgeDescription = document.querySelector('.badge-description');
-    
-    // Keep track of which badge is active
-    let activeIndex = 1;
-    
-    // Initialize the carousel with all badges
-    function initializeCarousel() {
-        // Clear existing badges
-        carousel.innerHTML = '';
-        
-        // Add all badges to the carousel
-        badgeData.forEach((badge, index) => {
-            const badgeElement = document.createElement('div');
-            badgeElement.className = `badge-item ${index === activeIndex ? 'active' : ''}`;
-            badgeElement.dataset.index = index;
-            badgeElement.innerHTML = `<img src="${badge.image}" class="badge-icon">`;
-            carousel.appendChild(badgeElement);
-        });
-        
-        // Update badge info
-        updateBadgeInfo(activeIndex);
-        
-        // Initial scroll to the active badge (without animation)
-        scrollToActiveBadge(false);
-    }
-    
-    // Update badge info display
-    function updateBadgeInfo(index) {
-        badgeTitle.textContent = badgeData[index].title;
-        badgeDescription.textContent = badgeData[index].description;
-    }
-    
-    // Scroll to the active badge (for initial positioning only)
-    function scrollToActiveBadge(animated = true) {
-        const activeItem = carousel.querySelector(`.badge-item[data-index="${activeIndex}"]`);
-        if (!activeItem) return;
-        
-        // Calculate position to center the active badge
-        const containerWidth = carousel.clientWidth;
-        const itemWidth = activeItem.offsetWidth;
-        const scrollLeft = activeItem.offsetLeft - (containerWidth / 2) + (itemWidth / 2);
-        
-        carousel.scrollTo({
-            left: scrollLeft,
-            behavior: animated ? 'smooth' : 'auto'
-        });
-    }
-    
-    // Find which badge is closest to center and activate it
-    function updateActiveOnScroll() {
-        // Get the center point of the container
-        const containerRect = carousel.getBoundingClientRect();
-        const centerX = containerRect.left + containerRect.width / 2;
-        
-        let closestItem = null;
-        let closestDistance = Infinity;
-        
-        // Find the badge closest to the center
-        const badgeItems = carousel.querySelectorAll('.badge-item');
-        badgeItems.forEach(item => {
-            const itemRect = item.getBoundingClientRect();
-            const itemCenterX = itemRect.left + itemRect.width / 2;
-            const distance = Math.abs(centerX - itemCenterX);
+    <script>
+        // Badge data (expanded with more badges)
+        const badgeDetailsMap = {
+            // Mythic Tier (Ultra-rare)
+            "Summit Champion": {
+                "title": "SUMMIT CHAMPION",
+                "description": "REACHED #1 POSITION IN GLOBAL RANKINGS",
+                "image": "{{ url_for('static', filename='icons/badges/ultra_mythic/summit_champ.png') }}"
+            },
+            "Crown Snatcher": {
+                "title": "CROWN SNATCHER",
+                "description": "DETHRONED THE PREVIOUS #1 RANKED UNIVERSITY",
+                "image": "{{ url_for('static', filename='icons/badges/mythic/crown_snatcher.png') }}"
+            },
+            "Top Gun": {
+                "title": "TOP GUN",
+                "description": "HAD THE HIGHEST RATED INDIVIDUAL ON THE SITE",
+                "image": "{{ url_for('static', filename='icons/badges/mythic/top_gun.png') }}"
+            },
+            "Talent Factory": {
+                "title": "TALENT FACTORY",
+                "description": "3+ STUDENTS ACHIEVED 1750+ CONTEST RATING",
+                "image": "{{ url_for('static', filename='icons/badges/mythic/talent_factory.png') }}"
+            },
             
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestItem = item;
+            // Legendary Tier (Elite)
+            "Podium Elite": {
+                "title": "PODIUM ELITE",
+                "description": "SECURED A TOP 3 POSITION IN GLOBAL RANKINGS",
+                "image": "{{ url_for('static', filename='icons/badges/legendary/podium_elite.png') }}"
+            },
+            "Vanguard 5": {
+                "title": "VANGUARD 5",
+                "description": "ACHIEVED TOP 5 POSITION IN GLOBAL RANKINGS",
+                "image": "{{ url_for('static', filename='icons/badges/legendary/vanguard_5.png') }}"
+            },
+            "Ascension Streak": {
+                "title": "ASCENSION STREAK",
+                "description": "IMPROVED CONTEST RATING FOR 5 CONSECUTIVE WEEKS",
+                "image": "{{ url_for('static', filename='icons/badges/legendary/ascension_streak.png') }}"
+            },
+            "Rank Resurrection": {
+                "title": "RANK RESURRECTION",
+                "description": "RECOVERED 5+ POSITIONS AFTER A RANKING DROP",
+                "image": "{{ url_for('static', filename='icons/badges/legendary/rank_resurrection.png') }}"
+            },
+            "Skyrocket Surge": {
+                "title": "SKYROCKET SURGE",
+                "description": "JUMPED 10+ RANKS IN A SINGLE WEEK",
+                "image": "{{ url_for('static', filename='icons/badges/legendary/skyrocket_surge.png') }}"
+            },
+            
+            // Epic Tier (Strong Performance)
+            "Prestige 10": {
+                "title": "PRESTIGE 10",
+                "description": "REACHED TOP 10 IN GLOBAL RANKINGS",
+                "image": "{{ url_for('static', filename='icons/badges/epic/prestige_10.png') }}"
+            },
+            "Prime 25": {
+                "title": "PRIME 25",
+                "description": "ACHIEVED TOP 25 IN GLOBAL RANKINGS",
+                "image": "{{ url_for('static', filename='icons/badges/epic/prime_25.png') }}"
+            },
+            "Rapid Ascent": {
+                "title": "RAPID ASCENT",
+                "description": "JUMPED 5+ RANKS IN A SINGLE WEEK",
+                "image": "{{ url_for('static', filename='icons/badges/epic/rapid_ascent.png') }}"
+            },
+            "Momentum Mastery": {
+                "title": "MOMENTUM MASTERY",
+                "description": "GAINED 1+ RANK FOR 3 CONSECUTIVE WEEKS",
+                "image": "{{ url_for('static', filename='icons/badges/epic/momentum_mastery.png') }}"
+            },
+            
+            // Rare Tier (Engaged)
+            "Rising Stars": {
+                "title": "RISING STARS",
+                "description": "3+ STUDENTS IMPROVED RATINGS IN THE SAME WEEK",
+                "image": "{{ url_for('static', filename='icons/badges/rare/rising_stars.png') }}"
+            },
+            "Trending Trailblazer": {
+                "title": "TRENDING TRAILBLAZER",
+                "description": "FEATURED ON THE TRENDING UNIVERSITIES WIDGET",
+                "image": "{{ url_for('static', filename='icons/badges/rare/trending_trailblazer.png') }}"
+            },
+            "Star Ascendant": {
+                "title": "STAR ASCENDANT",
+                "description": "HAD A STUDENT FEATURED ON TRENDING WIDGET",
+                "image": "{{ url_for('static', filename='icons/badges/rare/star_ascendant.png') }}"
             }
+        };
+
+        // Get the university's badge IDs from Python
+        const universityBadgeIds = JSON.parse('{{ badges|tojson|safe }}');
+        console.log(universityBadgeIds);
+
+        // Create badge data array for the carousel
+        const badgeData = universityBadgeIds.map((badgeId, index) => {
+            const details = badgeDetailsMap[badgeId];
+            return {
+                id: index + 1,
+                title: details.title,
+                description: details.description,
+                image: details.image
+            };
         });
         
-        if (closestItem) {
-            const newIndex = parseInt(closestItem.dataset.index);
+        // DOM Elements
+        const carousel = document.querySelector('.badge-carousel');
+        const badgeTitle = document.querySelector('.badge-title');
+        const badgeDescription = document.querySelector('.badge-description');
+        
+        // Keep track of which badge is active
+        let activeIndex = 1;
+        
+        // Initialize the carousel with all badges
+        function initializeCarousel() {
+            // Clear existing badges
+            carousel.innerHTML = '';
             
-            // Only update if the active badge has changed
-            if (newIndex !== activeIndex) {
-                // Remove active class from current active
-                const currentActive = carousel.querySelector('.badge-item.active');
-                if (currentActive) {
-                    currentActive.classList.remove('active');
+            // Add all badges to the carousel
+            badgeData.forEach((badge, index) => {
+                const badgeElement = document.createElement('div');
+                badgeElement.className = `badge-item ${index === activeIndex ? 'active' : ''}`;
+                badgeElement.dataset.index = index;
+                badgeElement.innerHTML = `<img src="${badge.image}" class="badge-icon">`;
+                carousel.appendChild(badgeElement);
+            });
+            
+            // Update badge info
+            updateBadgeInfo(activeIndex);
+            
+            // Initial scroll to the active badge (without animation)
+            scrollToActiveBadge(false);
+        }
+        
+        // Update badge info display
+        function updateBadgeInfo(index) {
+            badgeTitle.textContent = badgeData[index].title;
+            badgeDescription.textContent = badgeData[index].description;
+        }
+        
+        // Scroll to the active badge (for initial positioning only)
+        function scrollToActiveBadge(animated = true) {
+            const activeItem = carousel.querySelector(`.badge-item[data-index="${activeIndex}"]`);
+            if (!activeItem) return;
+            
+            // Calculate position to center the active badge
+            const containerWidth = carousel.clientWidth;
+            const itemWidth = activeItem.offsetWidth;
+            const scrollLeft = activeItem.offsetLeft - (containerWidth / 2) + (itemWidth / 2);
+            
+            carousel.scrollTo({
+                left: scrollLeft,
+                behavior: animated ? 'smooth' : 'auto'
+            });
+        }
+        
+        // Find which badge is closest to center and activate it
+        function updateActiveOnScroll() {
+            // Get the center point of the container
+            const containerRect = carousel.getBoundingClientRect();
+            const centerX = containerRect.left + containerRect.width / 2;
+            
+            let closestItem = null;
+            let closestDistance = Infinity;
+            
+            // Find the badge closest to the center
+            const badgeItems = carousel.querySelectorAll('.badge-item');
+            badgeItems.forEach(item => {
+                const itemRect = item.getBoundingClientRect();
+                const itemCenterX = itemRect.left + itemRect.width / 2;
+                const distance = Math.abs(centerX - itemCenterX);
+                
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestItem = item;
                 }
+            });
+            
+            if (closestItem) {
+                const newIndex = parseInt(closestItem.dataset.index);
                 
-                // Add active class to new active
-                closestItem.classList.add('active');
-                
-                // Update active index and badge info
-                activeIndex = newIndex;
-                updateBadgeInfo(activeIndex);
+                // Only update if the active badge has changed
+                if (newIndex !== activeIndex) {
+                    // Remove active class from current active
+                    const currentActive = carousel.querySelector('.badge-item.active');
+                    if (currentActive) {
+                        currentActive.classList.remove('active');
+                    }
+                    
+                    // Add active class to new active
+                    closestItem.classList.add('active');
+                    
+                    // Update active index and badge info
+                    activeIndex = newIndex;
+                    updateBadgeInfo(activeIndex);
+                }
             }
         }
-    }
-    
-    // Set up scroll event listener without snap behavior
-    carousel.addEventListener('scroll', () => {
-        // Update active badge while scrolling
-        updateActiveOnScroll();
-    });
-    
-    // Initialize the carousel on page load
-    initializeCarousel();
-</script>
+        
+        // Set up scroll event listener without snap behavior
+        carousel.addEventListener('scroll', () => {
+            // Update active badge while scrolling
+            updateActiveOnScroll();
+        });
+        
+        // Initialize the carousel on page load
+        initializeCarousel();
+    </script>
 </body>
 </html>

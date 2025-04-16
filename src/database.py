@@ -338,7 +338,7 @@ def get_school_profile_info(school_name: str):
         return None
 
     school_name = school_info['universityName']
-    print(school_name)
+    # print(school_name)
     students = school_info['studentCount']
     curr_rating = school_info['currentAverage']
     prev_rating = school_info['weeklyAverages'][-2]['average']
@@ -391,9 +391,9 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
             top_performer = user['username']
             top_performer_rating = curr_rating
 
-    print(f"MOST IMPROVED: {most_improved}")
-    print(f"{min_rating} -> {max_rating}")
-    print(f"TOP PERFORMER: {top_performer}")
+    # print(f"MOST IMPROVED: {most_improved}")
+    # print(f"{min_rating} -> {max_rating}")
+    # print(f"TOP PERFORMER: {top_performer}")
 
 
 
@@ -407,14 +407,21 @@ def get_university_highlights(school_name: str) -> Tuple[(str, str, float, float
         rating = entry['average']
         historical_peak = max(historical_peak, rating)
 
-    print(f"HISTORICAL PEAK: {historical_peak}")
+    # print(f"HISTORICAL PEAK: {historical_peak}")
 
 
     return (top_performer, top_performer_rating, most_improved, most_improved_pts, min_rating, max_rating, historical_peak)
 
 
 
+def get_university_badges(school_name: str):
+    school = university_avgs.find_one(
+        {'universityName': school_name},
+        {'badges': 1}
+    )
 
+    return school.get('badges', [])
+    
 
 
 
