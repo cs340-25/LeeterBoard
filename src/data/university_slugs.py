@@ -278,5 +278,7 @@ university_slugs = {
     "stonehill-college": "Stonehill College",
     "webster-university": "Webster University",
     "united-states-naval-academy": "United States Naval Academy",
-    "indiana-university-purdue-university-fort-wayne": "Indiana University-Purdue University--Fort Wayne"
+    "indiana-university-purdue-university-fort-wayne": "Indiana University-Purdue University--Fort Wayne",
+    "stony-brook-university-suny": "Stony Brook University--SUNY",
+    "university-at-buffalo-suny": "University at Buffalo--SUNY",
 }

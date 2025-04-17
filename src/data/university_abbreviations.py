@@ -278,5 +278,7 @@ university_abbreviations = {
     "Stonehill College": "Stonehill",
     "Webster University": "Webster",
     "United States Naval Academy": "Navy",
-    "Madonna University": "Madonna"
+    "Madonna University": "Madonna",
+    "Stony Brook University--SUNY": "SBU",
+    "University at Buffalo--SUNY": "UB"
 }

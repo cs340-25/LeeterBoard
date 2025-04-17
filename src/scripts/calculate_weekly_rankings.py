@@ -40,7 +40,8 @@ def calculate_weekly_rankings():
                 {'universityName': school_name},
                 {
                     '$set': {
-                        'currentRank': -1
+                        'currentRank': -1,
+                        'beenRankOne': False # Set beenRankOne to false for badge calculation purposes
                     },
                     '$push': {
                         'previousRankings': -1
@@ -73,19 +74,48 @@ def calculate_weekly_rankings():
         else:
             previous_ranking = -1
         
+        
+        # CHECK FOR CROWN SNATCHER BADGE HERE.. before we update the weekly rank
+        been_rank_one = school.get('beenRankOne', False)  # Use .get() with default value False
+        if rank == 1 and been_rank_one == False:
+            # Update beenRankOne to True
+            university_avgs.update_one(
+                {'universityName': school_name},
+                {'$set': {'beenRankOne': True}}
+            )
+            print(f"{school_name} has earned CROWN SNATCHER")
+
+
+        
         # Update the university's currentRanking and previousRankings in the collection
-        university_avgs.update_one(
-            {'universityName': school_name},
-            {
-                '$set': {
-                    'currentRank': rank
+        if rank == 1:
+            university_avgs.update_one(
+                {'universityName': school_name},
+                {
+                    '$set': {
+                        'currentRank': rank,
+                        'beenRankOne': True,
+                    },
+                    '$push': {
+                        'previousRankings': rank
+                    }
                 },
-                '$push': {
-                    'previousRankings': rank
-                }
-            },
-            upsert=True
-        )
+                upsert=True
+            )
+        else:
+            university_avgs.update_one(
+                {'universityName': school_name},
+                {
+                    '$set': {
+                        'currentRank': rank,
+                        'beenRankOne': False,
+                    },
+                    '$push': {
+                        'previousRankings': rank
+                    }
+                },
+                upsert=True
+            )
 
         print(f"{school_name}: set previousRank to {previous_ranking} and currentRank to {rank}")
 

@@ -278,5 +278,7 @@ university_websites = {
   "Stonehill College": "stonehill.edu",
   "Webster University": "webster.edu",
   "United States Naval Academy": "usna.edu",
-  "Madonna University": "madonna.edu"
+  "Madonna University": "madonna.edu",
+  "Stony Brook University--SUNY": "stonybrook.edu",
+  "University at Buffalo--SUNY": "buffalo.edu",
 }

@@ -46,3 +46,6 @@ def assign_ranks():
         )
 
         print(f"Assigned {rank_to_assign} to {school_name} (Rating = {rating})")
+
+
+assign_ranks()

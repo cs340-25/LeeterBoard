@@ -517,7 +517,6 @@ footer {
     background-color: #111;
     border-top: 1px solid #333;
     padding: 30px;
-    margin-top: auto;
 }
 
 .footer-content {
@@ -532,13 +531,6 @@ footer {
 .footer-logo {
     font-size: 20px;
     font-weight: 600;
-}
-
-.logo-text {
-    color: #a8a8a8;
-}
-
-.logo-highlight {
     background-image: linear-gradient(to right, rgb(9, 9, 154), rgba(56, 1, 95, 1));
     -webkit-background-clip: text;
     background-clip: text;

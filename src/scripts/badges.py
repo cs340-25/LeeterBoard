@@ -169,31 +169,6 @@ def crown_snatcher():
             print(f"{name} has earned CROWN SNATCHER")
         
 
-def fix_prev_ratings():
-    cursor = university_avgs.find(
-        {}
-    )
-
-    for school in cursor:
-        name = school['universityName']
-        current_rank = school['currentRank']
-        prev_rank = school['previousRank']
-
-        university_avgs.update_one(
-            {'universityName': name},
-            {'$unset': {'previousRank': ""}}
-        )
-
-        university_avgs.update_one(
-            {'universityName': name},
-            {'$push': {
-                'previousRankings': {
-                    '$each': [prev_rank, current_rank]
-                }
-            }},
-            upsert=True
-        )
-
 # Star Ascendant
 def star_ascendant():
     user_rating_changes = database.get_user_rating_changes()
@@ -311,7 +286,7 @@ def rank_change_badges():
 
 
 # Ascension Streak
-def contest_rating_badges():
+def ascension_streak():
     cursor = university_avgs.find(
         {},
         {'universityName': 1, 'weeklyAverages': 1}
@@ -373,3 +348,13 @@ def rising_stars():
                 {'$addToSet': {'badges': 'Rising Stars'}},
                 upsert=True
             )
+
+rank_threshold_badges() # Summit Champion, Podium Elite, Vanguard 5, Prestige 10, Prime 25
+top_gun() # Top Gun
+talent_factory() # Talent Factory
+
+star_ascendant() # Star Ascendant
+trending_trailblazer() # Trending Trailblazer
+rank_change_badges() # Momentum Mastery, Rank Resurrection, Skyrocket Surge, Rapid Ascent 
+ascension_streak() # Ascension Streak
+rising_stars() # Rising Stars

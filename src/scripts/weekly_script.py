@@ -251,4 +251,6 @@ for username, school, user_avatar, country_code, rating in users_info:
 # Run grab_user_weekly_rating
 # Run add_weekly_avg_to_db
 # Run calculate_weekly_rankings
+# Run badges.py
+# Run ranks.py
 

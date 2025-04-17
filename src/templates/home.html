@@ -16,7 +16,7 @@
             <div class="nav-links">
                 <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
                 <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
-                <a href="#" class="nav-link">About</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
               </div>
         </div>
     </header>
@@ -51,7 +51,9 @@
                         <div class="rank-container">
                             {% if current_rank == 1 %}
                                 <div class="rank-number gold">{{ current_rank }}</div>
-                                {% if current_rank < previous_rank %}
+                                {% if previous_rank == -1 %}
+                                    <div class="rank-change-indicator neutral"></div>
+                                {% elif current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
                                         <p>{{ previous_rank - current_rank }}</p>
@@ -66,7 +68,9 @@
                                 {% endif %}
                             {% elif current_rank == 2 %}
                                 <div class="rank-number silver">{{ current_rank }}</div>
-                                {% if current_rank < previous_rank %}
+                                {% if previous_rank == -1 %}
+                                    <div class="rank-change-indicator neutral"></div>
+                                {% elif current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
                                         <p>{{ previous_rank - current_rank }}</p>
@@ -81,7 +85,9 @@
                                 {% endif %}
                             {% elif current_rank == 3 %}
                                 <div class="rank-number bronze">{{ current_rank }}</div>
-                                {% if current_rank < previous_rank %}
+                                {% if previous_rank == -1 %}
+                                    <div class="rank-change-indicator neutral"></div>
+                                {% elif current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
                                         <p>{{ previous_rank - current_rank }}</p>
@@ -96,7 +102,9 @@
                                 {% endif %}
                             {% else %}
                                 <div class="rank-number">{{ current_rank }}</div>
-                                {% if current_rank < previous_rank %}
+                                {% if previous_rank == -1 %}
+                                    <div class="rank-change-indicator neutral"></div>
+                                {% elif current_rank < previous_rank %}
                                     <div class="rank-change-indicator up">
                                         <img src="{{ url_for('static', filename='icons/up.svg') }}">
                                         <p>{{ previous_rank - current_rank }}</p>
@@ -217,33 +225,6 @@
                                         </div>
                                     </div>
                                     <div class="user-rating positive">+{{ "%.2f" | format(rating_change) }}</div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </div>
-                
-                <!-- Top Universities Widget -->
-                <div class="widget">
-                    <div class="widget-header">
-                        <h3>Top Universities</h3>
-                    </div>
-                    
-                    <div class="widget-content">
-                        <ul class="widget-list">
-                            {% for current_rank, rank_change, rating, school, student_count, school_rating_change, mmr_rank in school_info[:5] %}
-                                <li class="widget-item-university" data-school="{{ school }}">
-                                    <div class="user-rank">
-                                        <div class="rank-circle">{{ loop.index0 + 1 }}</div>
-                                    </div>
-                                    <div class="user-info">
-                                        <img src="https://img.logo.dev/{{ university_websites[school] }}" div class="user-avatar"></img>
-                                        <div class="user-details">
-                                            <div class="user-name">{{ university_abbreviations[school] }}</div>
-                                            <span class="stat-item"><img src="{{ url_for('static', filename='icons/students.svg') }}" class="stat-icon"></img>{{ student_count }} students</span>
-                                        </div>
-                                    </div>
-                                    <div class="user-rating">{{ "%.2f" | format(rating) }}</div>
                                 </li>
                             {% endfor %}
                         </ul>

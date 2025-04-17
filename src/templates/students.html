@@ -16,7 +16,7 @@
             <div class="nav-links">
                 <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
                 <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
-                <a href="#" class="nav-link">About</a>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
               </div>
         </div>
     </header>
@@ -64,7 +64,7 @@
                     <div class="column-rank">Rank</div>
                     <div class="column-username">Username</div>
                     <div class="column-rating">Contest Rating</div>
-                    <div class="column-change">Rating Change</div>
+                    <div class="column-change">Rating Δ</div>
                 </div>
                 
                 <ul class="members-list">

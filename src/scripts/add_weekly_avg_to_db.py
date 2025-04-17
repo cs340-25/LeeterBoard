@@ -79,6 +79,10 @@ def upsert_school(school_name, student_count, current_rating):
                     'week': previous_saturday,
                     'average': current_rating
                 }
+            },
+            # Only set beenRankOne if it doesn't exist yet
+            '$setOnInsert': {
+                'beenRankOne': False
             }
         },
         upsert=True

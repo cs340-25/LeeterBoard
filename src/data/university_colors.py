@@ -278,5 +278,7 @@ university_colors = {
     "Stonehill College": "#371160",  # Purple
     "Webster University": "#0057B8",  # Blue
     "United States Naval Academy": "#00205B",  # Navy Blue
-    "Madonna University": "#002E6D"   # Blue
+    "Madonna University": "#002E6D",   # Blue,
+    "Stony Brook University--SUNY": "#990000",
+    "University at Buffalo--SUNY": "#005BBB",
 }
