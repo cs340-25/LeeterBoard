@@ -1,5 +1,5 @@
 * {
-    font-family: 'Exo 2', sans-serif;
+    font-family: 'Exo 2', Sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,11 +7,10 @@
 
 body {
     background-color: #1a1a1a;
+    min-height: 100vh;
     color: #a8a8a8;
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 
 header {
@@ -51,7 +50,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
