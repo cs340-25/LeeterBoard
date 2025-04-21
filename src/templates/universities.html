@@ -28,9 +28,9 @@
                 <h1>All Universities</h1>
                 <div class="search-container">
                     <button type="button" class="search-button">
-                        <img src="static/icons/search.svg" class="search-icon">
+                        <img src="{{ url_for('static', filename='icons/search.svg') }}" class="search-icon">
                     </button>
-                    <input type="text" class="search-input" placeholder="Search for universities..." id="universitySearch">
+                    <input type="text" name="school_input" class="search-input" placeholder="Search for universities..." autocomplete="off">
                 </div>
             </div>
 
@@ -88,7 +88,7 @@
 
                         <div class="stats-container">
                             <div class="stat-item">
-                                {% if current_rank == -1 and previous_rank == -1 %}
+                                {% if current_rank == -1 %}
                                     <div class="stat-value">-</div>
                                 {% else %}
                                     <div class="stat-value">#{{ current_rank }}</div>
@@ -110,15 +110,6 @@
                 </div>
 
                 {% endfor %}
-            </div>
-
-            <!-- Pagination -->
-            <div class="pagination">
-                <button class="pagination-btn active">1</button>
-                <button class="pagination-btn">2</button>
-                <button class="pagination-btn">3</button>
-                <span class="pagination-dots">...</span>
-                <button class="pagination-btn">10</button>
             </div>
         </div>
     </main>
@@ -143,10 +134,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-
-
+            
             // Search functionality
-            const searchInput = document.getElementById('universitySearch');
+            const searchInput = document.querySelector('.search-input');
             const universityCards = document.querySelectorAll('.university-card');
 
             searchInput.addEventListener('input', function() {

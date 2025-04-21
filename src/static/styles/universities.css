@@ -52,7 +52,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -155,7 +154,6 @@ main {
 }
 
 .content-container {
-  max-width: 1400px;
   width: 100%;
 }
 
@@ -178,8 +176,11 @@ main {
 }
 
 .search-container {
+  display: flex;
   position: relative;
-  width: 300px;
+  line-height: 0;
+  width: 60%;
+  max-width: 500px;
 }
 
 .search-input {
@@ -204,7 +205,10 @@ main {
   position: absolute;
   left: 15px;
   top: 50%;
+  opacity: 0.8;
   transform: translateY(-50%);
+  font-size: 18px;
+  text-decoration: none;
   background: none;
   border: none;
   cursor: pointer;
@@ -217,7 +221,7 @@ main {
 .search-icon {
   width: 20px;
   height: 20px;
-  opacity: 0.6;
+  display: block;
 }
 
 /* Alphabet Navigator */
@@ -492,7 +496,6 @@ footer {
 }
 
 .footer-content {
-  max-width: 1400px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -536,77 +539,4 @@ footer {
   color: #666;
   font-size: 12px;
   margin-top: 10px;
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 1200px) {
-  .universities-grid {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-}
-
-@media (max-width: 992px) {
-  .universities-header {
-      flex-direction: column;
-      gap: 15px;
-      text-align: center;
-  }
-  
-  .search-container {
-      width: 100%;
-      max-width: 500px;
-  }
-  
-  .universities-grid {
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-
-@media (max-width: 768px) {
-  header {
-      padding: 12px 20px;
-  }
-  
-  .nav-links {
-      gap: 20px;
-  }
-  
-  main {
-      padding: 20px;
-  }
-  
-  .universities-grid {
-      grid-template-columns: 1fr;
-  }
-  
-  .alphabet-nav {
-      overflow-x: auto;
-      padding: 15px 10px;
-  }
-  
-  .letter-grid {
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      width: max-content;
-      padding: 0 10px;
-  }
-}
-
-@media (max-width: 480px) {
-  .card-header {
-      flex-direction: column;
-      gap: 10px;
-  }
-  
-  .school-abbrev {
-      align-self: flex-start;
-  }
-  
-  .university-info {
-      width: 100%;
-  }
-  
-  .card-buttons {
-      flex-direction: column;
-  }
 }

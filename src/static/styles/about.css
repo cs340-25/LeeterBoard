@@ -50,7 +50,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -156,7 +155,6 @@ main {
     flex-direction: column;
     gap: 50px;
     width: 100%;
-    max-width: 1400px;
     margin: 0 auto;
     padding-bottom: 50px;
 }
@@ -520,7 +518,6 @@ footer {
 }
 
 .footer-content {
-    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;

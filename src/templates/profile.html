@@ -28,7 +28,6 @@
         <div class="profile-bar" style="--school-color: {{ university_colors[school_info[0]] }};">
             <div class="profile-top-pattern"></div>
 
-            <!-- Updated school logo container -->
             <div class="logo-frame">
                 <div class="school-logo-container">
                     <img src="https://img.logo.dev/{{ logo_url }}" class="school-logo">
@@ -53,6 +52,7 @@
                     <img src="{{ url_for('static', filename='icons/final_ranks/immortal.png') }}" class="rank-badge">
                 {% endif %}
             </div>
+
             <div class="school-name">{{ school_info[0] }}</div>
             <div class="school-abbrev">{{ university_abbreviations[school_info[0]] }}</div>
 
@@ -172,33 +172,9 @@
                         <span>{{ badge_count }} COLLECTED</span>
                     </div>
                     
-                    <!-- Badge display area (you'll insert your own images here) -->
-                    <!-- Replace the existing badge-display-area div with this -->
                     <div class="badge-carousel-container">
-                        
                         <!-- Badge carousel -->
-                        <div class="badge-carousel">
-                            <!-- <div class="badge-item left">
-                                <img src="../static/icons/badges/mythic/crown_snatcher.png" class="badge-icon">
-                            </div>
-                            <div class="badge-item center active">
-                                <img src="../static/icons/badges/ultra_mythic/summit_champ.png" class="badge-icon">
-                            </div>
-                            <div class="badge-item right">
-                                <img src="../static/icons/badges/mythic/top_gun.png" class="badge-icon">
-                            </div>
-                            <div class="badge-item right">
-                                <img src="../static/icons/badges/legendary/rank_resurrection.png" class="badge-icon">
-                            </div> -->
-                            
-                        </div>
-                        
-                        <!-- Right arrow -->
-                        <div class="carousel-arrow arrow-right">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="9 18 15 12 9 6"></polyline>
-                            </svg>
-                        </div>
+                        <div class="badge-carousel"></div>
                     </div>
                     
                     <!-- current badge info -->

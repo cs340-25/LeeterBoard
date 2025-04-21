@@ -1,4 +1,3 @@
-/* Base styles */
 * {
     font-family: 'Exo 2', Sans-serif;
     margin: 0;
@@ -14,13 +13,12 @@ body {
     flex-direction: column;
 }
 
-/* Header styles */
 header {
-    background-color: #000000;
-    padding: 16px 40px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  background-color: #000000;
+  padding: 16px 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Purple Glow Across Top */
@@ -49,11 +47,10 @@ header {
 }
 
 .header-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .logo-section {
@@ -109,8 +106,8 @@ header {
 }
 
 .nav-links {
-    display: flex;
-    gap: 40px;
+  display: flex;
+  gap: 40px;
 }
 
 .nav-link {
@@ -141,13 +138,9 @@ header {
     color: #fff;
 }
 
-.nav-link:hover::before, .nav-link.active::before {
+.nav-link:hover::before {
     visibility: visible;
     width: 100%;
-}
-
-.nav-link.active {
-    color: #fff;
 }
 
 main {
@@ -158,7 +151,6 @@ main {
 }
 
 .content-container {
-    max-width: 1400px;
     width: 100%;
 }
 
@@ -607,38 +599,4 @@ footer {
     color: #666;
     font-size: 12px;
     margin-top: 10px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .comparison-layout {
-        grid-template-columns: 1fr;
-    }
-    
-    .selection-panel {
-        height: auto;
-        min-height: 400px;
-    }
-    
-    .graph-panel {
-        height: 50vh;
-    }
-    
-    .university-stats-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    header {
-        padding: 12px 20px;
-    }
-    
-    .nav-links {
-        gap: 20px;
-    }
-    
-    main {
-        padding: 20px;
-    }
 }

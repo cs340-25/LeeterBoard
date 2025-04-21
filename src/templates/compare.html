@@ -6,7 +6,6 @@
     <title>LeeterBoard - University Comparison Tool</title>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/compare.css') }}">
-    <!-- Add Chart.js for ratings line graph-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -18,8 +17,8 @@
             <div class="nav-links">
                 <a href="{{ url_for('compare') }}" class="nav-link">Compare</a>
                 <a href="{{ url_for('universities') }}" class="nav-link">Universities</a>
-                <a href="#" class="nav-link">About</a>
-            </div>
+                <a href="{{ url_for('about') }}" class="nav-link">About</a>
+              </div>
         </div>
     </header>
     
