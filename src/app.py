@@ -110,11 +110,10 @@ def brody():
 def about():
     return render_template('about.html')
 
-
-@app.route('/unitest2')
-def unitest2():
-    return render_template('unitest2.html')
-
+# Terms of Service
+@app.route('/terms')
+def terms():
+    return render_template('terms.html')
 
 # All Universities Page (Alphabetical)
 @app.route('/universities')

@@ -737,3 +737,17 @@ footer {
     font-size: 12px;
     margin-top: 10px;
 }
+
+@media (max-width: 1024px) {
+    .widgets-section {
+        display: none;
+    }
+
+    .content-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .rankings-section {
+        width: 100%;
+    }
+}

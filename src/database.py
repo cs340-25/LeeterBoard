@@ -13,7 +13,6 @@ from data.college_aliases import university_aliases
 from data.college_map import university_names
 
 
-#load env vars
 load_dotenv()
 mongodb_uri = os.getenv("MONGODB_URI")
 
@@ -274,9 +273,6 @@ def grab_homepage_universities() -> List[Tuple[int, int, float, str, int, float]
 
         previous_rank = previous_rankings[-2]
         current_rank = school['currentRank']
-        # print(f"{school['universityName']}")
-        # print(f"curr: {current_rank}, prev: {previous_rank}")
-        # print()
 
         # We are passing in a parameter (filter)
         # True = filter out schools that have -1 in both rank fields (current + previous)
