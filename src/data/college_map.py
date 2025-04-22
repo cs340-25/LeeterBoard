@@ -1,4 +1,3 @@
-# Auto-generated university aliases
 university_names = {
     'abilene christian': 'Abilene Christian University',
     'abraham baldwin agricultural': 'Abraham Baldwin Agricultural College',

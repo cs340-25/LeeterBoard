@@ -291,6 +291,20 @@ def grab_homepage_universities() -> List[Tuple[int, int, float, str, int, float]
 
             school_info.append((current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change, mmr_rank))
 
+    return school_info
+
+
+def grab_all_universities_info():
+    cursor = university_avgs.find()
+
+    school_info = []
+    for school in cursor:
+        school_name = school['universityName']
+        student_count = school['studentCount']
+        current_avg_rating = school['currentAverage']
+        current_rank = school['currentRank']
+
+        school_info.append((school_name, student_count, current_avg_rating, current_rank))
 
     return school_info
 

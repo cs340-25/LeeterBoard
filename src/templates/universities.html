@@ -70,7 +70,7 @@
 
             <!-- Universities Grid -->
             <div class="universities-grid">
-                {% for current_rank, previous_rank, current_avg_rating, school_name, student_count, rating_change, mmr_rank in school_info %}
+                {% for school_name, student_count, current_avg_rating, current_rank in school_info %}
 
                 <div class="university-card" style="--school-color: {{ school_colors[school_name] }};">
                     <div class="card-inner">
@@ -135,10 +135,45 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
             // Search functionality
             const searchInput = document.querySelector('.search-input');
             const universityCards = document.querySelectorAll('.university-card');
+            const universityGrid = document.querySelector('.universities-grid');
+
+            // Function to sort universities alphabetically
+            function sortUniversitiesAlphabetically() {
+                // Convert NodeList to Array for sorting
+                const cardsArray = Array.from(universityCards);
+                
+                cardsArray.sort(function(a, b) {
+                    const nameA = a.querySelector('.university-name').textContent.toLowerCase();
+                    const nameB = b.querySelector('.university-name').textContent.toLowerCase();
+                    
+                    // Special handling for "University of X" pattern
+                    const processName = (name) => {
+                        if (name.startsWith('university of ')) {
+                            return name.substring(14); // Remove the "University Of " prefix
+                        }
+                        return name;
+                    };
+                    
+                    const processedNameA = processName(nameA);
+                    const processedNameB = processName(nameB);
+                    
+                    return processedNameA.localeCompare(processedNameB);
+                });
+                
+                // Remove all existing cards
+                universityCards.forEach(card => card.remove());
+                
+                // Append sorted cards back to the grid
+                cardsArray.forEach(card => {
+                    universityGrid.appendChild(card);
+                });
+            }
+            
+            // Sort universities alphabetically on page load
+            sortUniversitiesAlphabetically();
 
             searchInput.addEventListener('input', function() {
                 const searchTerm = this.value.toLowerCase().trim();

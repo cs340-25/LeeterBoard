@@ -118,7 +118,7 @@ def terms():
 # All Universities Page (Alphabetical)
 @app.route('/universities')
 def universities():
-    school_info = database.grab_homepage_universities()
+    school_info = database.grab_all_universities_info()
 
     # Sort A-Z for this page
     school_info.sort(key=lambda x: x[3])
