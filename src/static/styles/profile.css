@@ -735,3 +735,113 @@ main {
     rgba(51, 51, 51, 0.5)
   );
 }
+
+@media (max-width: 1024px) {
+  /* Layout adjustments */
+  main {
+    flex-direction: column;
+    gap: 30px;
+    height: auto;
+  }
+  
+  .profile-bar {
+    width: calc(100% - 50px);
+    margin: 0 25px;
+  }
+  
+  .right-side {
+    width: calc(100% - 50px);
+    margin: 0 25px;
+  }
+  
+  /* Graph height adjustment */
+  .graph {
+    height: 700px;
+  }
+  
+  .university-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 90%;
+    margin: 30px auto;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .detail-item {
+    width: 90%;
+    margin: 0;
+  }
+  
+  /* Bottom row adjustments */
+  .bottom-row {
+    flex-direction: column;
+    height: auto;
+    gap: 30px;
+  }
+  
+  .uni-highlights, .badges {
+    width: calc(100% - 50px);
+  }
+  
+  /* Badge carousel container */
+  .badge-carousel-container {
+    height: 250px;
+  }
+  
+  /* Header adjustments */
+  .header {
+    padding: 12px 20px;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+  
+  /* Logo and school name adjustments */
+  .logo-frame {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .school-logo {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .rank-badge {
+    width: 150px;
+    height: 150px;
+    bottom: -80px;
+  }
+  
+  .school-name {
+    margin-top: 60px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 425px) {
+    /* Center the logo and navigation */
+    .header-wrap {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 0;
+  }
+  
+  /* Add some space between logo and navigation */
+  .logo-section {
+      margin-bottom: 15px;
+  }
+  
+  /* Center the navigation links */
+  .nav-links {
+      justify-content: center;
+  }
+
+  .graph {
+    display: none;
+  }
+}
