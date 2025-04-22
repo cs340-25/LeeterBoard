@@ -75,31 +75,6 @@ LeeterBoard fills that gap by offering a transparent, beautiful, and competitive
 
 ---
 
-## 🛠️ Local Development (Optional)
-If you want to clone and run LeeterBoard locally:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/leeterboard.git
-   cd leeterboard
-   ```
-2. Install Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Set up environment variables:
-   - `MONGO_URI`
-   - (other API keys or secrets if needed)
-4. Run the server:
-   ```bash
-   flask run
-   ```
-5. Visit `http://localhost:5000` in your browser.
-
-> ⚡ Note: Some contest data may require a manual database seeding step for local testing.
-
----
-
 ## 📈 Future Roadmap
 - Student Login + Personal Dashboards
 - Notification System for Contest Results
