@@ -540,3 +540,149 @@ footer {
   font-size: 12px;
   margin-top: 10px;
 }
+
+@media (max-width: 1024px) {
+  /* Adjust university grid to 2 columns */
+  .universities-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+  }
+  
+  /* Adjust header padding */
+  .universities-header {
+      padding: 20px;
+  }
+  
+  /* Make search smaller */
+  .search-container {
+      width: 50%;
+  }
+  
+  /* Adjust letter buttons in alphabet nav */
+  .letter-button {
+      width: 32px;
+      height: 32px;
+      font-size: 14px;
+  }
+  
+  /* Make letter grid more compact */
+  .letter-grid {
+      gap: 6px;
+  }
+  
+  /* Adjust university card */
+  .university-card {
+      height: auto;
+      min-height: 230px;
+  }
+  
+  /* Adjust card buttons */
+  .card-buttons {
+      flex-direction: column;
+      gap: 8px;
+  }
+  
+  .view-btn {
+      padding: 10px 0;
+  }
+}
+
+@media (max-width: 425px) {
+  /* Center the logo and navigation */
+  .header-wrap {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px 0;
+  }
+  
+  /* Add some space between logo and navigation */
+  .logo-section {
+      margin-bottom: 15px;
+  }
+  
+  /* Center the navigation links */
+  .nav-links {
+      justify-content: center;
+  }
+  
+  /* Reduce main padding */
+  main {
+      padding: 15px;
+  }
+  
+  .universities-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  /* Adjust header styling but keep the title */
+  .universities-header {
+      padding: 15px;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+  }
+  
+  .universities-header h1 {
+      font-size: 20px;
+      margin-bottom: 5px;
+  }
+  
+  /* Make search container full width */
+  .search-container {
+      width: 100%;
+  }
+  
+  /* Make alphabet nav scrollable */
+  .alphabet-nav {
+      overflow-x: auto;
+      padding: 10px;
+  }
+  
+  .letter-grid {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      width: max-content;
+      padding: 5px 0;
+  }
+  
+  /* Adjust cards for mobile */
+  .university-card {
+      margin-bottom: 15px;
+  }
+  
+  /* Make card design more compact */
+  .university-logo {
+      width: 45px;
+      height: 45px;
+  }
+  
+  .university-name {
+      font-size: 18px;
+  }
+  
+  .stats-container {
+      padding: 12px 10px;
+  }
+  
+  .stat-value {
+      font-size: 16px;
+  }
+  
+  .stat-label {
+      font-size: 10px;
+  }
+  
+  /* Stack buttons again on very small screens */
+  .card-buttons {
+      flex-direction: column;
+      gap: 8px;
+  }
+  
+  /* Footer adjustments */
+  .footer-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+  }
+}
