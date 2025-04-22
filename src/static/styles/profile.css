@@ -634,7 +634,7 @@ main {
   display: flex;
   align-items: center;
   height: 100%;
-  padding: 0 calc(50% - 100px); /* Center initial badge */
+  padding: 0 calc(50% - 130px); /* Center initial badge */
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */

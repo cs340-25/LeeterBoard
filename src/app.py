@@ -95,7 +95,6 @@ def school(slug):
         return render_template('students.html', users=users, school_name=school_name, slug=slug, school_names_to_slugs=school_names_to_slugs, university_colors=university_colors, university_websites=university_websites, mmr_rank=mmr_rank, student_count=len(users))
     
     # School not found in slug list
-    print("got to school, not found")
     return render_template('not_found.html')
 
 

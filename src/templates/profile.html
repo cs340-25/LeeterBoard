@@ -178,12 +178,11 @@
                         <div class="badge-carousel"></div>
                     </div>
                     
-                    <!-- current badge info -->
                     {% if badge_count > 0 %}
                         <div class="recent-badge-info">
-                            <div class="recent-label">CURRENT BADGE</div>
-                            <div class="badge-title">SUMMIT CHAMPION</div>
-                            <div class="badge-description">REACHED TOP 1 SITEWIDE</div>
+                            <div class="recent-label"></div>
+                            <div class="badge-title"></div>
+                            <div class="badge-description"></div>
                         </div>
                     {% endif %}
                 </div>
@@ -466,7 +465,7 @@
         const badgeDescription = document.querySelector('.badge-description');
         
         // Keep track of which badge is active
-        let activeIndex = 1;
+        let activeIndex = 0;
         
         // Initialize the carousel with all badges
         function initializeCarousel() {

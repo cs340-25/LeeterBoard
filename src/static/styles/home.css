@@ -751,3 +751,154 @@ footer {
         width: 100%;
     }
 }
+
+@media (max-width: 768px) {
+    .widgets-section {
+        display: none;
+    }
+
+    .content-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .rankings-section {
+        width: 100%;
+    }
+
+    .table-header,
+    .university-item {
+        grid-template-columns: 70px minmax(0, 1fr) 120px 100px;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 22.5px;
+        padding-bottom: 22.5px;
+    }
+
+    .university-name {
+        max-width: 350px; /* Control the width before truncation */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block; /* Ensure it behaves as a block for proper ellipsis */
+    }
+
+    .university-info {
+        overflow: hidden;
+        width: 100%;
+    }
+    
+    .rank-badge {
+        display: none;
+    }
+    
+    .search-container {
+        width: 50%;
+    }
+}
+
+@media (max-width: 425px) {
+    /* Center the logo and navigation */
+    .header-wrap {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+    }
+    
+    /* Add some space between logo and navigation */
+    .logo-section {
+        margin-bottom: 15px;
+    }
+    
+    /* Center the navigation links */
+    .nav-links {
+        justify-content: center;
+    }
+    
+    /* Table structure adjustments */
+    .table-header,
+    .university-item {
+        grid-template-columns: 60px 1fr 100px;
+        padding: 18px 10px;
+    }
+    
+    /* Hide the Rating Δ column completely */
+    .column-change,
+    .university-item > *:nth-child(4) {
+        display: none;
+    }
+    
+    /* Make university logos smaller */
+    .university-logo {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+    
+    /* Adjust rank size */
+    .rank-number {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+    
+    /* Smaller university name */
+    .university-name {
+        font-size: 16px;
+        max-width: 150px;
+    }
+    
+    /* Hide student stats completely */
+    .university-stats {
+        display: none;
+    }
+    
+    /* Make search full width and move it below title */
+    .rankings-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px;
+    }
+    
+    .search-container {
+        width: 100%;
+    }
+    
+    /* Adjust the search input size */
+    .search-input {
+        padding: 10px 15px 10px 40px;
+        font-size: 13px;
+    }
+
+    /* Change the column header text */
+    .column-rating::before,
+    .contest-rating::before,
+    .table-header .column-university:nth-child(3)::before,
+    .table-header div:nth-child(3)::before {
+        content: "RATING";
+        text-align: right;
+        display: block;
+    }
+    
+    /* Hide the original "CONTEST RATING" text */
+    .contest-rating,
+    .column-rating,
+    .table-header .column-university:nth-child(3),
+    .table-header div:nth-child(3) {
+        font-size: 0;
+        text-align: right;
+    }
+    
+    .contest-rating::before,
+    .column-rating::before,
+    .table-header .column-university:nth-child(3)::before,
+    .table-header div:nth-child(3)::before {
+        font-size: 12px;
+    }
+    
+    /* Make sure all rating values are right-aligned */
+    .rating,
+    .university-item > *:nth-child(3) {
+        text-align: right;
+    }
+}
