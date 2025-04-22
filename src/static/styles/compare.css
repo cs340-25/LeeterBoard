@@ -570,3 +570,187 @@ footer {
     font-size: 12px;
     margin-top: 10px;
 }
+
+/* Media Query for 1024px and below */
+@media (max-width: 1024px) {
+    /* Adjust the main layout to stack vertically */
+    .comparison-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        height: auto;
+    }
+    
+    /* Adjust selection panel height */
+    .selection-panel {
+        height: 300px;
+    }
+    
+    /* Make selected schools display in a row */
+    .selected-schools {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-height: 210px;
+        overflow-y: auto;
+    }
+    
+    /* Adjust the selected school items to fit 3 per row */
+    .selected-school {
+        width: calc(33.33% - 7px);
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    
+    /* Adjust school info for smaller container */
+    .school-info {
+        gap: 8px;
+    }
+    
+    /* Make school logos slightly smaller */
+    .school-logo {
+        width: 25px;
+        height: 25px;
+    }
+    
+    /* Adjust school name font size */
+    .school-name {
+        font-size: 14px;
+    }
+    
+    /* Make graph panel shorter but still visible */
+    .graph-panel {
+        height: 850px;
+    }
+    
+    /* Keep stat cards at 2 per row */
+    .university-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    /* Adjust content container padding */
+    .content-container {
+        padding: 0 10px;
+    }
+    
+    /* Ensure the stat cards fit properly */
+    .university-stat-card {
+        min-width: 0;
+    }
+    
+    /* Make weekly stats more compact */
+    .week-data {
+        padding: 10px 15px;
+    }
+    
+    /* Slightly reduce font sizes */
+    .card-school-name {
+        font-size: 18px;
+    }
+    
+    .stat-card-rank {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+    
+    .week-average {
+        font-size: 16px;
+    }
+    
+    /* Ensure the dropdown doesn't overflow */
+    .dropdown-list {
+        max-height: 250px;
+    }
+}
+
+@media (max-width: 425px) {
+    /* Center the logo and navigation */
+    .header-wrap {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+    }
+    
+    /* Add some space between logo and navigation */
+    .logo-section {
+        margin-bottom: 15px;
+    }
+    
+    /* Center the navigation links */
+    .nav-links {
+        justify-content: center;
+    }
+    
+    .content-container {
+        padding: 0;
+        gap: 0; /* Reduced gap between selection panel and stat cards */
+    }
+    
+    /* Full-width simple layout */
+    .comparison-layout {
+        display: block;
+        height: auto;
+        margin-bottom: 25px; /* Smaller gap between selection panel and first card */
+    }
+    
+    /* Hide Weekly Stats tab completely */
+    .tab-button[data-tab="stats"] {
+        display: none;
+    }
+    
+    /* Make Select Schools tab take full width */
+    .tab-button[data-tab="schools"] {
+        width: 100%;
+    }
+    
+    /* Remove tab appearance since there's only one tab */
+    .tab-container {
+        background-color: transparent;
+    }
+    
+    .selection-panel {
+        border-radius: 10px;
+        height: 400px;
+    }
+    
+    .graph-panel {
+        display: none;
+    }
+    
+    /* Make selection row wrap to single column */
+    .selected-school {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    /* Single column stat cards */
+    .university-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+    
+    /* Compact school cards */
+    .school-info-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .stat-card-header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+    }
+    
+    .stat-card-rank {
+        align-self: center;
+    }
+    
+    /* Make footer more compact */
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px 20px;
+    }
+}
