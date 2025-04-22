@@ -505,3 +505,246 @@ main {
     border-radius: 2px;
     opacity: 0.8;
 }
+
+@media (max-width: 1024px) {
+    .university-name {
+        font-size: 24px;
+    }
+}
+
+/* Media Query for Tablet Devices (768px) */
+@media screen and (max-width: 768px) {
+  /* Header adjustments */
+  header {
+    padding: 12px 20px;
+  }
+  
+  .header-wrap {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+  
+  .logo {
+    height: 24px;
+  }
+  
+  .content-container {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+  
+  /* University header adjustments - scaled down version of original */
+  .university-header {
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .university-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .university-logo {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .university-name {
+    font-size: 18px;
+  }
+  
+  .rank-badge {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .university-stats {
+    font-size: 11px;
+  }
+  
+  .view-stats-button {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+  
+  /* Table adjustments - scaled down version of original */
+  .table-header {
+    grid-template-columns: 60px 1fr 100px 80px;
+    padding: 14px 18px;
+    font-size: 11px;
+  }
+  
+  .member-item {
+    grid-template-columns: 60px 1fr 100px 80px;
+    padding: 14px 18px;
+  }
+  
+  .rank-number {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .user-info {
+    gap: 10px;
+  }
+  
+  .username {
+    font-size: 14px;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .rating {
+    font-size: 14px;
+  }
+  
+  .rating-change {
+    font-size: 13px;
+  }
+}
+
+/* Mobile Media Query for Students Page */
+@media (max-width: 425px) {
+    /* Center the logo and navigation */
+    .header-wrap {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 0;
+    }
+    
+    /* Add some space between logo and navigation */
+    .logo-section {
+        margin-bottom: 15px;
+    }
+    
+    /* Center the navigation links */
+    .nav-links {
+        justify-content: center;
+    }
+    
+    /* University header adjustments */
+    .university-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .university-logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .university-name {
+        font-size: 18px;
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+    }
+    
+    .rank-badge {
+        height: 24px;
+        width: 24px;
+    }
+    
+    /* Hide student stats completely */
+    .university-stats {
+        display: none;
+    }
+    
+    .view-stats-button {
+        align-self: stretch;
+        text-align: center;
+        justify-content: center;
+        padding: 10px;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    
+    /* Table structure adjustments */
+    .table-header, 
+    .member-item {
+        grid-template-columns: 50px 1fr 100px;
+        padding: 14px 10px;
+    }
+    
+    /* Hide the Rating Δ column completely */
+    .column-change,
+    .member-item > *:nth-child(4),
+    .rating-change {
+        display: none;
+    }
+    
+    /* Adjust rank size */
+    .rank-number {
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+    
+    /* User info adjustments */
+    .user-avatar {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .user-info {
+        gap: 8px;
+    }
+    
+    .username {
+        font-size: 13px;
+        max-width: 130px;
+    }
+    
+    /* Change the column header text */
+    .column-rating::before {
+        content: "RATING";
+        text-align: right;
+        display: block;
+    }
+    
+    /* Hide the original "CONTEST RATING" text */
+    .column-rating {
+        font-size: 0;
+        text-align: right;
+    }
+    
+    .column-rating::before {
+        font-size: 11px;
+    }
+    
+    /* Make sure rating values are right-aligned */
+    .rating {
+        font-size: 13px;
+        text-align: right;
+    }
+    
+    /* Pattern divider adjustment */
+    .pattern-divider {
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 375px) {
+    .university-name {
+        max-width: 210px;
+    }
+}
